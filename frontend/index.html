@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Software Developer || Blog And Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio And Blog Utku Toygun BEKTASOGLU Full Stack Developer Frontend Developer Backend Developer"
+    />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-GL66D4M853"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-GL66D4M853");
+    </script>
+    <meta
+      name="google-site-verification"
+      content="I4GwmTrS_SVHe-uP62BdbTFaNXXOnXubUPMHGPEhC74"
+    />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      const titleText = "Software Developer || Blog And Portfolio - ";
+      let index = 0;
+
+      function scrollTitle() {
+        document.title = titleText.slice(index) + titleText.slice(0, index);
+        index = (index + 1) % titleText.length;
+      }
+
+      setInterval(scrollTitle, 1000);
+    </script>
+  </body>
+</html>
