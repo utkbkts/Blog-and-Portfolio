@@ -4,10 +4,8 @@ import { X } from "lucide-react";
 import { motion } from "framer-motion";
 import { HeaderLinks } from "./header-data";
 import Button from "../../../ui/Button";
-import UserMenu from "./UserMenu";
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
-  const user = true;
-
   return (
     <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
       <motion.div
@@ -21,21 +19,20 @@ const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-[#fff] cursor-pointer"
           />
-          <ul className="flex items-center flex-col gap-4 pt-28">
+          <ul className="flex items-center flex-col gap-4 pt-28 text-[#fff]">
             {HeaderLinks.map((item, index) => (
               <a key={index} className={item.className}>
                 {item.name}
               </a>
             ))}
-
-            {user ? (
-              <Button className={"bg-quaternary"}>Login🙌</Button>
-            ) : (
-              <>
-                <UserMenu />
-                <Button className={"bg-quaternary"}>Logout😒</Button>
-              </>
-            )}
+            <SignedOut>
+              <Link to={"/login"}>
+                <Button className={"bg-quaternary"}>Login🙌</Button>
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </ul>
         </div>
       </motion.div>

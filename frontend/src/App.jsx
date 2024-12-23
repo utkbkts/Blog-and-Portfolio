@@ -1,11 +1,14 @@
-import Header from "./components/header/Header";
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/global-routes";
 
 const App = () => {
   return (
-    <div className="h-screen bg-[#213555] text-white">
-      <Header />
-      <div className="container mx-auto  pt-28">asf</div>
-    </div>
+    <React.Fragment>
+      <div>
+        <RouterProvider router={router} />
+      </div>
+    </React.Fragment>
   );
 };
 

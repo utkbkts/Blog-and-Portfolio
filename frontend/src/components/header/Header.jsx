@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Button from "../../ui/Button";
 import { HeaderLinks } from "./partials/header-data";
-import UserMenu from "./partials/UserMenu";
 import MobileMenu from "./partials/MobileMenu";
 import { Menu } from "lucide-react";
+import { Link } from "react-router-dom";
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 const Header = () => {
-  const user = true;
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(100);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,23 +37,23 @@ const Header = () => {
               className="rounded-full w-12 h-12 object-cover"
             />
           </div>
-          <ul className=" items-center gap-4  md:flex hidden">
+          <ul className=" items-center gap-4  md:flex hidden text-[#fff]">
             {HeaderLinks.map((link, index) => (
               <li key={index} className={link.className}>
                 {link.name}
               </li>
             ))}
-            {user ? (
-              <Button>Login🙌</Button>
-            ) : (
-              <>
-                <UserMenu />
-                <Button>Logout😒</Button>
-              </>
-            )}
+            <SignedOut>
+              <Link to={"/login"}>
+                <Button>Login🙌</Button>
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </ul>
         </div>
-        <div className="absolute right-12 top-12 cursor-pointer md:hidden flex">
+        <div className="absolute right-12 top-12 cursor-pointer md:hidden flex text-[#fff]">
           <Menu onClick={() => setIsMenuOpen(!isMenuOpen)} />
         </div>
       </header>
