@@ -24,24 +24,24 @@ const Header = () => {
   return (
     <>
       <header
-        className={`fixed  font-heading w-full  z-[999] shadow-xl h-24   transition-transform duration-300 ${
-          isScrollingUp ? "navbar-visible" : "navbar-hidden"
+        className={`fixed  font-heading w-full   z-[999] shadow-xl h-32   transition-transform duration-300 ${
+          isScrollingUp ? "navbar-visible " : "navbar-hidden "
         } top-0`}
       >
-        <div className=" items-center flex justify-between container mx-auto pt-8">
+        <div className=" items-center flex justify-between container mx-auto ">
           <div>
             <img
               src="/logo.png"
               alt="logo utku toygun"
-              title="utku toygun bektasoglu"
-              className="rounded-full w-12 h-12 object-cover"
+              title="DevJourney - Software Developer"
+              className="rounded-full w-36 h-36 object-cover"
             />
           </div>
           <ul className=" items-center gap-4  md:flex hidden text-[#fff]">
             {HeaderLinks.map((link, index) => (
-              <li key={index} className={link.className}>
-                {link.name}
-              </li>
+              <Link to={link.url} key={index}>
+                <li className={link.className}>{link.name}</li>
+              </Link>
             ))}
             <SignedOut>
               <Link to={"/login"}>

@@ -1,7 +1,11 @@
 export const HeaderLinks = [
-  { name: "Home", className: "header-link" },
-  { name: "Trending Blog", className: "header-link" },
-  { name: "Trending Projects", className: "header-link" },
-  { name: "About", className: "header-link" },
-  { name: "Contact", className: "header-link" },
+  { name: "Home", className: "header-link", url: "/" },
+  { name: "Trending Blog", className: "header-link", url: "/trending-blog" },
+  {
+    name: "Trending Projects",
+    className: "header-link",
+    url: "/trending-projects",
+  },
+  { name: "About", className: "header-link", url: "/about" },
+  { name: "Contact", className: "header-link", url: "/contact" },
 ];
