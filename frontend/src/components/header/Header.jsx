@@ -25,7 +25,7 @@ const Header = () => {
     <>
       <header
         className={`fixed  font-heading w-full   z-[999] shadow-xl h-32   transition-transform duration-300 ${
-          isScrollingUp ? "navbar-visible " : "navbar-hidden "
+          isScrollingUp ? "navbar-visible bg-quaternary" : "navbar-hidden "
         } top-0`}
       >
         <div className=" items-center flex justify-between container mx-auto ">

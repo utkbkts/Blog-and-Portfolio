@@ -28,6 +28,9 @@ const FeaturesBlogs = () => {
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </Link>
+        <p className="text-slate-300">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
       </div>
 
       {/* Other Blogs */}
@@ -56,6 +59,9 @@ const FeaturesBlogs = () => {
               Lorem ipsum dolor sit amet consectetur, adipisicing elit.Lorem
               ipsum dolor sit amet consectetur adipisicing elit.
             </Link>
+            <p className="text-slate-300">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
             <Button
               className={
                 "w-1/3 hover:bg-opacity-60 transition-all duration-300 mt-auto"
