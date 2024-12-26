@@ -2,11 +2,13 @@ import React, { Suspense } from "react";
 import NotFound from "../components/NotFound";
 import MainLayouts from "../layouts/MainLayouts";
 import Loading from "../components/Loading";
-import DetailPage from "../pages/detail/DetailPage";
+import PostListPage from "../pages/posts/PostListPage";
 
 const HomePage = React.lazy(() => import("../pages/home/HomePage"));
 const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
 const RegisterPage = React.lazy(() => import("../pages/auth/RegisterPage"));
+
+const DetailPage = React.lazy(() => import("../pages/detail/DetailPage"));
 
 export const MainRoutes = {
   path: "/",
@@ -42,6 +44,14 @@ export const MainRoutes = {
       element: (
         <Suspense fallback={<Loading />}>
           <DetailPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/postList",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <PostListPage />
         </Suspense>
       ),
     },

@@ -50,12 +50,12 @@ const SearchPage = () => {
         type="text"
         name="search"
         placeholder="Search and Press Enter"
-        className="bg-transparent outline-none text-white"
+        className="bg-transparent outline-none text-white "
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
       {query.length > 0 && (
-        <div className="absolute top-16 flex flex-col gap-4 w-[200px] bg-white rounded-md h-[200px] overflow-y-auto">
+        <div className="absolute top-16 flex flex-col gap-4 w-[200px] bg-white rounded-md h-[200px] overflow-y-auto text-black">
           {searchData.length > 0 ? (
             searchData?.map((item, index) => {
               return (

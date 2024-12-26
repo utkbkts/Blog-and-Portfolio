@@ -42,3 +42,16 @@
   transform: translateY(0);
   transition: transform 0.3s ease;
 }
+
+/* react quill */
+.ql-container {
+  height: 400px !important;
+  border: none !important;
+}
+
+.ql-toolbar {
+  border: none !important;
+}
+.ql-editor {
+  border: none !important;
+}
