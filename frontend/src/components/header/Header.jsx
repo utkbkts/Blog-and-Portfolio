@@ -4,7 +4,7 @@ import { HeaderLinks } from "./partials/header-data";
 import MobileMenu from "./partials/MobileMenu";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, useAuth, UserButton } from "@clerk/clerk-react";
 
 const Header = () => {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
@@ -20,7 +20,10 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
-
+  const { getToken } = useAuth();
+  useEffect(() => {
+    getToken().then((token) => console.log(token));
+  }, []);
   return (
     <>
       <header

@@ -2,6 +2,7 @@
   "name": "website",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon  backend/index.js",
     "start": "node backend/index.js",
@@ -11,15 +12,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "description": "",
   "dependencies": {
+    "@clerk/express": "^1.3.31",
+    "body-parser": "^1.20.3",
+    "catchasyncerror": "^1.0.1",
     "cloudinary": "^2.5.1",
     "compression": "^1.7.5",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongoose": "^8.9.2"
+    "mongoose": "^8.9.2",
+    "svix": "^1.44.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
