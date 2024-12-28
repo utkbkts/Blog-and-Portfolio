@@ -31,7 +31,7 @@ const Header = () => {
           isScrollingUp ? "navbar-visible bg-quaternary" : "navbar-hidden "
         } top-0`}
       >
-        <div className=" items-center flex justify-between container mx-auto ">
+        <div className=" items-center flex justify-between container mx-auto px-4">
           <div>
             <img
               src="/logo.png"

@@ -8,11 +8,13 @@ const Input = ({
   loading,
   value,
   placeholder,
+  register,
 }) => {
   return (
     <input
       onChange={onChange}
       name={name}
+      {...register}
       value={value}
       placeholder={placeholder}
       type={type}

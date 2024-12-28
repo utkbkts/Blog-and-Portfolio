@@ -8,12 +8,14 @@ const TextArea = ({
   value,
   placeholder,
   rows,
+  register,
 }) => {
   return (
     <textarea
       onChange={onChange}
       rows={rows}
       value={value}
+      {...register}
       name={name}
       placeholder={placeholder}
       className={cn(

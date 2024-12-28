@@ -2,9 +2,20 @@ import { useState } from "react";
 import PostList from "./partials/PostList";
 import Sidebar from "./Sidebar";
 import Button from "../../ui/Button";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
+const fetchPosts = async () => {
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/posts`);
+  return res.data;
+};
 const PostListPage = () => {
   const [open, setOpen] = useState(false);
+
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ["posts"],
+    queryFn: () => fetchPosts(),
+  });
 
   return (
     <div>
