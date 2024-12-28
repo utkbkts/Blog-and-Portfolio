@@ -41,6 +41,7 @@ const MenuLinks = [
 
 const MainCategories = () => {
   const location = useLocation().pathname;
+
   return (
     <div className="hidden md:flex bg-white text-quaternary rounded-3xl xl:rounded-full p-4 shadow-lg items-center justify-center gap-8">
       {/* Links */}

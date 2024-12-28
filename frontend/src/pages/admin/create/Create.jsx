@@ -17,6 +17,23 @@ import { toast } from "react-toastify";
 import Upload from "../../../components/upload/Upload";
 import { useEffect, useState } from "react";
 
+const optionsCategory = [
+  { value: "blog", label: "Blog" },
+  { value: "project", label: "Project" },
+];
+const categoryHeader = [
+  { value: "database", label: "Database" },
+  { value: "react", label: "React.JS" },
+  { value: "nodejs", label: "Node.JS" },
+  { value: "javascript", label: "Javascript" },
+  { value: "typescript", label: "Typescript" },
+  { value: "go", label: "Go" },
+  { value: "python", label: "Python" },
+  { value: "cyber-security", label: "Cyber Security" },
+  { value: "software", label: "Software" },
+  { value: "english", label: "English" },
+];
+
 const AdminCreate = () => {
   const { isLoaded, isSignedIn } = useUser();
   const { getToken } = useAuth();
@@ -72,6 +89,7 @@ const AdminCreate = () => {
         setValue("title", "");
         setValue("desc", "");
         setValue("category", "");
+        setValue("categoryHeader", "");
         setValue("content", "");
         setValue("img", null);
       },
@@ -85,6 +103,7 @@ const AdminCreate = () => {
   if (!isSignedIn) {
     return <h1>You should login</h1>;
   }
+
   return (
     <div className="h-full">
       <h1 className="text-2xl text-white text-center pb-4">
@@ -94,6 +113,15 @@ const AdminCreate = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 p-4"
       >
+        <SelectInput
+          register={register("categoryHeader")}
+          onChange={(e) => setValue("categoryHeader", e.target.value)}
+          className="custom-class"
+          options={categoryHeader}
+        />
+        {errors.categoryHeader && (
+          <p className="text-red-500">{errors.categoryHeader.message}</p>
+        )}
         <Upload
           type={"image"}
           setProgress={setProgress}
@@ -115,13 +143,14 @@ const AdminCreate = () => {
           register={register("title")}
           name="title"
           type="text"
-          placeholder="My Awesome Story"
+          placeholder="title"
         />
         {errors.title && <p className="text-red-500">{errors.title.message}</p>}
         <SelectInput
           register={register("category")}
           onChange={(e) => setValue("category", e.target.value)}
           className="custom-class"
+          options={optionsCategory}
         />
         {errors.category && (
           <p className="text-red-500">{errors.category.message}</p>

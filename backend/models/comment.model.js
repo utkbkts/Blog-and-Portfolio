@@ -12,9 +12,13 @@ const commentSchema = new mongoose.Schema(
       ref: "Post",
       required: true,
     },
-    desc: {
+    comment: {
       type: String,
       required: true,
+    },
+    adminReply: {
+      type: String,
+      default: null,
     },
   },
   { timestamps: true }

@@ -2,8 +2,27 @@ import Image from "../../components/image/Image";
 import { Link } from "react-router-dom";
 import Sidebar from "./partials/Sidebar";
 import Comments from "./partials/Comments";
+import axiosInstance from "../../utils/axios";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchDetails = async (title, id) => {
+  const res = await axiosInstance.get(`/posts/${title}/${id}`);
+  return res.data;
+};
 
 const DetailPage = () => {
+  const { title, id } = useParams();
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ["details", title, id],
+    queryFn: () => fetchDetails(title, id),
+    retry: false,
+  });
+  if (isPending) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  console.log("🚀 ~ DetailPage ~ data:", data);
+
   return (
     <div className="flex flex-col gap-8 pt-12">
       {/* detial */}
@@ -103,7 +122,7 @@ const DetailPage = () => {
         {/* menu */}
         <Sidebar />
       </div>
-      <Comments />
+      <Comments postId={id} title={title} />
     </div>
   );
 };

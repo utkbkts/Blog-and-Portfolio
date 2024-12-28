@@ -15,6 +15,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    categoryHeader: {
+      type: String,
+      required: true,
+    },
     desc: {
       type: String,
     },

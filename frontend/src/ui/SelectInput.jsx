@@ -1,12 +1,6 @@
 import { cn } from "../utils/cn";
 
-const SelectInput = ({ register, onChange, className }) => {
-  const options = [
-    { value: "apple", label: "Apple" },
-    { value: "banana", label: "Banana" },
-    { value: "cherry", label: "Cherry" },
-  ];
-
+const SelectInput = ({ register, onChange, className, options = [] }) => {
   return (
     <select
       {...register}

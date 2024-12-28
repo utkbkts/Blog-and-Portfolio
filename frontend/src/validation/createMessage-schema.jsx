@@ -11,6 +11,7 @@ export const createMessageSchema = z.object({
   title: messageIsRequired,
   category: messageIsRequired,
   desc: messageIsRequired,
+  categoryHeader: messageIsRequired,
   img: z.string().url("Invalid image URL").nonempty("Image is required"),
   content: z
     .string({

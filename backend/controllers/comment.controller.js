@@ -4,7 +4,8 @@ import User from "../models/user.model.js";
 
 const addComment = catchAsyncError(async (req, res, next) => {
   const clerkUserId = req.auth.userId;
-  const postId = req.params.id;
+  const postId = req.params.postId;
+  console.log("🚀 ~ addComment ~ postId:", postId);
 
   if (!clerkUserId) {
     return res.status(401).json("Not authenticated!");
@@ -22,7 +23,7 @@ const addComment = catchAsyncError(async (req, res, next) => {
 });
 
 const getComments = catchAsyncError(async (req, res) => {
-  const comments = await Comment.find({ post: req.params.id })
+  const comments = await Comment.find({ post: req.params.postId })
     .populate("user")
     .sort({ createdAt: -1 });
 

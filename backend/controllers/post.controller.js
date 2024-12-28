@@ -4,6 +4,8 @@ import ErrorHandler from "../utils/handlerError.js";
 import User from "../models/user.model.js";
 import ImageKit from "imagekit";
 import dotenv from "dotenv";
+import apiFilter from "../utils/apiFilters.js";
+import { generateSlug } from "../utils/generateSlug.js";
 dotenv.config();
 
 const imagekit = new ImageKit({
@@ -21,13 +23,43 @@ const findUserByClerkId = async (clerkUserId) => {
 };
 
 const getPosts = catchAsyncError(async (req, res) => {
-  const posts = await Post.find();
+  const resPerPage = 5;
+  const postsCount = await Post.countDocuments();
 
-  return res.status(200).json(posts);
+  const apiFeatures = new apiFilter(Post.find({}), req.query)
+    .searchResults()
+    .filters();
+
+  let posts = await apiFeatures.query;
+  let filteredProductsCount = posts.length;
+
+  apiFeatures.pagination(resPerPage);
+  posts = await apiFeatures.query.clone().populate("user");
+
+  return res.status(200).json({
+    success: true,
+    postsCount,
+    resPerPage,
+    filteredProductsCount,
+    posts,
+  });
 });
-
 const getPost = catchAsyncError(async (req, res) => {
-  const post = await Post.findOne(req.params.id);
+  const { title, id } = req.params;
+  const post = await Post.findOne({ title, _id: id });
+
+  if (!post) {
+    return res.status(404).json({ message: "Post not found" });
+  }
+
+  if (generateSlug(post.title) !== title) {
+    return res.status(400).json({
+      success: false,
+      message: `Title slug does not match. Expected: ${generateSlug(
+        post.title
+      )}, Got: ${title}`,
+    });
+  }
 
   return res.status(200).json(post);
 });
