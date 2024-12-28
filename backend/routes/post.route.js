@@ -4,6 +4,7 @@ import postController from "../controllers/post.controller.js";
 
 const router = express.Router();
 
+router.get("/upload-auth", postController.uploadPhoto);
 router.get("/", postController.getPosts);
 router.get("/:id", postController.getPost);
 router.post("/create", postController.createPost);

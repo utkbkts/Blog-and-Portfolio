@@ -2,6 +2,15 @@ import { catchAsyncError } from "catchasyncerror";
 import Post from "../models/post.model.js";
 import ErrorHandler from "../utils/handlerError.js";
 import User from "../models/user.model.js";
+import ImageKit from "imagekit";
+import dotenv from "dotenv";
+dotenv.config();
+
+const imagekit = new ImageKit({
+  urlEndpoint: process.env.IK_URL_ENDPOINT,
+  publicKey: process.env.IK_PUBLIC_KEY,
+  privateKey: process.env.IK_PRIVATE_KEY,
+});
 
 const findUserByClerkId = async (clerkUserId) => {
   const user = await User.findOne({ clerkUserId });
@@ -69,9 +78,16 @@ const deletePost = catchAsyncError(async (req, res, next) => {
 
   return res.status(200).json({ message: "Post has been deleted" });
 });
+
+const uploadPhoto = catchAsyncError(async (req, res, next) => {
+  const result = imagekit.getAuthenticationParameters();
+  res.json(result);
+});
+
 export default {
   getPosts,
   getPost,
   createPost,
   deletePost,
+  uploadPhoto,
 };

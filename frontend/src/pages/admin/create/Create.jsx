@@ -14,9 +14,14 @@ import { createMessageSchema } from "../../../validation/createMessage-schema";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
+import Upload from "../../../components/upload/Upload";
+import { useEffect, useState } from "react";
+
 const AdminCreate = () => {
   const { isLoaded, isSignedIn } = useUser();
   const { getToken } = useAuth();
+  const [progress, setProgress] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -27,6 +32,25 @@ const AdminCreate = () => {
     resolver: zodResolver(createMessageSchema),
     mode: "onChange",
   });
+
+  //image and video
+  const image = watch("image");
+  const video = watch("video");
+  useEffect(() => {
+    if (image && image.url) {
+      const currentContent = watch("content") || "";
+      const updatedContent = `${currentContent}<p><img src="${image.url}" alt="Uploaded image" /></p>`;
+      setValue("content", updatedContent);
+    }
+  }, [image, setValue, watch]);
+
+  useEffect(() => {
+    if (video) {
+      const currentContent = watch("content") || "";
+      const updatedContent = `${currentContent}<p><iframe class="ql-video" src="${video.url}"></iframe></p>`;
+      setValue("content", updatedContent);
+    }
+  }, [video, setValue, watch]);
 
   const mutation = useMutation({
     mutationFn: async (newPost) => {
@@ -49,6 +73,7 @@ const AdminCreate = () => {
         setValue("desc", "");
         setValue("category", "");
         setValue("content", "");
+        setValue("img", null);
       },
     });
   };
@@ -69,17 +94,30 @@ const AdminCreate = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 p-4"
       >
-        <Button type="button" className="text-white md:w-1/4 w-full">
-          Add a cover image
-        </Button>
+        <Upload
+          type={"image"}
+          setProgress={setProgress}
+          setData={(data) => setValue("img", data.url)}
+        >
+          <Button type="button" className="text-white md:w-1/4 w-full">
+            Add a cover image
+          </Button>{" "}
+        </Upload>
+        {errors.img && <p className="text-red-500">{errors.img.message}</p>}
+
+        {progress && (
+          <span
+            className={`progress ${progress ? "active" : ""}`}
+            style={{ width: `${progress}%` }}
+          ></span>
+        )}
         <Input
           register={register("title")}
           name="title"
           type="text"
           placeholder="My Awesome Story"
         />
-        {errors.story && <p className="text-red-500">{errors.story.message}</p>}
-
+        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
         <SelectInput
           register={register("category")}
           onChange={(e) => setValue("category", e.target.value)}
@@ -97,10 +135,22 @@ const AdminCreate = () => {
           className="resize-none"
         />
         {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-        <div className="flex">
+        <div className="flex flex-1">
           <div className="flex flex-col gap-2 mr-2">
-            <div className="">🌆</div>
-            <div className="">👉</div>
+            <Upload
+              type={"image"}
+              setProgress={setProgress}
+              setData={(data) => setValue("image", data)}
+            >
+              🌆
+            </Upload>
+            <Upload
+              type="video"
+              setProgress={setProgress}
+              setData={(data) => setValue("video", data)}
+            >
+              ▶️
+            </Upload>
           </div>
         </div>
         <ReactQuill
@@ -109,6 +159,7 @@ const AdminCreate = () => {
           onChange={(value) => setValue("content", value)}
           className="text-black flex-1 bg-white shadow-lg"
           placeholder="Write your story here..."
+          readOnly={0 < progress && progress < 100}
         />
         <input type="hidden" {...register("content")} />
         {errors.content && (

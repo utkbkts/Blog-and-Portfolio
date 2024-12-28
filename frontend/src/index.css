@@ -55,3 +55,24 @@
 .ql-editor {
   border: none !important;
 }
+
+/* progress */
+.progress {
+  position: relative;
+  width: 100%;
+  background-color: #646cff;
+  width: 100%;
+  height: 15px;
+  border-radius: 10px;
+}
+
+.progress.active::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  transition: width 1s ease;
+}
