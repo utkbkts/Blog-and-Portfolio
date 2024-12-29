@@ -44,16 +44,17 @@ const postSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
         },
-        likedCount: {
-          type: Number,
-          default: 0,
-        },
+
         createdAt: {
           type: Date,
           default: Date.now,
         },
       },
     ],
+    likedCount: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

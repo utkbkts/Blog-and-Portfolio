@@ -4,9 +4,10 @@ import Response from "./Response";
 import { Pencil, Trash } from "lucide-react";
 import { toast } from "react-toastify";
 
-const Comment = ({ comment, mutationDelete, mutationUpdate }) => {
+const Comment = ({ comment, mutationDelete, mutationUpdate, currentUser }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(comment?.comment);
+
   const onSubmit = (e) => {
     e.preventDefault();
     mutationUpdate.mutate(
@@ -20,9 +21,11 @@ const Comment = ({ comment, mutationDelete, mutationUpdate }) => {
     );
   };
 
+  const isUserComment = currentUser && comment?.user?._id === currentUser.id;
+
   return (
     <div className="p-4 bg-slate-50 rounded-xl mb-8">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <img
           src={comment?.user?.img || "/avatar.png"}
           className={"w-10 h-10 rounded-full object-cover"}
@@ -31,18 +34,20 @@ const Comment = ({ comment, mutationDelete, mutationUpdate }) => {
         <span className="text-sm text-slate-500">
           {getDateLocal(comment?.createdAt)}
         </span>
-        <div className="flex items-center gap-3">
-          <Pencil
-            size={20}
-            className="cursor-pointer"
-            onClick={() => setIsEditing(!isEditing)}
-          />
-          <Trash
-            size={20}
-            className="cursor-pointer"
-            onClick={() => mutationDelete.mutate(comment?._id)}
-          />
-        </div>
+        {isUserComment && (
+          <div className="flex items-center gap-3">
+            <Pencil
+              size={20}
+              className="cursor-pointer"
+              onClick={() => setIsEditing(!isEditing)}
+            />
+            <Trash
+              size={20}
+              className="cursor-pointer"
+              onClick={() => mutationDelete.mutate(comment?._id)}
+            />
+          </div>
+        )}
       </div>
       <div className="mt-4">
         {isEditing ? (

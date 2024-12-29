@@ -21,7 +21,6 @@ const DetailPage = () => {
   });
   if (isPending) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  console.log("🚀 ~ DetailPage ~ data:", data);
 
   return (
     <div className="flex flex-col gap-8 pt-12">
@@ -120,7 +119,7 @@ const DetailPage = () => {
           </p>
         </div>
         {/* menu */}
-        <Sidebar />
+        <Sidebar post={data} />
       </div>
       <Comments postId={id} title={title} />
     </div>

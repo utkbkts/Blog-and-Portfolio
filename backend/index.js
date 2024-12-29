@@ -9,6 +9,8 @@ import { clerkMiddleware } from "@clerk/express";
 import postRouter from "./routes/post.route.js";
 import webHookRouter from "./routes/webhook.route.js";
 import commentRouter from "./routes/comment.route.js";
+import userRouter from "./routes/user.route.js";
+
 const __dirname = path.resolve();
 dotnev.config();
 const app = express();
@@ -34,6 +36,7 @@ app.use(function (req, res, next) {
 
 app.use("/api/v1/posts", postRouter);
 app.use("/api/v1/comments", commentRouter);
+app.use("/api/v1/user", userRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));

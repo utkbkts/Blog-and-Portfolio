@@ -18,7 +18,12 @@ createRoot(document.getElementById("root")).render(
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <QueryClientProvider client={queryClient}>
         <App />
-        <ToastContainer position="top-right" theme="dark" />
+        <ToastContainer
+          position="top-right"
+          theme="dark"
+          pauseOnHover={false}
+          autoClose={2000}
+        />
         <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider>
     </ClerkProvider>

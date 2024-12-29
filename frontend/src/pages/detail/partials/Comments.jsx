@@ -133,7 +133,7 @@ const Comments = ({ postId, title }) => {
           comment={{
             ...item,
             user: {
-              _id: user?._id,
+              _id: user?.id,
               username: user?.username,
               email: user?.email,
               img: user?.imageUrl,
@@ -141,6 +141,7 @@ const Comments = ({ postId, title }) => {
           }}
           mutationDelete={mutationDelete}
           mutationUpdate={mutationUpdate}
+          currentUser={user}
         />
       ))}
     </div>

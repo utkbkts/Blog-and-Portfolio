@@ -1,6 +1,7 @@
 import { Webhook } from "svix";
 import User from "../models/user.model.js";
 import Post from "../models/post.model.js";
+import Comment from "../models/comment.model.js";
 import dotnev from "dotenv";
 dotnev.config();
 const clerkWebHook = async (req, res, next) => {
@@ -39,7 +40,7 @@ const clerkWebHook = async (req, res, next) => {
     });
 
     await Post.deleteMany({ user: deletedUser?._id });
-    // await Comment.deleteMany({ user: deletedUser._id });
+    await Comment.deleteMany({ user: deletedUser._id });
   }
 
   return res.status(200).json({

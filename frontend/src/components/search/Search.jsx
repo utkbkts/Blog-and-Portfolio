@@ -50,7 +50,7 @@ const SearchPage = () => {
         type="text"
         name="search"
         placeholder="Search and Press Enter"
-        className="bg-transparent outline-none text-white "
+        className="bg-transparent outline-none text-white border-b"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />

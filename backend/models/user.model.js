@@ -20,14 +20,6 @@ const userSchema = new mongoose.Schema(
     img: {
       type: String,
     },
-    savedPosts: {
-      type: [String],
-      default: [],
-    },
-    likedPosts: {
-      type: [String],
-      default: [],
-    },
     role: {
       type: String,
       enum: ["admin", "user"],
