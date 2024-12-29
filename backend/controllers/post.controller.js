@@ -46,7 +46,7 @@ const getPosts = catchAsyncError(async (req, res) => {
 });
 const getPost = catchAsyncError(async (req, res) => {
   const { title, id } = req.params;
-  const post = await Post.findOne({ title, _id: id });
+  const post = await Post.findOne({ title, _id: id }).populate("user");
 
   if (!post) {
     return res.status(404).json({ message: "Post not found" });
