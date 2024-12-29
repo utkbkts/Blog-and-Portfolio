@@ -9,5 +9,6 @@ router.get("/", postController.getPosts);
 router.get("/:title/:id", postController.getPost);
 router.post("/create", postController.createPost);
 router.delete("/:id", postController.deletePost);
+router.put("/:postId", postController.updatePost);
 
 export default router;

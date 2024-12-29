@@ -1,6 +1,6 @@
 import { FaEdit, FaLinkedin, FaTrash } from "react-icons/fa";
 import { FaGithubSquare } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Image from "../../../components/image/Image";
 import SearchPage from "../../../components/search/Search";
 import { Heart } from "lucide-react";
@@ -14,7 +14,7 @@ import { FaHeart } from "react-icons/fa";
 const Sidebar = ({ post }) => {
   const { getToken } = useAuth();
   const [isLiked, setIsLiked] = useState(post.liked || false);
-
+  const navigate = useNavigate();
   //likedPost
   const mutationLiked = useMutation({
     mutationFn: async () => {
@@ -34,7 +34,29 @@ const Sidebar = ({ post }) => {
       setIsLiked((prev) => !prev);
     },
     onError: (error) => {
-      toast.success(error.message);
+      toast.error(error.message);
+    },
+  });
+
+  //updatePost
+  const mutationUpdate = useMutation({
+    mutationFn: async () => {
+      const token = await getToken();
+      return axiosInstance.put(
+        `/posts/${post._id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    },
+    onSuccess: () => {
+      navigate(`/admin/create`, { state: { post } });
+    },
+    onError: (error) => {
+      toast.error(`Failed to update the post: ${error.message}`);
     },
   });
 
@@ -62,8 +84,12 @@ const Sidebar = ({ post }) => {
       <div className="flex flex-col items-center gap-2 pt-4">
         <FaTrash size={20} className="text-red-600" />{" "}
         <span className="text-white cursor-pointer">Delete Post</span>
-        <FaEdit size={25} className="text-blue-600 pb-1" />{" "}
-        <span className="text-white cursor-pointer">Edit Post</span>
+        <FaEdit
+          onClick={() => mutationUpdate.mutate()}
+          size={25}
+          className="text-blue-600 pb-1 cursor-pointer"
+        />
+        <span className="text-white">Edit Post</span>
         {isLiked ? (
           <Heart
             onClick={() => mutationLiked.mutate()}

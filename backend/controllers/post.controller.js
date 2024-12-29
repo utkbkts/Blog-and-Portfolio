@@ -64,7 +64,6 @@ const getPost = catchAsyncError(async (req, res) => {
   return res.status(200).json(post);
 });
 
-// Create Post
 const createPost = catchAsyncError(async (req, res, next) => {
   const requiredFields = Object.values(req.body).some((item) => !item);
   const clerkUserId = req.auth.userId;
@@ -85,7 +84,6 @@ const createPost = catchAsyncError(async (req, res, next) => {
   return res.status(201).json(post);
 });
 
-// Delete Post
 const deletePost = catchAsyncError(async (req, res, next) => {
   const clerkUserId = req.auth.userId;
 
@@ -116,10 +114,47 @@ const uploadPhoto = catchAsyncError(async (req, res, next) => {
   res.json(result);
 });
 
+const updatePost = catchAsyncError(async (req, res, next) => {
+  const clerkUserId = req.auth.userId;
+  const postId = req.params.postId;
+  const { title, desc, category, categoryHeader, img, content } = req.body;
+
+  const user = await findUserByClerkId(clerkUserId);
+
+  if (user?.role === "user") {
+    return next(new ErrorHandler("Just only admin create post", 400));
+  }
+
+  const post = await Post.findByIdAndUpdate(
+    postId,
+    {
+      title,
+      desc,
+      category,
+      categoryHeader,
+      img,
+      content,
+    },
+    { new: true, runValidators: true }
+  );
+
+  if (!post) {
+    return next(
+      new ErrorHandler("Post not found or not authorized to update", 400)
+    );
+  }
+
+  return res.status(200).json({
+    message: "Post updated successfully!",
+    post,
+  });
+});
+
 export default {
   getPosts,
   getPost,
   createPost,
   deletePost,
   uploadPhoto,
+  updatePost,
 };

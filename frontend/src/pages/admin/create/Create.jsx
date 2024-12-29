@@ -16,6 +16,7 @@ import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
 import Upload from "../../../components/upload/Upload";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const optionsCategory = [
   { value: "blog", label: "Blog" },
@@ -38,18 +39,33 @@ const AdminCreate = () => {
   const { isLoaded, isSignedIn } = useUser();
   const { getToken } = useAuth();
   const [progress, setProgress] = useState("");
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const existingPost = location.state?.post;
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(createMessageSchema),
     mode: "onChange",
   });
 
+  useEffect(() => {
+    if (existingPost) {
+      reset({
+        title: existingPost.title,
+        desc: existingPost.desc,
+        category: existingPost.category,
+        categoryHeader: existingPost.categoryHeader,
+        content: existingPost.content,
+        img: existingPost.img,
+      });
+    }
+  }, [existingPost, reset]);
   //image and video
   const image = watch("image");
   const video = watch("video");
@@ -69,12 +85,15 @@ const AdminCreate = () => {
     }
   }, [video, setValue, watch]);
 
+  // Create or Update Mutation
   const mutation = useMutation({
-    mutationFn: async (newPost) => {
+    mutationFn: async (postData) => {
       const token = await getToken();
-      return axiosInstance.post("/posts/create", newPost, {
+      const url = existingPost ? `/posts/${existingPost._id}` : `/posts/create`;
+
+      const method = existingPost ? "put" : "post";
+      return axiosInstance[method](url, postData, {
         headers: { Authorization: `Bearer ${token}` },
-        data: newPost,
       });
     },
   });
@@ -82,16 +101,23 @@ const AdminCreate = () => {
   const onSubmit = (data) => {
     mutation.mutate(data, {
       onError: (error) => {
-        toast.error(error.message);
+        toast.error(`Error: ${error.message}`);
       },
       onSuccess: () => {
-        toast.success("Post created successfully!");
-        setValue("title", "");
-        setValue("desc", "");
-        setValue("category", "");
-        setValue("categoryHeader", "");
-        setValue("content", "");
-        setValue("img", null);
+        toast.success(
+          existingPost
+            ? "Post updated successfully!"
+            : "Post created successfully!"
+        );
+        if (!existingPost) {
+          setValue("title", "");
+          setValue("desc", "");
+          setValue("category", "");
+          setValue("categoryHeader", "");
+          setValue("content", "");
+          setValue("img", null);
+        }
+        navigate(`/${existingPost.title}/${existingPost._id}`);
       },
     });
   };
@@ -107,7 +133,7 @@ const AdminCreate = () => {
   return (
     <div className="h-full">
       <h1 className="text-2xl text-white text-center pb-4">
-        Create a New Post
+        {existingPost ? "Update Post" : "Create a New Post"}
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -131,6 +157,11 @@ const AdminCreate = () => {
             Add a cover image
           </Button>{" "}
         </Upload>
+        <img
+          src={existingPost?.img}
+          alt="image"
+          className="w-[350px] h-[350px] object-cover"
+        />
         {errors.img && <p className="text-red-500">{errors.img.message}</p>}
 
         {progress && (
@@ -200,7 +231,7 @@ const AdminCreate = () => {
           type="submit"
           className="text-white"
         >
-          Send
+          {existingPost ? "Update" : "Create"}
         </Button>
       </form>
     </div>
