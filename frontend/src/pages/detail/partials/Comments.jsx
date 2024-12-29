@@ -2,7 +2,7 @@ import Button from "../../../ui/Button";
 import axiosInstance from "../../../utils/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Comment from "./Comment";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,12 +14,11 @@ const fetchComments = async (title, postId) => {
 
 const Comments = ({ postId, title }) => {
   const { getToken } = useAuth();
-
-  const { isPending, error, data } = useQuery({
+  const { user } = useUser();
+  const { data } = useQuery({
     queryKey: ["comments", title, postId],
     queryFn: () => fetchComments(title, postId),
   });
-  console.log("🚀 ~ mutationFn: ~ data:", data);
 
   const {
     register,
@@ -33,6 +32,7 @@ const Comments = ({ postId, title }) => {
 
   const QueryClient = useQueryClient();
 
+  //new comment
   const mutation = useMutation({
     mutationFn: async (newPost) => {
       const token = await getToken();
@@ -55,12 +55,45 @@ const Comments = ({ postId, title }) => {
     },
   });
 
+  //delete comment
+  const mutationDelete = useMutation({
+    mutationFn: async (commentId) => {
+      const token = await getToken();
+      return axiosInstance.delete(`/comments/${commentId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    },
+    onSuccess: () => {
+      toast.success("Comment deleted!");
+      QueryClient.invalidateQueries({
+        queryKey: ["comments", title, postId],
+      });
+    },
+    onError: (error) => {
+      toast.error(error.response.data);
+    },
+  });
+
+  //update comment
+  const mutationUpdate = useMutation({
+    mutationFn: async ({ commentId, newPost }) => {
+      const token = await getToken();
+      return axiosInstance.put(`/comments/${commentId}`, newPost, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    },
+    onSuccess: () => {
+      QueryClient.invalidateQueries({
+        queryKey: ["comments", title, postId],
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const onSubmit = (data) => {
     mutation.mutate(data, {
-      onError: (error) => {
-        console.log(error.message);
-        toast.error(error.message);
-      },
       onSuccess: () => {
         toast.success("Comment successfully!");
         setValue("comment", "");
@@ -86,12 +119,29 @@ const Comments = ({ postId, title }) => {
             <p className="text-red-500">{errors.comment.message}</p>
           )}
         </div>
-        <Button type="submit" className={"text-white"}>
+        <Button
+          loading={mutation.isPending}
+          type="submit"
+          className={"text-white"}
+        >
           Send
         </Button>
       </form>
       {data?.map((item) => (
-        <Comment key={item._id} comment={item} />
+        <Comment
+          key={item._id}
+          comment={{
+            ...item,
+            user: {
+              _id: user?._id,
+              username: user?.username,
+              email: user?.email,
+              img: user?.imageUrl,
+            },
+          }}
+          mutationDelete={mutationDelete}
+          mutationUpdate={mutationUpdate}
+        />
       ))}
     </div>
   );
