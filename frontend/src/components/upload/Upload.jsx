@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 
 const Upload = ({ setData, type, children }) => {
   const cloudinaryRef = useRef();
@@ -11,12 +12,13 @@ const Upload = ({ setData, type, children }) => {
       {
         cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME, // Çevresel değişken
         uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET, // Çevresel değişken
-        resourceType: type, // Yükleme türü
+        resourceType: type,
+        folder: "website",
       },
       (error, result) => {
         if (!error && result?.event === "success") {
-          console.log("Upload Successful:", result.info);
-          setData(result.info); // Yükleme tamamlanınca dosya bilgisi
+          toast.success("success image");
+          setData(result.info);
         }
       }
     );

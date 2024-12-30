@@ -1,7 +1,6 @@
 import { FaEdit, FaLinkedin, FaTrash } from "react-icons/fa";
 import { FaGithubSquare } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import Image from "../../../components/image/Image";
 import SearchPage from "../../../components/search/Search";
 import { Heart } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
@@ -64,11 +63,9 @@ const Sidebar = ({ post }) => {
     <div className="px-4 h-max sticky top-8">
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center flex-col text-center gap-2">
-          <Image
+          <img
             src={"/featured1.jpeg"}
             className="w-12 h-12 rounded-full object-cover"
-            w="48"
-            h="48"
           />
           <Link className="text-white">utku toygun bektasoglu</Link>
         </div>

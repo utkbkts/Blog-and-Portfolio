@@ -8,8 +8,8 @@ const SeederProduct = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
 
-    // await Post.deleteMany();
-    // console.log("postData Are Deleted !");
+    //await Post.deleteMany();
+    //console.log("postData Are Deleted !");
 
     await Post.insertMany(postData);
     console.log("postData Are Added !");

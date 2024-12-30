@@ -1,8 +1,11 @@
 export const postData = [
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Project",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Database",
@@ -15,8 +18,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Project",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "React.JS",
@@ -29,8 +35,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Project",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Node.JS",
@@ -43,8 +52,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Project",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Javascript",
@@ -57,8 +69,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Project",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Typescript",
@@ -71,8 +86,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Project",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Cyber Security",
@@ -85,8 +103,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Project",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Go",
@@ -99,8 +120,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Project",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Python",
@@ -113,8 +137,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Blog",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Software",
@@ -127,8 +154,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Blog",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Software",
@@ -141,8 +171,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Blog",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Software",
@@ -155,8 +188,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Blog",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Software",
@@ -169,8 +205,11 @@ export const postData = [
   },
   {
     user: "676ea56aee035e7d619ec2b2",
-    img: "https://ik.imagekit.io/afc3grknt/DALL_E_2024-11-16_22.19.39_-_A_web_developer_in_a_cozy_home_office_environment._The_developer_is_sitting_at_a_desk_with_a_computer_screen_displaying_code._There_are_multiple_monit_m35ifhO5r.webp?updatedAt=1735496278427",
-    title: "Exploring MongoDB with Mongoose",
+    img: {
+      public_id: "website/iqhl8hw2eiuh34pfarqz",
+      url: "https://res.cloudinary.com/dpojqk4ty/image/upload/v1735581462/website/iqhl8hw2eiuh34pfarqz.jpg",
+    },
+    title: "Exploring",
     categoryHeader: "Blog",
     desc: "A brief introduction to MongoDB and how to use it with Mongoose.",
     category: "Software",

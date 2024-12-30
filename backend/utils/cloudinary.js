@@ -20,6 +20,7 @@ export const upload_file = (file, folder) => {
         ],
       },
       (error, result) => {
+        console.log("🚀 ~ returnnewPromise ~ result:", result);
         if (error) {
           reject(error);
           console.error("Error uploading file:", error);

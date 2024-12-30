@@ -6,7 +6,7 @@ const FeaturesProjects = ({ post }) => {
   return (
     <div className="flex md:flex-row flex-col gap-4 overflow-hidden">
       <img
-        src={post?.img}
+        src={post?.img?.url}
         alt={post?.title}
         className="rounded-xl object-cover md:w-1/3 w-full aspect-video shadow-md transition-transform duration-300 hover:scale-105"
         title={post?.title}
@@ -18,7 +18,7 @@ const FeaturesProjects = ({ post }) => {
             {getDateLocal(post?.createdAt)}
           </span>
           <Link
-            to={`/postList?=cat=${post?.category}`}
+            to={`/postList?category=${post?.category}`}
             className="text-blue-400 hover:underline pt-[1px]"
           >
             {post?.category}

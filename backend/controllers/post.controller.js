@@ -5,6 +5,7 @@ import User from "../models/user.model.js";
 import dotenv from "dotenv";
 import apiFilter from "../utils/apiFilters.js";
 import { generateSlug } from "../utils/generateSlug.js";
+import { upload_file } from "../utils/cloudinary.js";
 dotenv.config();
 
 const findUserByClerkId = async (clerkUserId) => {
@@ -74,20 +75,19 @@ const getPost = catchAsyncError(async (req, res) => {
 });
 
 const createPost = catchAsyncError(async (req, res, next) => {
-  const requiredFields = Object.values(req.body).some((item) => !item);
+  const { title, desc, category, categoryHeader, img, content } = req.body;
+
+  if (!title || !desc || !category || !categoryHeader || !img || !content) {
+    return next(new ErrorHandler("All fields are required", 400));
+  }
+
   const clerkUserId = req.auth.userId;
-  // Validate that the user exists
   const user = await findUserByClerkId(clerkUserId);
 
   if (user?.role === "user") {
     return next(new ErrorHandler("Just only admin create post", 400));
   }
 
-  if (requiredFields) {
-    return next(new ErrorHandler("All fields are required", 400));
-  }
-
-  // Create new post
   const newPost = new Post({ user: user._id, ...req.body });
   const post = await newPost.save();
   return res.status(201).json(post);
@@ -152,10 +152,6 @@ const updatePost = catchAsyncError(async (req, res, next) => {
     message: "Post updated successfully!",
     post,
   });
-});
-
-const uploadPhoto = catchAsyncError(async (req, res, next) => {
-  const {} = req.body;
 });
 
 const getCategories = catchAsyncError(async (req, res, next) => {

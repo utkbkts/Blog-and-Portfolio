@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import BreadCrump from "./partials/BreadCrump";
 import FeaturesBlogs from "./partials/FeaturesBlogs";
 import FeaturesProjects from "./partials/FeaturesProjects";
 import Introduction from "./partials/Introduction";
@@ -34,16 +33,10 @@ const HomePage = () => {
 
   const mainBlog = data?.blogPosts[0];
   const sideBlogs = data?.blogPosts?.slice(1, 4);
-  //project
-  const projectFilter = data?.posts?.filter(
-    (item) => item.categoryHeader === "Project"
-  );
+
   return (
     <div className="text-[#fff] pt-12">
       {/* BreadCrumb */}
-      <div>
-        <BreadCrump />
-      </div>
       {/* Introduction */}
       <div>
         <Introduction />
@@ -71,13 +64,13 @@ const HomePage = () => {
             <SkeletonText />
           </>
         ) : (
-          projectFilter?.map((item) => (
+          data?.projectPosts?.map((item) => (
             <FeaturesProjects key={item._id} post={item} />
           ))
         )}
         <PaginationPage
-          resPerPage={4}
-          filteredProductsCount={projectFilter?.length}
+          resPerPage={data?.resPerPage}
+          filteredProductsCount={data?.projectPosts?.length}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />

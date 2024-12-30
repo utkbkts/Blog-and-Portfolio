@@ -25,7 +25,7 @@ const MainCategories = () => {
           <>
             <Link
               key={index}
-              to={`/postList?=cat=${item}`}
+              to={`/postList?category=${item}`}
               className={"hover:bg-slate-200 px-4 py-2 rounded-full "}
             >
               {item}

@@ -9,13 +9,16 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
       <div className="w-full lg:w-1/2 flex flex-col gap-6 overflow-hidden">
         {/* Image */}
         <img
-          className="rounded-3xl object-cover shadow-lg transition-transform duration-300 hover:scale-105"
-          src={mainBlog?.img}
+          className="rounded-3xl object-cover shadow-lg transition-transform duration-300 hover:scale-105 h-[400px]"
+          src={mainBlog?.img?.url}
         />
         {/* Details */}
         <div className="flex items-center gap-4 text-sm text-gray-500 flex-wrap sm:justify-start justify-center">
           <h1 className="font-semibold text-gray-700 text-lg">01.</h1>
-          <Link className="text-blue-500 font-medium hover:underline">
+          <Link
+            to={`/postList?category=${mainBlog?.category}`}
+            className="text-blue-500 font-medium hover:underline"
+          >
             {mainBlog?.category}
           </Link>
           <span>{getDateLocal(mainBlog?.createdAt)}</span>
@@ -39,15 +42,18 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
             className="flex gap-4 overflow-hidden rounded-xl"
           >
             <img
-              src={sideBlog?.img}
-              className="rounded-xl object-cover w-1/3 aspect-video shadow-md transition-transform duration-300 hover:scale-105"
+              src={sideBlog?.img?.url}
+              className="rounded-xl object-cover w-1/3 aspect-video shadow-md transition-transform duration-300 hover:scale-105 "
             />
             {/* Blog Details */}
             <div className="w-2/3 flex flex-col gap-3 flex-grow">
               {/* Details */}
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <h1 className="font-semibold text-gray-700">0{index + 2}.</h1>
-                <Link className="text-blue-500 font-medium hover:underline">
+                <Link
+                  to={`/postList?category=${sideBlog?.category}`}
+                  className="text-blue-500 font-medium hover:underline"
+                >
                   {sideBlog?.category}
                 </Link>
                 <span>{getDateLocal(sideBlog?.createdAt)}</span>

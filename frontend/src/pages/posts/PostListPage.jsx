@@ -3,37 +3,41 @@ import PostList from "./partials/PostList";
 import Sidebar from "./Sidebar";
 import Button from "../../ui/Button";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Loading from "../../components/Loading";
 import { useSearchParams } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-const fetchPosts = async (pageParams) => {
-  const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts`, {
+import axiosInstance from "../../utils/axios";
+const fetchPosts = async (pageParams, search, category) => {
+  const res = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/posts`, {
     params: {
       page: pageParams?.page,
-      search: pageParams?.search,
-      category: pageParams?.category,
+      search,
+      category,
     },
   });
   return res.data;
 };
+
 const PostListPage = () => {
   const [open, setOpen] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   let [searchParams] = useSearchParams();
+  const search = searchParams.get("search") || "";
+  const category = searchParams.get("category") || "";
+
+  // eslint-disable-next-line no-unused-vars
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
-    queryKey: ["posts", searchParams.toString()],
-    queryFn: ({ pageParam = 1 }) => fetchPosts(pageParam, searchParams),
+    queryKey: ["posts", search, category],
+    queryFn: ({ pageParam = 1 }) => fetchPosts(pageParam, search, category),
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) =>
       lastPage.hasMore ? pages.length + 1 : undefined,
   });
+  const allPosts = data?.pages?.flatMap((page) => page.posts) || [];
 
   if (status === "pending") return <Loading />;
 
   if (status === "error") return "Something went wrong !!";
 
-  const allPosts = data?.pages?.flatMap((page) => page.posts) || [];
   return (
     <div className="container mx-auto pt-12">
       <Button

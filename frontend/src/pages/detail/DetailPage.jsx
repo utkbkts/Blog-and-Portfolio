@@ -46,7 +46,11 @@ const DetailPage = () => {
           <p className="text-slate-300 font-medium">{data?.desc}</p>
         </div>
         <div className="hidden lg:block w-2/5">
-          <img src={data?.img} alt={"image"} className="object-cover" />
+          <img
+            src={data?.img?.url}
+            alt={"image"}
+            className="object-cover h-[400px] w-full"
+          />
         </div>
       </div>
       {/* content */}

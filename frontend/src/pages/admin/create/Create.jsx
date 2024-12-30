@@ -128,7 +128,6 @@ const AdminCreate = () => {
   if (!isSignedIn) {
     return <h1>You should login</h1>;
   }
-  console.log(watch("img"));
   return (
     <div className="h-full">
       <h1 className="text-2xl text-white text-center pb-4">
@@ -198,23 +197,13 @@ const AdminCreate = () => {
           <div className="flex flex-col gap-2 mr-2">
             <Upload
               type={"image"}
-              setData={(data) =>
-                setValue("image", {
-                  public_id: data.public_id,
-                  url: data.secure_url,
-                })
-              }
+              setData={(data) => setValue("image", { url: data.secure_url })}
             >
               🌆
             </Upload>
             <Upload
               type="video"
-              setData={(data) =>
-                setValue("video", {
-                  public_id: data.public_id,
-                  url: data.secure_url,
-                })
-              }
+              setData={(data) => setValue("video", { url: data.secure_url })}
             >
               ▶️
             </Upload>

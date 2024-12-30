@@ -12,7 +12,10 @@ export const createMessageSchema = z.object({
   category: messageIsRequired,
   desc: messageIsRequired,
   categoryHeader: messageIsRequired,
-  img: z.string().url("Invalid image URL").nonempty("Image is required"),
+  img: z.object({
+    public_id: z.string(),
+    url: z.string().url("Invalid video URL").nonempty("Video URL is required"),
+  }),
   content: z
     .string({
       required_error: "required",
