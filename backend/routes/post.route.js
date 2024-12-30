@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/upload-auth", postController.uploadPhoto);
 router.get("/", postController.getPosts);
 router.get("/:title/:id", postController.getPost);
+router.get("/categories", postController.getCategories);
 router.post("/create", postController.createPost);
 router.delete("/:id", postController.deletePost);
 router.put("/:postId", postController.updatePost);

@@ -1,5 +1,15 @@
-const Loading = () => {
-  return <div>Loading</div>;
-};
-
-export default Loading;
+import RingLoader from "react-spinners/RingLoader";
+export default function Loading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center ">
+      <RingLoader
+        color={"white"}
+        size={60}
+        loading
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        speedMultiplier={1}
+      />
+    </div>
+  );
+}

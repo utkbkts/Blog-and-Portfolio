@@ -18,11 +18,11 @@ import Upload from "../../../components/upload/Upload";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const optionsCategory = [
+const categoryHeader = [
   { value: "blog", label: "Blog" },
   { value: "project", label: "Project" },
 ];
-const categoryHeader = [
+const optionsCategory = [
   { value: "database", label: "Database" },
   { value: "react", label: "React.JS" },
   { value: "nodejs", label: "Node.JS" },

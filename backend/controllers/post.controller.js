@@ -36,12 +36,23 @@ const getPosts = catchAsyncError(async (req, res) => {
   apiFeatures.pagination(resPerPage);
   posts = await apiFeatures.query.clone().populate("user");
 
+  //blogs
+  const blogPostsFilter = await Post.find({ categoryHeader: "Blog" }).populate(
+    "user"
+  );
+  //Project
+  const projectPostsFilter = await Post.find({
+    categoryHeader: "Project",
+  }).populate("user");
+
   return res.status(200).json({
     success: true,
     postsCount,
     resPerPage,
     filteredProductsCount,
     posts,
+    blogPosts: blogPostsFilter,
+    projectPosts: projectPostsFilter,
   });
 });
 const getPost = catchAsyncError(async (req, res) => {
@@ -150,6 +161,15 @@ const updatePost = catchAsyncError(async (req, res, next) => {
   });
 });
 
+const getCategories = catchAsyncError(async (req, res, next) => {
+  const categories = await Post.distinct("category");
+
+  return res.status(200).json({
+    success: true,
+    categories,
+  });
+});
+
 export default {
   getPosts,
   getPost,
@@ -157,4 +177,5 @@ export default {
   deletePost,
   uploadPhoto,
   updatePost,
+  getCategories,
 };

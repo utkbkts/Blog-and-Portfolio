@@ -1,63 +1,34 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axiosInstance from "../../../utils/axios";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../../components/Loading";
 
-const MenuLinks = [
-  {
-    url: "/",
-    label: "All",
-  },
-  {
-    url: "/posts?cat=database",
-    label: "Database",
-  },
-  {
-    url: "/posts?cat=react",
-    label: "React.JS",
-  },
-  {
-    url: "/posts?cat=nodejs",
-    label: "Node.JS",
-  },
-  {
-    url: "/posts?cat=javascript",
-    label: "Javascript",
-  },
-  {
-    url: "/posts?cat=typescript",
-    label: "Typescript",
-  },
-  {
-    url: "/posts?cat=go",
-    label: "Go",
-  },
-  {
-    url: "/posts?cat=python",
-    label: "Python",
-  },
-  {
-    url: "/posts?cat=cyber-security",
-    label: "Cyber Security",
-  },
-];
+const fetchCategory = async () => {
+  const res = await axiosInstance.get("/posts/categories");
+  return res.data;
+};
 
 const MainCategories = () => {
-  const location = useLocation().pathname;
+  const { isPending, error, data } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () => fetchCategory(),
+    retry: false,
+  });
+  if (isPending) return <Loading />;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div className="hidden md:flex bg-white text-quaternary rounded-3xl xl:rounded-full p-4 shadow-lg items-center justify-center gap-8">
       {/* Links */}
       <div className="lg:flex-1 flex items-center justify-between flex-wrap">
-        {MenuLinks.map((item, index) => (
+        {data?.categories?.map((item, index) => (
           <>
             <Link
               key={index}
-              to={item.url}
-              className={
-                item.url === location
-                  ? "bg-blue-800 text-white px-4 py-2 rounded-full "
-                  : "hover:bg-slate-200 px-4 py-2 rounded-full "
-              }
+              to={`/postList?=cat=${item}`}
+              className={"hover:bg-slate-200 px-4 py-2 rounded-full "}
             >
-              {item.label}
+              {item}
             </Link>
           </>
         ))}

@@ -5,6 +5,7 @@ import axiosInstance from "../../utils/axios";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getDateLocal } from "../../helpers/helpers";
+import Loading from "../../components/Loading";
 
 const fetchDetails = async (title, id) => {
   const res = await axiosInstance.get(`/posts/${title}/${id}`);
@@ -19,9 +20,8 @@ const DetailPage = () => {
     queryFn: () => fetchDetails(title, id),
     retry: false,
   });
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <Loading />;
   if (error) return <p>Error: {error.message}</p>;
-  console.log("🚀 ~ DetailPage ~ data:", data);
 
   return (
     <div className="flex flex-col gap-8 pt-12">
