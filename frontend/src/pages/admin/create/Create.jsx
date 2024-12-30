@@ -14,9 +14,9 @@ import { createMessageSchema } from "../../../validation/createMessage-schema";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
-import Upload from "../../../components/upload/Upload";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Upload from "../../../components/upload/Upload";
 
 const categoryHeader = [
   { value: "blog", label: "Blog" },
@@ -38,7 +38,6 @@ const optionsCategory = [
 const AdminCreate = () => {
   const { isLoaded, isSignedIn } = useUser();
   const { getToken } = useAuth();
-  const [progress, setProgress] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const existingPost = location.state?.post;
@@ -129,7 +128,7 @@ const AdminCreate = () => {
   if (!isSignedIn) {
     return <h1>You should login</h1>;
   }
-
+  console.log(watch("img"));
   return (
     <div className="h-full">
       <h1 className="text-2xl text-white text-center pb-4">
@@ -150,26 +149,26 @@ const AdminCreate = () => {
         )}
         <Upload
           type={"image"}
-          setProgress={setProgress}
-          setData={(data) => setValue("img", data.url)}
+          setData={(data) =>
+            setValue("img", {
+              public_id: data.public_id,
+              url: data.secure_url,
+            })
+          }
         >
           <Button type="button" className="text-white md:w-1/4 w-full">
             Add a cover image
-          </Button>{" "}
+          </Button>
         </Upload>
-        <img
-          src={existingPost?.img}
-          alt="image"
-          className="w-[350px] h-[350px] object-cover"
-        />
+        {existingPost?.img && (
+          <img
+            src={existingPost?.img}
+            alt="image"
+            className="w-[350px] h-[350px] object-cover"
+          />
+        )}
         {errors.img && <p className="text-red-500">{errors.img.message}</p>}
 
-        {progress && (
-          <span
-            className={`progress ${progress ? "active" : ""}`}
-            style={{ width: `${progress}%` }}
-          ></span>
-        )}
         <Input
           register={register("title")}
           name="title"
@@ -199,15 +198,23 @@ const AdminCreate = () => {
           <div className="flex flex-col gap-2 mr-2">
             <Upload
               type={"image"}
-              setProgress={setProgress}
-              setData={(data) => setValue("image", data)}
+              setData={(data) =>
+                setValue("image", {
+                  public_id: data.public_id,
+                  url: data.secure_url,
+                })
+              }
             >
               🌆
             </Upload>
             <Upload
               type="video"
-              setProgress={setProgress}
-              setData={(data) => setValue("video", data)}
+              setData={(data) =>
+                setValue("video", {
+                  public_id: data.public_id,
+                  url: data.secure_url,
+                })
+              }
             >
               ▶️
             </Upload>
@@ -219,7 +226,6 @@ const AdminCreate = () => {
           onChange={(value) => setValue("content", value)}
           className="text-black flex-1 bg-white shadow-lg"
           placeholder="Write your story here..."
-          readOnly={0 < progress && progress < 100}
         />
         <input type="hidden" {...register("content")} />
         {errors.content && (

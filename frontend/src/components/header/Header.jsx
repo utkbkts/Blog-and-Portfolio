@@ -4,12 +4,20 @@ import { HeaderLinks } from "./partials/header-data";
 import MobileMenu from "./partials/MobileMenu";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SignedIn, SignedOut, useAuth, UserButton } from "@clerk/clerk-react";
+import {
+  SignedIn,
+  SignedOut,
+  useAuth,
+  UserButton,
+  useUser,
+} from "@clerk/clerk-react";
 
 const Header = () => {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(100);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = useUser();
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -22,7 +30,7 @@ const Header = () => {
   }, [lastScrollY]);
   const { getToken } = useAuth();
   useEffect(() => {
-    getToken().then((token) => console.log(token));
+    getToken();
   }, []);
   return (
     <>
@@ -46,6 +54,11 @@ const Header = () => {
                 <li className={link.className}>{link.name}</li>
               </Link>
             ))}
+            {user?.publicMetadata?.role === "admin" && (
+              <li className="hidden md:block">
+                <Link to={"/admin/create"}>Create</Link>
+              </li>
+            )}
             <SignedOut>
               <Link to={"/login"}>
                 <Button>Login🙌</Button>

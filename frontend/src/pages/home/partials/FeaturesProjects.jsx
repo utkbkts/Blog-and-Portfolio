@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "../../../ui/Button";
-import { getDateLocal } from "../../../helpers/helpers";
+import { generateSlug, getDateLocal } from "../../../helpers/helpers";
 
 const FeaturesProjects = ({ post }) => {
   return (
@@ -26,13 +26,15 @@ const FeaturesProjects = ({ post }) => {
         </div>
         <h1 className="font-bold text-3xl">{post?.title}</h1>
         <p className="text-slate-300">{post?.desc}</p>
-        <Button
-          className={
-            "w-1/3 hover:bg-opacity-60 transition-all duration-300 mt-auto"
-          }
-        >
-          Read More
-        </Button>
+        <Link to={`/${generateSlug(post?.title)}/${post?._id}`}>
+          <Button
+            className={
+              "w-1/3 hover:bg-opacity-60 transition-all duration-300 mt-auto"
+            }
+          >
+            Read More
+          </Button>
+        </Link>
       </div>
     </div>
   );

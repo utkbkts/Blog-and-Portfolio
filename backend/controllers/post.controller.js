@@ -2,17 +2,10 @@ import { catchAsyncError } from "catchasyncerror";
 import Post from "../models/post.model.js";
 import ErrorHandler from "../utils/handlerError.js";
 import User from "../models/user.model.js";
-import ImageKit from "imagekit";
 import dotenv from "dotenv";
 import apiFilter from "../utils/apiFilters.js";
 import { generateSlug } from "../utils/generateSlug.js";
 dotenv.config();
-
-const imagekit = new ImageKit({
-  urlEndpoint: process.env.IK_URL_ENDPOINT,
-  publicKey: process.env.IK_PUBLIC_KEY,
-  privateKey: process.env.IK_PRIVATE_KEY,
-});
 
 const findUserByClerkId = async (clerkUserId) => {
   const user = await User.findOne({ clerkUserId });
@@ -34,16 +27,21 @@ const getPosts = catchAsyncError(async (req, res) => {
   let filteredProductsCount = posts.length;
 
   apiFeatures.pagination(resPerPage);
-  posts = await apiFeatures.query.clone().populate("user");
+  posts = await apiFeatures.query
+    .clone()
+    .populate("user")
+    .sort({ createdAt: -1 });
 
   //blogs
-  const blogPostsFilter = await Post.find({ categoryHeader: "Blog" }).populate(
-    "user"
-  );
+  const blogPostsFilter = await Post.find({ categoryHeader: "Blog" })
+    .populate("user")
+    .sort({ createdAt: -1 });
   //Project
   const projectPostsFilter = await Post.find({
     categoryHeader: "Project",
-  }).populate("user");
+  })
+    .populate("user")
+    .sort({ createdAt: -1 });
 
   return res.status(200).json({
     success: true,
@@ -58,7 +56,7 @@ const getPosts = catchAsyncError(async (req, res) => {
 const getPost = catchAsyncError(async (req, res) => {
   const { title, id } = req.params;
   const post = await Post.findOne({ title, _id: id }).populate("user");
-
+  console.log("🚀 ~ getPost ~ post:", title);
   if (!post) {
     return res.status(404).json({ message: "Post not found" });
   }
@@ -120,11 +118,6 @@ const deletePost = catchAsyncError(async (req, res, next) => {
   return res.status(200).json({ message: "Post has been deleted" });
 });
 
-const uploadPhoto = catchAsyncError(async (req, res, next) => {
-  const result = imagekit.getAuthenticationParameters();
-  res.json(result);
-});
-
 const updatePost = catchAsyncError(async (req, res, next) => {
   const clerkUserId = req.auth.userId;
   const postId = req.params.postId;
@@ -161,6 +154,10 @@ const updatePost = catchAsyncError(async (req, res, next) => {
   });
 });
 
+const uploadPhoto = catchAsyncError(async (req, res, next) => {
+  const {} = req.body;
+});
+
 const getCategories = catchAsyncError(async (req, res, next) => {
   const categories = await Post.distinct("category");
 
@@ -175,7 +172,6 @@ export default {
   getPost,
   createPost,
   deletePost,
-  uploadPhoto,
   updatePost,
   getCategories,
 };

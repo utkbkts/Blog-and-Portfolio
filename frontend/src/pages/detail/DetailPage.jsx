@@ -50,12 +50,14 @@ const DetailPage = () => {
         </div>
       </div>
       {/* content */}
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8 justify-between">
         <div className="lg:text-lg flex flex-col gap-6 text-slate-300">
           <div dangerouslySetInnerHTML={{ __html: data?.content }} />
         </div>
         {/* menu */}
-        <Sidebar post={data} />
+        <div>
+          <Sidebar post={data} />
+        </div>
       </div>
       <Comments postId={id} title={title} />
     </div>

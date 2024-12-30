@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "../../../ui/Button";
-import { getDateLocal } from "../../../helpers/helpers";
+import { generateSlug, getDateLocal } from "../../../helpers/helpers";
 
 const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
   return (
@@ -23,7 +23,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
         </div>
         {/* Title */}
         <Link
-          to={`/blog/${mainBlog?._id}`}
+          to={`/${generateSlug(mainBlog?.title)}/${mainBlog?._id}`}
           className="text-xl lg:text-3xl font-bold text-gray-800 hover:text-blue-500 transition-colors duration-200 sm:text-left text-center"
         >
           {mainBlog?.title}
@@ -55,18 +55,20 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
               {/* Title */}
               <Link
                 className="font-medium text-gray-800 hover:text-blue-500 transition-colors duration-200"
-                to={`/blog/${sideBlog?._id}`}
+                to={`/${generateSlug(sideBlog?.title)}/${sideBlog?._id}`}
               >
                 {sideBlog?.title}
               </Link>
               <p className="text-slate-300">{sideBlog?.desc}</p>
-              <Button
-                className={
-                  "w-1/3 hover:bg-opacity-60 transition-all duration-300 mt-auto"
-                }
-              >
-                Read More
-              </Button>
+              <Link to={`/${generateSlug(sideBlog?.title)}/${sideBlog?._id}`}>
+                <Button
+                  className={
+                    "w-1/3 hover:bg-opacity-60 transition-all duration-300 mt-auto"
+                  }
+                >
+                  Read More
+                </Button>
+              </Link>
             </div>
           </div>
         ))}

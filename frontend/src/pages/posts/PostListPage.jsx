@@ -20,7 +20,7 @@ const fetchPosts = async (pageParams) => {
 const PostListPage = () => {
   const [open, setOpen] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams] = useSearchParams();
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
     queryKey: ["posts", searchParams.toString()],
     queryFn: ({ pageParam = 1 }) => fetchPosts(pageParam, searchParams),
