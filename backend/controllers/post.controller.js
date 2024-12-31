@@ -125,18 +125,14 @@ const getPosts = catchAsyncError(async (req, res) => {
 
 const getPost = catchAsyncError(async (req, res) => {
   const { title, id } = req.params;
-  const post = await Post.findOne({ title, _id: id }).populate("user");
+  const post = await Post.findOne({
+    title: generateSlug(title),
+    _id: id,
+  }).populate("user");
+  console.log("🚀 ~ getPost ~ post:", generateSlug(title));
+
   if (!post) {
     return res.status(404).json({ message: "Post not found" });
-  }
-
-  if (generateSlug(post.title) !== title) {
-    return res.status(400).json({
-      success: false,
-      message: `Title slug does not match. Expected: ${generateSlug(
-        post.title
-      )}, Got: ${title}`,
-    });
   }
 
   return res.status(200).json(post);

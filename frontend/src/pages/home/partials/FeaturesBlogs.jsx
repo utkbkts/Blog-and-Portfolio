@@ -35,15 +35,15 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
         >
           {mainBlog?.title}
         </Link>
-        <p className="text-slate-300">{mainBlog?.desc}</p>
+        <p className="text-slate-300">{mainBlog?.desc.slice(0, 200)}</p>
       </div>
 
       {/* Other Blogs */}
-      <div className="w-full lg:w-1/2 flex flex-col gap-8">
+      <div className="w-full lg:w-1/2 flex flex-col gap-8 h-[550px]">
         {sideBlogs?.map((sideBlog, index) => (
           <div
             key={sideBlog?._id}
-            className="flex gap-4 overflow-hidden rounded-xl"
+            className="flex gap-4 overflow-hidden rounded-xl "
           >
             <img
               src={sideBlog?.img?.url}
@@ -75,7 +75,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
               >
                 {sideBlog?.title}
               </Link>
-              <p className="text-slate-300">{sideBlog?.desc}</p>
+              <p className="text-slate-300">{sideBlog?.desc.slice(0, 200)}</p>
               <Link to={`/${generateSlug(sideBlog?.title)}/${sideBlog?._id}`}>
                 <Button
                   className={

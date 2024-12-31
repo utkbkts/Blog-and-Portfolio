@@ -5,6 +5,8 @@ import Loading from "../components/Loading";
 import PostListPage from "../pages/posts/PostListPage";
 import TrendingBlogs from "../pages/trendingBlogs/TrendingBlogs";
 import TrendingProjects from "../pages/trendingProjects/TrendingProjects";
+import Contact from "../pages/contact/Contact";
+import About from "../pages/about/About";
 
 const HomePage = React.lazy(() => import("../pages/home/HomePage"));
 const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
@@ -70,6 +72,22 @@ export const MainRoutes = {
       element: (
         <Suspense fallback={<Loading />}>
           <TrendingBlogs />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/about",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <About />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/contact",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <Contact />
         </Suspense>
       ),
     },

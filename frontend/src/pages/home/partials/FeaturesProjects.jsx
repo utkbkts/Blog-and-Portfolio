@@ -30,7 +30,7 @@ const FeaturesProjects = ({ post }) => {
           </span>
         </div>
         <h1 className="font-bold text-3xl">{post?.title}</h1>
-        <p className="text-slate-300">{post?.desc}</p>
+        <p className="text-slate-300">{post?.desc.slice(0, 500)}...</p>
         <Link to={`/${generateSlug(post?.title)}/${post?._id}`}>
           <Button
             className={
