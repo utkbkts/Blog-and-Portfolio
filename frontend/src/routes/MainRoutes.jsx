@@ -2,17 +2,19 @@ import React, { Suspense } from "react";
 import NotFound from "../components/NotFound";
 import MainLayouts from "../layouts/MainLayouts";
 import Loading from "../components/Loading";
-import PostListPage from "../pages/posts/PostListPage";
-import TrendingBlogs from "../pages/trendingBlogs/TrendingBlogs";
-import TrendingProjects from "../pages/trendingProjects/TrendingProjects";
-import Contact from "../pages/contact/Contact";
-import About from "../pages/about/About";
-
 const HomePage = React.lazy(() => import("../pages/home/HomePage"));
 const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
 const RegisterPage = React.lazy(() => import("../pages/auth/RegisterPage"));
-
 const DetailPage = React.lazy(() => import("../pages/detail/DetailPage"));
+const PostListPage = React.lazy(() => import("../pages/posts/PostListPage"));
+const TrendingBlogs = React.lazy(() =>
+  import("../pages/trendingBlogs/TrendingBlogs")
+);
+const TrendingProjects = React.lazy(() =>
+  import("../pages/trendingProjects/TrendingProjects")
+);
+const Contact = React.lazy(() => import("../pages/contact/Contact"));
+const About = React.lazy(() => import("../pages/about/About"));
 
 export const MainRoutes = {
   path: "/",
