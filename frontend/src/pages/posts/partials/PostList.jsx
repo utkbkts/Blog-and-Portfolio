@@ -31,10 +31,15 @@ const PostList = ({ post }) => {
             {post?.user?.username}
           </Link>
           <span>on</span>
-          <Link className="text-blue-400">{post?.category}</Link>
+          <Link
+            to={`/postList?category=${post?.category}`}
+            className="text-blue-400"
+          >
+            {post?.category}
+          </Link>
           <span>{getDateLocal(post?.createdAt)}</span>
         </div>
-        <p>{post.desc}</p>
+        <p>{post?.desc}</p>
         <Link to={`/${generateSlug(post?.title)}/${post?._id}`}>
           <Button
             className={

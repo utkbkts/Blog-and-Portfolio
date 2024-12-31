@@ -30,6 +30,7 @@ const HomePage = () => {
     queryFn: () => fetchCategory({ category, page, search }),
   });
   if (error) return <p>Error: {error.message}</p>;
+  console.log("🚀 ~ HomePage ~ data:", data);
 
   const mainBlog = data?.blogPosts[0];
   const sideBlogs = data?.blogPosts?.slice(1, 4);
@@ -69,8 +70,8 @@ const HomePage = () => {
           ))
         )}
         <PaginationPage
-          resPerPage={data?.resPerPage}
-          filteredProductsCount={data?.projectPosts?.length}
+          resPerPage={3}
+          filteredProductsCount={data?.projectPostsCount}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />

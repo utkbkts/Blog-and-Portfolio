@@ -33,30 +33,6 @@ const MainCategories = () => {
           </>
         ))}
       </div>
-      <span className="text-xl font-medium">|</span>
-      {/* Search */}
-      <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-5 h-5 text-gray-600"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
-        <input
-          type="text"
-          name="search"
-          id="search"
-          placeholder="Search and Press Enter"
-          className="bg-transparent focus:outline-none w-full text-sm"
-        />
-      </div>
     </div>
   );
 };

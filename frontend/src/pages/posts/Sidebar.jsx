@@ -1,43 +1,5 @@
-import { Link } from "react-router-dom";
 import SearchPage from "../../components/search/Search";
-const MenuLinks = [
-  {
-    url: "/",
-    label: "All",
-  },
-  {
-    url: "/posts?cat=database",
-    label: "Database",
-  },
-  {
-    url: "/posts?cat=react",
-    label: "React.JS",
-  },
-  {
-    url: "/posts?cat=nodejs",
-    label: "Node.JS",
-  },
-  {
-    url: "/posts?cat=javascript",
-    label: "Javascript",
-  },
-  {
-    url: "/posts?cat=typescript",
-    label: "Typescript",
-  },
-  {
-    url: "/posts?cat=go",
-    label: "Go",
-  },
-  {
-    url: "/posts?cat=python",
-    label: "Python",
-  },
-  {
-    url: "/posts?cat=cyber-security",
-    label: "Cyber Security",
-  },
-];
+import Categories from "../detail/partials/Categories";
 
 const sortLinks = [
   {
@@ -82,12 +44,8 @@ const Sidebar = () => {
       </div>
       <h1 className="mb-1 text-xl mt-4 font-medium">Categories</h1>
       <hr className="mb-4" />
-      <div className="flex flex-col gap-2 text-sm">
-        {MenuLinks.map((item, index) => (
-          <Link key={index} className="underline" to={item.url}>
-            {item.label}
-          </Link>
-        ))}
+      <div className="flex flex-col items-start gap-2 text-sm">
+        <Categories />
       </div>
     </div>
   );

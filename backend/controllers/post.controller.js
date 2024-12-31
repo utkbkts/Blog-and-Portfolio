@@ -18,42 +18,106 @@ const findUserByClerkId = async (clerkUserId) => {
 
 const getPosts = catchAsyncError(async (req, res) => {
   const resPerPage = 5;
-  const postsCount = await Post.countDocuments();
+  const currentPage = Number(req.query.page) || 1;
+  const skip = resPerPage * (currentPage - 1);
 
-  const apiFeatures = new apiFilter(Post.find({}), req.query)
+  const apiFeatures = new apiFilter(Post.find(), req.query)
     .searchResults()
     .filters();
 
-  let posts = await apiFeatures.query;
-  let filteredProductsCount = posts.length;
+  const filteredPostsCount = await apiFeatures.query.clone().countDocuments();
 
   apiFeatures.pagination(resPerPage);
-  posts = await apiFeatures.query
-    .clone()
-    .populate("user")
-    .sort({ createdAt: -1 });
 
-  //blogs
-  const blogPostsFilter = await Post.find({ categoryHeader: "Blog" })
+  const posts = await apiFeatures.query
     .populate("user")
     .sort({ createdAt: -1 });
-  //Project
-  const projectPostsFilter = await Post.find({
-    categoryHeader: "Project",
-  })
-    .populate("user")
-    .sort({ createdAt: -1 });
+  const pipeline = [
+    {
+      $facet: {
+        posts: [
+          { $match: {} },
+          { $sort: { createdAt: -1 } },
+          { $skip: skip },
+          { $limit: resPerPage },
+          {
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          {
+            $unwind: {
+              path: "$user",
+              preserveNullAndEmptyArrays: true,
+            },
+          },
+        ],
+        blogPosts: [
+          { $match: { categoryHeader: "Blog" } },
+          { $sort: { createdAt: -1 } },
+          { $skip: skip },
+          { $limit: resPerPage },
+          {
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          {
+            $unwind: {
+              path: "$user",
+              preserveNullAndEmptyArrays: true,
+            },
+          },
+        ],
+        projectPosts: [
+          { $match: { categoryHeader: "Project" } },
+          { $sort: { createdAt: -1 } },
+          { $skip: skip },
+          { $limit: resPerPage },
+          {
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          {
+            $unwind: {
+              path: "$user",
+              preserveNullAndEmptyArrays: true,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $addFields: {
+        postsCount: { $size: "$posts" },
+        blogPostsCount: { $size: "$blogPosts" },
+        projectPostsCount: { $size: "$projectPosts" },
+      },
+    },
+  ];
+
+  const results = await Post.aggregate(pipeline);
+  const data = results[0];
 
   return res.status(200).json({
     success: true,
-    postsCount,
+    ...data,
     resPerPage,
-    filteredProductsCount,
     posts,
-    blogPosts: blogPostsFilter,
-    projectPosts: projectPostsFilter,
+    filteredPostsCount,
   });
 });
+
 const getPost = catchAsyncError(async (req, res) => {
   const { title, id } = req.params;
   const post = await Post.findOne({ title, _id: id }).populate("user");

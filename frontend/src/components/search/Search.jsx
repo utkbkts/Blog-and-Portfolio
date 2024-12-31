@@ -17,6 +17,7 @@ const SearchPage = () => {
   const search = searchParams.get("search") || "";
   const [query, setQuery] = useState(search);
   const debounced = useDebounce(query, 300);
+  const [isModalOpen, setModalOpen] = useState(false); // Modal durumu için state
 
   const { data, isError, error } = useQuery({
     queryKey: ["posts", debounced],
@@ -25,6 +26,12 @@ const SearchPage = () => {
 
   const handleSelect = (item) => {
     navigate(`/postList?search=${item.title}`);
+    setModalOpen(false); // Modalı kapat
+  };
+
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+    setModalOpen(true); // Arama yapıldığında modalı aç
   };
 
   if (isError) return <p>Error: {error.message}</p>;
@@ -48,9 +55,9 @@ const SearchPage = () => {
         placeholder="Search Title and Press Enter"
         className="bg-transparent outline-none text-white border-b"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={handleInputChange}
       />
-      {query.length > 0 && (
+      {isModalOpen && query.length > 0 && (
         <div className="absolute top-16 flex flex-col gap-4 w-[200px] bg-white rounded-md h-[200px] overflow-y-auto text-black">
           {data?.posts?.length > 0 ? (
             data?.posts?.map((item) => (

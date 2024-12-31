@@ -1,7 +1,6 @@
 import { FaEdit, FaLinkedin, FaTrash } from "react-icons/fa";
 import { FaGithubSquare } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import SearchPage from "../../../components/search/Search";
 import { Heart } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../../../utils/axios";
@@ -9,9 +8,11 @@ import { useAuth } from "@clerk/clerk-react";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
+import Categories from "./Categories";
 
 const Sidebar = ({ post }) => {
   const { getToken } = useAuth();
+
   const [isLiked, setIsLiked] = useState(post.liked || false);
   const navigate = useNavigate();
   //likedPost
@@ -64,10 +65,10 @@ const Sidebar = ({ post }) => {
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center flex-col text-center gap-2">
           <img
-            src={"/featured1.jpeg"}
+            src={post?.user?.img || "/avatar.png"}
             className="w-12 h-12 rounded-full object-cover"
           />
-          <Link className="text-white">utku toygun bektasoglu</Link>
+          <Link className="text-white">{post?.user?.username}</Link>
         </div>
         <div className="flex gap-2">
           <Link>
@@ -79,14 +80,18 @@ const Sidebar = ({ post }) => {
         </div>
       </div>
       <div className="flex flex-col items-center gap-2 pt-4">
-        <FaTrash size={20} className="text-red-600" />{" "}
-        <span className="text-white cursor-pointer">Delete Post</span>
-        <FaEdit
-          onClick={() => mutationUpdate.mutate()}
-          size={25}
-          className="text-blue-600 pb-1 cursor-pointer"
-        />
-        <span className="text-white">Edit Post</span>
+        {post?.user?.role === "admin" && (
+          <>
+            <FaTrash size={20} className="text-red-600" />
+            <span className="text-white cursor-pointer">Delete Post</span>
+            <FaEdit
+              onClick={() => mutationUpdate.mutate()}
+              size={25}
+              className="text-blue-600 pb-1 cursor-pointer"
+            />
+            <span className="text-white">Edit Post</span>
+          </>
+        )}
         {isLiked ? (
           <Heart
             onClick={() => mutationLiked.mutate()}
@@ -105,26 +110,8 @@ const Sidebar = ({ post }) => {
       <h1 className="mt-8 mb-4 text-center  font-medium text-xl text-white">
         Categories
       </h1>
-      <div className="flex flex-col items-center gap-2 text-sm text-blue-400">
-        <Link className="underline">All</Link>
-        <Link className="underline" to="/">
-          Web Design
-        </Link>
-        <Link className="underline" to="/">
-          Development
-        </Link>
-        <Link className="underline" to="/">
-          Databases
-        </Link>
-        <Link className="underline" to="/">
-          Search Engines
-        </Link>
-        <Link className="underline" to="/">
-          Marketing
-        </Link>
-      </div>
-      <div className="pt-8">
-        <SearchPage />
+      <div className="flex flex-col items-center text-center gap-2 text-sm text-blue-400">
+        <Categories />
       </div>
     </div>
   );

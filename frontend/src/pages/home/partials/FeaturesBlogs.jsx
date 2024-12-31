@@ -3,6 +3,7 @@ import Button from "../../../ui/Button";
 import { generateSlug, getDateLocal } from "../../../helpers/helpers";
 
 const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
+  console.log("🚀 ~ FeaturesBlogs ~ mainBlog:", mainBlog);
   return (
     <div className="flex flex-col lg:flex-row gap-12 px-4 lg:px-12">
       {/* First Section - Main Blog */}
