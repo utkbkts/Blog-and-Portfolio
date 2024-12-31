@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getDateLocal } from "../../helpers/helpers";
 import Loading from "../../components/Loading";
+import { useUser } from "@clerk/clerk-react";
 
 const fetchDetails = async (title, id) => {
   const res = await axiosInstance.get(`/posts/${title}/${id}`);
@@ -14,7 +15,7 @@ const fetchDetails = async (title, id) => {
 
 const DetailPage = () => {
   const { title, id } = useParams();
-
+  const { user } = useUser();
   const { isPending, error, data } = useQuery({
     queryKey: ["details", title, id],
     queryFn: () => fetchDetails(title, id),
@@ -63,7 +64,14 @@ const DetailPage = () => {
           <Sidebar post={data} />
         </div>
       </div>
-      <Comments postId={id} title={title} />
+      {user ? (
+        <Comments postId={id} title={title} />
+      ) : (
+        <h1 className="text-center text-white text-2xl font-bold pt-12">
+          <hr />
+          Log in now to comment
+        </h1>
+      )}
     </div>
   );
 };

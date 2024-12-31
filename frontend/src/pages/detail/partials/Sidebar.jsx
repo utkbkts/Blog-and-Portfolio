@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../../../utils/axios";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
@@ -12,6 +12,7 @@ import Categories from "./Categories";
 
 const Sidebar = ({ post }) => {
   const { getToken } = useAuth();
+  const { user } = useUser();
 
   const [isLiked, setIsLiked] = useState(post.liked || false);
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ const Sidebar = ({ post }) => {
         </div>
       </div>
       <div className="flex flex-col items-center gap-2 pt-4">
-        {post?.user?.role === "admin" && (
+        {user?.publicMetadata.role === "admin" && (
           <>
             <FaTrash size={20} className="text-red-600" />
             <span className="text-white cursor-pointer">Delete Post</span>
