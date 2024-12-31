@@ -5,7 +5,6 @@ import User from "../models/user.model.js";
 import dotenv from "dotenv";
 import apiFilter from "../utils/apiFilters.js";
 import { generateSlug } from "../utils/generateSlug.js";
-import { upload_file } from "../utils/cloudinary.js";
 dotenv.config();
 
 const findUserByClerkId = async (clerkUserId) => {
@@ -21,17 +20,21 @@ const getPosts = catchAsyncError(async (req, res) => {
   const currentPage = Number(req.query.page) || 1;
   const skip = resPerPage * (currentPage - 1);
 
-  const apiFeatures = new apiFilter(Post.find(), req.query)
-    .searchResults()
-    .filters();
+  // apiFilter kullanarak arama, filtreleme ve sıralama işlemlerini yapıyoruz
+  const apiFeatures = new apiFilter(Post, req.query)
+    .searchResults() // Arama işlemi
+    .filters(); // Filtreleme işlemi
 
+  // Toplam döküman sayısını hesapla
   const filteredPostsCount = await apiFeatures.query.clone().countDocuments();
 
+  // Pagination işlemi
   apiFeatures.pagination(resPerPage);
 
-  const posts = await apiFeatures.query
-    .populate("user")
-    .sort({ createdAt: -1 });
+  // Burada artık sıralama yapmıyoruz, çünkü aggregate içerisinde sıralama yapılacak
+  const posts = await apiFeatures.query.populate("user");
+
+  // Aggregate pipeline'ı oluşturuyoruz
   const pipeline = [
     {
       $facet: {
@@ -106,9 +109,11 @@ const getPosts = catchAsyncError(async (req, res) => {
     },
   ];
 
+  // Aggregate pipeline ile veri al
   const results = await Post.aggregate(pipeline);
   const data = results[0];
 
+  // Response gönderiyoruz
   return res.status(200).json({
     success: true,
     ...data,
@@ -121,7 +126,6 @@ const getPosts = catchAsyncError(async (req, res) => {
 const getPost = catchAsyncError(async (req, res) => {
   const { title, id } = req.params;
   const post = await Post.findOne({ title, _id: id }).populate("user");
-  console.log("🚀 ~ getPost ~ post:", title);
   if (!post) {
     return res.status(404).json({ message: "Post not found" });
   }

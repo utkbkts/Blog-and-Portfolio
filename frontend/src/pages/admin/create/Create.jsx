@@ -19,20 +19,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Upload from "../../../components/upload/Upload";
 
 const categoryHeader = [
-  { value: "blog", label: "Blog" },
-  { value: "project", label: "Project" },
+  { value: "Blog", label: "Blog" },
+  { value: "Project", label: "Project" },
 ];
 const optionsCategory = [
-  { value: "database", label: "Database" },
-  { value: "react", label: "React.JS" },
-  { value: "nodejs", label: "Node.JS" },
-  { value: "javascript", label: "Javascript" },
-  { value: "typescript", label: "Typescript" },
-  { value: "go", label: "Go" },
-  { value: "python", label: "Python" },
-  { value: "cyber-security", label: "Cyber Security" },
-  { value: "software", label: "Software" },
-  { value: "english", label: "English" },
+  { value: "Database", label: "Database" },
+  { value: "React.JS", label: "React.JS" },
+  { value: "Node.JS", label: "Node.JS" },
+  { value: "Javascript", label: "Javascript" },
+  { value: "Typescript", label: "Typescript" },
+  { value: "Go", label: "Go" },
+  { value: "Python", label: "Python" },
+  { value: "Cyber Security", label: "Cyber Security" },
+  { value: "Software", label: "Software" },
+  { value: "English", label: "English" },
 ];
 
 const AdminCreate = () => {
@@ -56,18 +56,19 @@ const AdminCreate = () => {
   useEffect(() => {
     if (existingPost) {
       reset({
-        title: existingPost.title,
-        desc: existingPost.desc,
-        category: existingPost.category,
-        categoryHeader: existingPost.categoryHeader,
-        content: existingPost.content,
-        img: existingPost.img,
+        title: existingPost?.title,
+        desc: existingPost?.desc,
+        category: existingPost?.category,
+        categoryHeader: existingPost?.categoryHeader,
+        content: existingPost?.content,
+        img: existingPost?.img,
       });
     }
   }, [existingPost, reset]);
   //image and video
   const image = watch("image");
   const video = watch("video");
+  const contentHtml = watch("content");
   useEffect(() => {
     if (image && image.url) {
       const currentContent = watch("content") || "";
@@ -99,9 +100,6 @@ const AdminCreate = () => {
 
   const onSubmit = (data) => {
     mutation.mutate(data, {
-      onError: (error) => {
-        toast.error(`Error: ${error.message}`);
-      },
       onSuccess: () => {
         toast.success(
           existingPost
@@ -161,7 +159,7 @@ const AdminCreate = () => {
         </Upload>
         {existingPost?.img && (
           <img
-            src={existingPost?.img}
+            src={existingPost?.img?.url}
             alt="image"
             className="w-[350px] h-[350px] object-cover"
           />
@@ -229,6 +227,12 @@ const AdminCreate = () => {
           {existingPost ? "Update" : "Create"}
         </Button>
       </form>
+      <div className="lg:text-lg flex flex-col  text-slate-300">
+        <div
+          className="px-4"
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
+      </div>
     </div>
   );
 };

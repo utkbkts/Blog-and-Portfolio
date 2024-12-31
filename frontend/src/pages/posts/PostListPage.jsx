@@ -8,35 +8,29 @@ import { useSearchParams } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axiosInstance from "../../utils/axios";
 
-const fetchPosts = async (page, search, { category }) => {
+const fetchPosts = async ({ page, category, search }) => {
   const res = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/posts`, {
     params: {
-      page, // Now just pass `page` directly
       search,
+      page,
       category,
     },
   });
-  console.log("🚀 ~ fetchPosts ~ category:", category, "search:", search);
-
   return res.data;
 };
 
 const PostListPage = () => {
   const [open, setOpen] = useState(false);
-  let [searchParams] = useSearchParams();
-  const search = searchParams.get("search") || "";
-  const category = searchParams.get("category") || "";
-  const page = parseInt(searchParams.get("page") || "1", 10);
-  const params = { page, search };
-  category !== null && (params.category = category);
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search");
+  const category = searchParams.get("category");
 
   const { data, fetchNextPage, hasNextPage, status, error } = useInfiniteQuery({
-    queryKey: ["posts", search, category, page],
-    queryFn: () => fetchPosts(page, search, { category }),
-    initialPageParam: 1,
+    queryKey: ["posts", category, search],
+    queryFn: ({ pageParam = 1 }) =>
+      fetchPosts({ page: pageParam, search, category }),
     getNextPageParam: (lastPage, pages) =>
       lastPage.hasMore ? pages.length + 1 : undefined,
-    refetchOnWindowFocus: false,
   });
 
   const allPosts = data?.pages?.flatMap((page) => page.posts) || [];
@@ -65,7 +59,7 @@ const PostListPage = () => {
             hasMore={!!hasNextPage}
             loader={<h4>Loading more posts...</h4>}
             endMessage={
-              <p className="text-white">
+              <p className="text-white text-center">
                 <b>All posts loaded!</b>
               </p>
             }

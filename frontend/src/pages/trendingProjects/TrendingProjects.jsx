@@ -7,7 +7,6 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const fetchPosts = async ({ page }) => {
-  console.log("🚀 ~ fetchPosts ~ page:", page);
   const res = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/posts`, {
     params: {
       page,
@@ -26,7 +25,6 @@ const TrendingProjects = () => {
     queryFn: () => fetchPosts({ page }),
     keepPreviousData: true,
   });
-  console.log("🚀 ~ TrendingProjects ~ data:", data);
 
   if (status === "error") return "Something went wrong !!";
   return (

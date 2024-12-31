@@ -1,37 +1,42 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../utils/use-debounce";
 import axiosInstance from "../../utils/axios";
 import { useQuery } from "@tanstack/react-query";
 
-const fetchPosts = async (search) => {
+const fetchPosts = async (search, page) => {
+  if (!search) return {};
   const res = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/posts`, {
-    params: { search },
+    params: { page, search },
   });
   return res.data;
 };
 
 const SearchPage = () => {
   const navigate = useNavigate();
-  let [searchParams] = useSearchParams();
-  const search = searchParams.get("search") || "";
-  const [query, setQuery] = useState(search);
+  const [query, setQuery] = useState("");
   const debounced = useDebounce(query, 300);
-  const [isModalOpen, setModalOpen] = useState(false); // Modal durumu için state
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const { data, isError, error } = useQuery({
     queryKey: ["posts", debounced],
-    queryFn: () => fetchPosts(debounced),
+    queryFn: () => fetchPosts(debounced, 1),
   });
 
   const handleSelect = (item) => {
-    navigate(`/postList?search=${item.title}`);
-    setModalOpen(false); // Modalı kapat
+    if (debounced) {
+      navigate(`/postList?search=${encodeURIComponent(item.title)}`);
+      setQuery("");
+      setModalOpen(false);
+    } else {
+      navigate("/");
+    }
   };
 
   const handleInputChange = (e) => {
-    setQuery(e.target.value);
-    setModalOpen(true); // Arama yapıldığında modalı aç
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    setModalOpen(true);
   };
 
   if (isError) return <p>Error: {error.message}</p>;
@@ -55,15 +60,15 @@ const SearchPage = () => {
         placeholder="Search Title and Press Enter"
         className="bg-transparent outline-none text-white border-b"
         value={query}
-        onChange={handleInputChange}
+        onChange={handleInputChange} // Trigger search on input change
       />
       {isModalOpen && query.length > 0 && (
         <div className="absolute top-16 flex flex-col gap-4 w-[200px] bg-white rounded-md h-[200px] overflow-y-auto text-black">
           {data?.posts?.length > 0 ? (
-            data?.posts?.map((item) => (
+            data.posts.map((item) => (
               <div
                 key={item._id}
-                onClick={() => handleSelect(item)}
+                onClick={() => handleSelect(item)} // Select item from list
                 className="p-2 cursor-pointer hover:bg-slate-400 rounded-md"
               >
                 <h3>{item.title}</h3>

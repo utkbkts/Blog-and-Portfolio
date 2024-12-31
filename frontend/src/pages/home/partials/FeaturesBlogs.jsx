@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import Button from "../../../ui/Button";
 import { generateSlug, getDateLocal } from "../../../helpers/helpers";
-
+import { Heart } from "lucide-react";
 const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
-  console.log("🚀 ~ FeaturesBlogs ~ mainBlog:", mainBlog);
   return (
     <div className="flex flex-col lg:flex-row gap-12 px-4 lg:px-12">
       {/* First Section - Main Blog */}
@@ -14,7 +13,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
           src={mainBlog?.img?.url}
         />
         {/* Details */}
-        <div className="flex items-center gap-4 text-sm text-gray-500 flex-wrap sm:justify-start justify-center">
+        <div className="flex items-center gap-2 text-sm text-gray-500 flex-wrap sm:justify-start justify-center">
           <h1 className="font-semibold text-gray-700 text-lg">01.</h1>
           <Link
             to={`/postList?category=${mainBlog?.category}`}
@@ -24,6 +23,10 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
           </Link>
           <span>{getDateLocal(mainBlog?.createdAt)}</span>
           <span>By {mainBlog?.user?.username}</span>
+          <span className="flex items-center gap-1">
+            <Heart size={15} />
+            <span>({mainBlog?.likedCount ? mainBlog?.likedCount : 0})</span>
+          </span>
         </div>
         {/* Title */}
         <Link
@@ -58,6 +61,12 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
                   {sideBlog?.category}
                 </Link>
                 <span>{getDateLocal(sideBlog?.createdAt)}</span>
+                <span className="flex items-center gap-1">
+                  <Heart size={15} />
+                  <span>
+                    ({sideBlog?.likedCount ? sideBlog?.likedCount : 0})
+                  </span>
+                </span>
               </div>
               {/* Title */}
               <Link

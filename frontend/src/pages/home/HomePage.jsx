@@ -30,7 +30,6 @@ const HomePage = () => {
     queryFn: () => fetchCategory({ category, page, search }),
   });
   if (error) return <p>Error: {error.message}</p>;
-  console.log("🚀 ~ HomePage ~ data:", data);
 
   const mainBlog = data?.blogPosts[0];
   const sideBlogs = data?.blogPosts?.slice(1, 4);

@@ -10,8 +10,6 @@ class apiFilter {
           title: { $regex: this.queryStr.search, $options: "i" },
         }
       : {};
-    console.log("🚀 ~ apiFilter ~ searchResults ~ search:", search);
-
     this.query = this.query.find({ ...search });
     return this;
   }
@@ -21,7 +19,6 @@ class apiFilter {
     const fieldsToRemove = ["search", "page"];
     fieldsToRemove.forEach((field) => delete queryCopy[field]);
     let queryStr = JSON.stringify(queryCopy);
-    console.log("🚀 ~ apiFilter ~ filters ~ queryStr:", queryStr);
     this.query = this.query.find(JSON.parse(queryStr));
     return this;
   }
