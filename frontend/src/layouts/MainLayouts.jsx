@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../components/footer/Footer";
 import Header from "../components/header/Header";
+import { FooterComponent } from "../components/footer/Footer";
 
 const MainLayouts = () => {
   return (
@@ -9,7 +9,7 @@ const MainLayouts = () => {
       <div className="flex-grow min-h-screen pt-32 container mx-auto p-10">
         <Outlet />
       </div>
-      <Footer />
+      <FooterComponent />
     </div>
   );
 };

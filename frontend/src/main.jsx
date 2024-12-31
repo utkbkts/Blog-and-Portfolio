@@ -24,6 +24,7 @@ createRoot(document.getElementById("root")).render(
           pauseOnHover={false}
           autoClose={2000}
         />
+
         <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider>
     </ClerkProvider>
