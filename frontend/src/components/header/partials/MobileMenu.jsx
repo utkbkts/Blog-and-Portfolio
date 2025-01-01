@@ -21,7 +21,7 @@ const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
           />
           <ul className="flex items-center flex-col gap-4 pt-28 text-[#fff]">
             {HeaderLinks.map((item, index) => (
-              <a key={index} className={item.className}>
+              <Link to={item.url} key={index} className={item.className}>
                 {item.name}
               </a>
             ))}
