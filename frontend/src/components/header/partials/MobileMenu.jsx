@@ -23,7 +23,7 @@ const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
             {HeaderLinks.map((item, index) => (
               <Link to={item.url} key={index} className={item.className}>
                 {item.name}
-              </a>
+              </Link>
             ))}
             <SignedOut>
               <Link to={"/login"}>
