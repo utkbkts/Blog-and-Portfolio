@@ -3,49 +3,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
    <url>
-      <loc>http://www.utkubektasoglu.com/</loc>
+      <loc>https://www.utkubektasoglu.com/</loc>
       <lastmod>2025-01-01</lastmod>
       <changefreq>monthly</changefreq>
       <priority>1.0</priority>
    </url>
 
    <url>
-      <loc>http://www.utkubektasoglu.com/login</loc>
+      <loc>https://www.utkubektasoglu.com/login</loc>
       <lastmod>2025-01-01</lastmod>
       <changefreq>never</changefreq>
       <priority>0.5</priority>
    </url>
 
    <url>
-      <loc>http://www.utkubektasoglu.com/register</loc>
+      <loc>https://www.utkubektasoglu.com/register</loc>
       <lastmod>2025-01-01</lastmod>
       <changefreq>never</changefreq>
       <priority>0.5</priority>
    </url>
 
    <url>
-      <loc>http://www.utkubektasoglu.com/trendingProjects</loc>
+      <loc>https://www.utkubektasoglu.com/trendingProjects</loc>
       <lastmod>2025-01-01</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>
 
    <url>
-      <loc>http://www.utkubektasoglu.com/trendingBlogs</loc>
+      <loc>https://www.utkubektasoglu.com/trendingBlogs</loc>
       <lastmod>2025-01-01</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>
 
    <url>
-      <loc>http://www.utkubektasoglu.com/about</loc>
+      <loc>https://www.utkubektasoglu.com/about</loc>
       <lastmod>2025-01-01</lastmod>
       <changefreq>never</changefreq>
       <priority>0.6</priority>
    </url>
 
    <url>
-      <loc>http://www.utkubektasoglu.com/contact</loc>
+      <loc>https://www.utkubektasoglu.com/contact</loc>
       <lastmod>2025-01-01</lastmod>
       <changefreq>never</changefreq>
       <priority>0.6</priority>
