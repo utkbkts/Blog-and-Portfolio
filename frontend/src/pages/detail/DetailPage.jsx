@@ -37,7 +37,7 @@ const DetailPage = () => {
             </span>
             <span>on</span>
             <Link
-              to={`/category?=${data?.category}`}
+              to={`/postList?category=${data?.category}`}
               className="text-blue-400 underline"
             >
               {data?.category}
