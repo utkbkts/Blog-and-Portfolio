@@ -1,18 +1,15 @@
 import React, { Suspense } from "react";
-import { AdminLoaders } from "../loaders/AdminLoaders";
-import NotFound from "../components/NotFound";
 import Loading from "../components/Loading";
+import AdminLayouts from "../layouts/AdminLayouts";
 
 const AdminDashboard = React.lazy(() =>
   import("../pages/admin/dashboard/Dashboard")
 );
 const AdminCreate = React.lazy(() => import("../pages/admin/create/Create"));
-const AdminLayouts = React.lazy(() => import("../layouts/AdminLayouts"));
+
 export const AdminRoutes = {
   path: "/admin",
   element: <AdminLayouts />,
-  errorElement: <NotFound />,
-  loader: () => AdminLoaders("admin"),
   children: [
     {
       path: "dashboard",

@@ -9,6 +9,7 @@ import PaginationPage from "../../components/pagination/Pagination";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import SkeletonText from "../../components/Skeleton";
+
 const fetchCategory = async ({ category, page, search }) => {
   const res = await axiosInstance.get("/posts", {
     params: { category, page, search },
