@@ -46,10 +46,13 @@ export const getDateLocal = (date) => {
 
 export const generateSlug = (input) => {
   if (typeof input !== "string") {
-    return "";
+    return ""; // Handle invalid input
   }
-  
-  let result = input.replace(/-/g, " ");
+
+  let decodedInput = decodeURIComponent(input);
+
+  let result = decodedInput.replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
+
   return result;
 };
 
