@@ -37,10 +37,10 @@ const DetailPage = () => {
             </span>
             <span>on</span>
             <Link
-              to={`/category?=${data?.categoryHeader}`}
+              to={`/category?=${data?.category}`}
               className="text-blue-400 underline"
             >
-              {data?.categoryHeader}
+              {data?.category}
             </Link>
             <span>{getDateLocal(data?.createdAt)}</span>
           </div>
