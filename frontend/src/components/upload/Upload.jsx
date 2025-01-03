@@ -1,28 +1,32 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { toast } from "react-toastify";
 
 const Upload = ({ setData, type, children }) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
 
+  const handleSetData = useCallback((info) => {
+    setData(info);
+  }, [setData]);
+
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
 
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
       {
-        cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME, // Çevresel değişken
-        uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET, // Çevresel değişken
+        cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+        uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET,
         resourceType: type,
         folder: "website",
       },
       (error, result) => {
         if (!error && result?.event === "success") {
-          toast.success("success image");
-          setData(result.info);
+          toast.success("Image uploaded successfully!");
+          handleSetData(result.info);
         }
       }
     );
-  }, [setData, type]);
+  }, [handleSetData, type]);
 
   return (
     <button
