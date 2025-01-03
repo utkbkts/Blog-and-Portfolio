@@ -29,6 +29,7 @@ const HomePage = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["blogs", { category, page, search }],
     queryFn: () => fetchCategory({ category, page, search }),
+    refetchOnWindowFocus: false,
   });
   if (error) return <p>Error: {error.message}</p>;
 

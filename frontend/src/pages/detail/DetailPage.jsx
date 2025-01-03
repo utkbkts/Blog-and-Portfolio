@@ -20,6 +20,7 @@ const DetailPage = () => {
     queryKey: ["details", title, id],
     queryFn: () => fetchDetails(title, id),
     retry: false,
+    refetchOnWindowFocus: false,
   });
   if (isPending) return <Loading />;
   if (error) return <p>Error: {error.message}</p>;

@@ -18,9 +18,10 @@ const SearchPage = () => {
   const debounced = useDebounce(query, 300);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const { data, isError, error } = useQuery({
+  const { data, isError, error, isLoading } = useQuery({
     queryKey: ["posts", debounced],
     queryFn: () => fetchPosts(debounced, 1),
+    refetchOnWindowFocus: false,
   });
 
   const handleSelect = (item) => {
@@ -74,6 +75,10 @@ const SearchPage = () => {
                 <h3>{item.title}</h3>
               </div>
             ))
+          ) : isLoading ? (
+            <div className="flex items-center flex-col justify-center h-full">
+              Loading...
+            </div>
           ) : (
             <p className="text-gray-500 flex items-center justify-center h-full">
               No results found

@@ -24,6 +24,7 @@ const TrendingBlogs = () => {
     queryKey: ["trendBlogs", page],
     queryFn: () => fetchPosts({ page }),
     keepPreviousData: true,
+    refetchOnWindowFocus: false,
   });
 
   if (status === "error") return "Something went wrong !!";

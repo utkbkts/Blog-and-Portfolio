@@ -12,6 +12,7 @@ const Categories = () => {
     queryKey: ["categories"],
     queryFn: () => fetchCategory(),
     retry: false,
+    refetchOnWindowFocus: false,
   });
   if (error) return <p>Error: {error.message}</p>;
 

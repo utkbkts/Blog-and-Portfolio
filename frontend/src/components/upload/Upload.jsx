@@ -1,13 +1,9 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
 const Upload = ({ setData, type, children }) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
-
-  const handleSetData = useCallback((info) => {
-    setData(info);
-  }, [setData]);
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
@@ -22,15 +18,15 @@ const Upload = ({ setData, type, children }) => {
       (error, result) => {
         if (!error && result?.event === "success") {
           toast.success("Image uploaded successfully!");
-          handleSetData(result.info);
+          setData(result.info);
         }
       }
     );
-  }, [handleSetData, type]);
+  }, []);
 
   return (
     <button
-      onClick={() => widgetRef.current.open()} // Widget'i aç
+      onClick={() => widgetRef.current.open()}
       className="upload-button"
       type="button"
     >

@@ -66,16 +66,18 @@ const AdminCreate = () => {
     }
   }, [existingPost, reset]);
   //image and video
-  const image = watch("image");
-  const video = watch("video");
   const contentHtml = watch("content");
+  const image = watch("image");
+  const img = watch("img");
+  const video = watch("video");
+
   useEffect(() => {
     if (image && image.url) {
       const currentContent = watch("content") || "";
       const updatedContent = `${currentContent}<p><img src="${image.url}" alt="Uploaded image" /></p>`;
       setValue("content", updatedContent);
     }
-  }, [image, setValue, watch]);
+  }, []);
 
   useEffect(() => {
     if (video) {
@@ -83,7 +85,7 @@ const AdminCreate = () => {
       const updatedContent = `${currentContent}<p><iframe class="ql-video" src="${video.url}"></iframe></p>`;
       setValue("content", updatedContent);
     }
-  }, [video, setValue, watch]);
+  }, []);
 
   // Create or Update Mutation
   const mutation = useMutation({
@@ -119,7 +121,7 @@ const AdminCreate = () => {
     });
   };
 
-  if (isLoaded) {
+  if (!isLoaded) {
     return <Loading />;
   }
 
@@ -157,13 +159,14 @@ const AdminCreate = () => {
             Add a cover image
           </Button>
         </Upload>
-        {existingPost?.img && (
-          <img
-            src={existingPost?.img?.url}
-            alt="image"
-            className="w-[350px] h-[350px] object-cover"
-          />
-        )}
+        {existingPost?.img ||
+          (img && (
+            <img
+              src={existingPost?.img?.url || img?.url}
+              alt="image"
+              className="w-[350px] h-[350px] object-cover"
+            />
+          ))}
         {errors.img && <p className="text-red-500">{errors.img.message}</p>}
 
         <Input
