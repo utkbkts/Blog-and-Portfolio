@@ -119,7 +119,7 @@ const AdminCreate = () => {
     });
   };
 
-  if (!isLoaded) {
+  if (isLoaded) {
     return <Loading />;
   }
 
