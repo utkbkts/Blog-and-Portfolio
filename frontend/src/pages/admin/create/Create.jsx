@@ -159,14 +159,14 @@ const AdminCreate = () => {
             Add a cover image
           </Button>
         </Upload>
-        {existingPost?.img ||
-          (img && (
-            <img
-              src={existingPost?.img?.url || img?.url}
-              alt="image"
-              className="w-[350px] h-[350px] object-cover"
-            />
-          ))}
+      {existingPost?.img?.url ||
+  (img?.url && (
+    <img
+      src={existingPost?.img?.url || img?.url}
+      alt="image"
+      className="w-[350px] h-[350px] object-cover"
+    />
+  ))}
         {errors.img && <p className="text-red-500">{errors.img.message}</p>}
 
         <Input
