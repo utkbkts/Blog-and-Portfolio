@@ -34,8 +34,8 @@ const Sidebar = ({ post }) => {
       toast.success(res.data.message);
       setIsLiked((prev) => !prev);
     },
-    onError: (error) => {
-      toast.error(error.message);
+    onError: () => {
+      toast.error("User Not Found");
     },
   });
 
@@ -55,9 +55,6 @@ const Sidebar = ({ post }) => {
     },
     onSuccess: () => {
       navigate(`/admin/create`, { state: { post } });
-    },
-    onError: (error) => {
-      toast.error(`Failed to update the post: ${error.message}`);
     },
   });
 

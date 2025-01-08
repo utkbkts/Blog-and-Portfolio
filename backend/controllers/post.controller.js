@@ -20,21 +20,14 @@ const getPosts = catchAsyncError(async (req, res) => {
   const currentPage = Number(req.query.page) || 1;
   const skip = resPerPage * (currentPage - 1);
 
-  // apiFilter kullanarak arama, filtreleme ve sıralama işlemlerini yapıyoruz
-  const apiFeatures = new apiFilter(Post, req.query)
-    .searchResults() // Arama işlemi
-    .filters(); // Filtreleme işlemi
+  const apiFeatures = new apiFilter(Post, req.query).searchResults().filters();
 
-  // Toplam döküman sayısını hesapla
   const filteredPostsCount = await apiFeatures.query.clone().countDocuments();
 
-  // Pagination işlemi
   apiFeatures.pagination(resPerPage);
 
-  // Burada artık sıralama yapmıyoruz, çünkü aggregate içerisinde sıralama yapılacak
   const posts = await apiFeatures.query.populate("user");
 
-  // Aggregate pipeline'ı oluşturuyoruz
   const pipeline = [
     {
       $facet: {
@@ -109,11 +102,9 @@ const getPosts = catchAsyncError(async (req, res) => {
     },
   ];
 
-  // Aggregate pipeline ile veri al
   const results = await Post.aggregate(pipeline);
   const data = results[0];
 
-  // Response gönderiyoruz
   return res.status(200).json({
     success: true,
     ...data,
@@ -129,7 +120,6 @@ const getPost = catchAsyncError(async (req, res) => {
     title: generateSlug(title),
     _id: id,
   }).populate("user");
-  console.log("🚀 ~ getPost ~ post:", generateSlug(title));
 
   if (!post) {
     return res.status(404).json({ message: "Post not found" });
