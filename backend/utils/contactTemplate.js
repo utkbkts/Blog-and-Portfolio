@@ -4,7 +4,7 @@ export const getContactHtmlTemplate = (email, message) => `
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lezzet Bahçesi</title>
+    <title>Hey Utku</title>
     <style type="text/css">
       body {
         width: 100% !important;
@@ -48,7 +48,7 @@ export const getContactHtmlTemplate = (email, message) => `
     <div class="container">
       <div class="email-content">
         <div class="email-header">
-          Lezzet Bahçesi Bir Mesajınız Var
+          Hey Utku !! You Have A New Message
         </div>
         <div class="email-body">
           <p><strong>Gönderen:</strong> ${email}</p>
@@ -56,7 +56,7 @@ export const getContactHtmlTemplate = (email, message) => `
           <p>${message}</p>
         </div>
         <div class="email-footer">
-          Bu mesaj Lezzet Bahçesi web sitesinden gönderildi.
+          This Message was sent www.utkubektasoglu.com 
         </div>
       </div>
     </div>

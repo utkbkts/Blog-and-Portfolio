@@ -1,7 +1,7 @@
-import catchAsyncError from "../middleware/catch.middleware.js";
 import { getContactHtmlTemplate } from "../utils/contactTemplate.js";
 import sendEmail from "../utils/sendEmail.js";
 import ErrorHandler from "../utils/handlerError.js";
+import { catchAsyncError } from "catchasyncerror";
 
 const contactSend = catchAsyncError(async (req, res, next) => {
   const { email, message, subject } = req.body;
