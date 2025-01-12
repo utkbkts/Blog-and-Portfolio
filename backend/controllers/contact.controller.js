@@ -11,10 +11,7 @@ const contactSend = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("All Fields Required", 400));
   }
 
-  if (token) {
-    await createAssessment(token);
-  }
-
+  await createAssessment(token);
   const messageHtml = getContactHtmlTemplate(email, message);
 
   try {
