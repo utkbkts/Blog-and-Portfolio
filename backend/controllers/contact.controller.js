@@ -2,7 +2,10 @@ import { getContactHtmlTemplate } from "../utils/contactTemplate.js";
 import sendEmail from "../utils/sendEmail.js";
 import ErrorHandler from "../utils/handlerError.js";
 import { catchAsyncError } from "catchasyncerror";
-import createAssessment from "../utils/googleRep.js";
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const contactSend = catchAsyncError(async (req, res, next) => {
   const { email, message, subject, token } = req.body;
@@ -11,10 +14,25 @@ const contactSend = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("All Fields Required", 400));
   }
 
-  await createAssessment(token);
   const messageHtml = getContactHtmlTemplate(email, message);
 
   try {
+    const googleVerifyUrl = `https://www.google.com/recaptcha/api/siteverify`;
+    const googleVerifyResponse = await axios.post(googleVerifyUrl, null, {
+      params: {
+        secret: process.env.SECRET_GOOGLE_KEY,
+        response: token,
+      },
+    });
+
+    const { success } = googleVerifyResponse.data;
+
+    if (!success) {
+      return res
+        .status(400)
+        .json({ error: "Invalid reCAPTCHA, please try again." });
+    }
+
     await sendEmail({
       email,
       subject,
@@ -26,7 +44,10 @@ const contactSend = catchAsyncError(async (req, res, next) => {
       message: `Email sent to ${email}`,
     });
   } catch (error) {
-    return next(new ErrorHandler(error.message, 500));
+    console.error("Error:", error);
+    return next(
+      new ErrorHandler("An error occurred while processing your request.", 500)
+    );
   }
 });
 

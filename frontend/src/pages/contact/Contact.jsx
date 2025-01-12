@@ -28,7 +28,7 @@ const listVariant = {
 };
 
 const Contact = () => {
-  const ref = useRef();
+  const ref = useRef(null);
   const isInView = useInView(ref, { margin: "-200px" });
   const [token, setToken] = useState("");
   const {
@@ -59,6 +59,7 @@ const Contact = () => {
 
   const onChange = (value) => {
     setToken(value);
+    ref.current.reset();
   };
 
   const onSubmit = (data) => {
@@ -127,6 +128,7 @@ const Contact = () => {
               <ReCAPTCHA
                 sitekey={import.meta.env.VITE_REACT_PUBLIC_GOOGLE_KEY}
                 onChange={onChange}
+                ref={ref}
               />
             </motion.div>
             <motion.div variants={listVariant} className="w-full">
