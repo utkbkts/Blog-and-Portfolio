@@ -4,7 +4,11 @@ import ErrorHandler from "../utils/handlerError.js";
 import { catchAsyncError } from "catchasyncerror";
 
 const contactSend = catchAsyncError(async (req, res, next) => {
-  const { email, message, subject } = req.body;
+  const { email, message, subject, token } = req.body;
+
+  if (!email || !message || !subject || !token) {
+    return next(new ErrorHandler("All Fields Required", 400));
+  }
 
   const messageHtml = getContactHtmlTemplate(email, message);
 
