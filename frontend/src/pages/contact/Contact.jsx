@@ -9,7 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { messageSendValidation } from "../../validation/sendMessage";
 import ContactSvg from "./partials/ContactSvg";
 import { useInView, motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const listVariant = {
   initial: {
@@ -29,9 +30,11 @@ const listVariant = {
 const Contact = () => {
   const ref = useRef();
   const isInView = useInView(ref, { margin: "-200px" });
+  const [token, setToken] = useState("");
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(messageSendValidation),
@@ -45,16 +48,25 @@ const Contact = () => {
     },
     onSuccess: () => {
       toast.success("Message sent successfully.");
+      setValue("email", "");
+      setValue("desc", "");
+      setValue("subject", "");
     },
     onError: () => {
       toast.error("Something went wrong !!");
     },
   });
+
+  const onChange = (value) => {
+    setToken(value);
+  };
+
   const onSubmit = (data) => {
     mutate({
       email: data.email,
       message: data.desc,
       subject: data.subject,
+      token,
     });
   };
   return (
@@ -109,6 +121,13 @@ const Contact = () => {
               {errors.desc && (
                 <p className="text-red-500">{errors.desc.message}</p>
               )}
+            </motion.div>
+            <motion.div variants={listVariant}>
+              {" "}
+              <ReCAPTCHA
+                sitekey={import.meta.env.VITE_REACT_PUBLIC_GOOGLE_KEY}
+                onChange={onChange}
+              />
             </motion.div>
             <motion.div variants={listVariant} className="w-full">
               <Button type="submit" loading={isPending} className={"w-full"}>
