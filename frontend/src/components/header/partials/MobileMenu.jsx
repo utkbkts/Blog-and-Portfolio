@@ -4,7 +4,6 @@ import { X } from "lucide-react";
 import { motion } from "framer-motion";
 import { HeaderLinks } from "./header-data";
 import Button from "../../../ui/Button";
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
   return (
     <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
@@ -25,14 +24,7 @@ const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
                 {item.name}
               </Link>
             ))}
-            <SignedOut>
-              <Link to={"/login"}>
-                <Button className={"bg-quaternary"}>Login🙌</Button>
-              </Link>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+            as
           </ul>
         </div>
       </motion.div>

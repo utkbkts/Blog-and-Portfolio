@@ -1,28 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../utils/use-debounce";
-import axiosInstance from "../../utils/axios";
-import { useQuery } from "@tanstack/react-query";
-
-const fetchPosts = async (search, page) => {
-  if (!search) return {};
-  const res = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/posts`, {
-    params: { page, search },
-  });
-  return res.data;
-};
 
 const SearchPage = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const debounced = useDebounce(query, 300);
   const [isModalOpen, setModalOpen] = useState(false);
-
-  const { data, isError, error, isLoading } = useQuery({
-    queryKey: ["posts", debounced],
-    queryFn: () => fetchPosts(debounced, 1),
-    refetchOnWindowFocus: false,
-  });
 
   const handleSelect = (item) => {
     if (debounced) {
@@ -39,9 +23,8 @@ const SearchPage = () => {
     setQuery(newQuery);
     setModalOpen(true);
   };
-
-  if (isError) return <p>Error: {error.message}</p>;
-
+  let data;
+  let isLoading;
   return (
     <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 relative">
       <svg

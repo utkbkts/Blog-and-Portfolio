@@ -4,19 +4,25 @@ import { HeaderLinks } from "./partials/header-data";
 import MobileMenu from "./partials/MobileMenu";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  SignedIn,
-  SignedOut,
-  useAuth,
-  UserButton,
-  useUser,
-} from "@clerk/clerk-react";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { useLogoutMutation } from "../../redux/api/authApi";
 
 const Header = () => {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(100);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user } = useUser();
+  const { user } = useSelector((state) => state.auth);
+  const [logout, { error, isSuccess, isError }] = useLogoutMutation();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.response.data.message);
+    }
+    if (isSuccess) {
+      toast.success("Logout is successfully !!");
+    }
+  }, [isSuccess, error, isError]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,10 +34,12 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
-  const { getToken } = useAuth();
-  useEffect(() => {
-    getToken();
-  }, []);
+
+  const handleLogout = async () => {
+    await logout();
+  };
+  console.log("🚀 ~ Header ~ user:", user);
+
   return (
     <>
       <header
@@ -59,14 +67,13 @@ const Header = () => {
                 <Link to={"/admin/create"}>Create</Link>
               </li>
             )}
-            <SignedOut>
-              <Link to={"/login"}>
+            {user ? (
+              <Button onClick={handleLogout}>Logout💋</Button>
+            ) : (
+              <Link to={"/auth/signin"}>
                 <Button>Login🙌</Button>
               </Link>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+            )}
           </ul>
         </div>
         <div className="absolute right-12 top-12 cursor-pointer md:hidden flex text-[#fff]">

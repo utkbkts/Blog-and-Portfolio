@@ -2,9 +2,10 @@ import React, { Suspense } from "react";
 import NotFound from "../components/NotFound";
 import MainLayouts from "../layouts/MainLayouts";
 import Loading from "../components/Loading";
+import ProtectedRoutes from "./ProtectedRoutes";
 const HomePage = React.lazy(() => import("../pages/home/HomePage"));
-const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
-const RegisterPage = React.lazy(() => import("../pages/auth/RegisterPage"));
+const Register = React.lazy(() => import("../pages/auth/Register"));
+const Login = React.lazy(() => import("../pages/auth/Login"));
 const DetailPage = React.lazy(() => import("../pages/detail/DetailPage"));
 const PostListPage = React.lazy(() => import("../pages/posts/PostListPage"));
 const TrendingBlogs = React.lazy(() =>
@@ -29,22 +30,7 @@ export const MainRoutes = {
         </Suspense>
       ),
     },
-    {
-      path: "/login",
-      element: (
-        <Suspense fallback={<Loading />}>
-          <LoginPage />
-        </Suspense>
-      ),
-    },
-    {
-      path: "/register",
-      element: (
-        <Suspense fallback={<Loading />}>
-          <RegisterPage />
-        </Suspense>
-      ),
-    },
+
     {
       path: "/:title/:id",
       element: (
@@ -82,6 +68,26 @@ export const MainRoutes = {
       element: (
         <Suspense fallback={<Loading />}>
           <About />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/auth/signup",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <ProtectedRoutes>
+            <Register />
+          </ProtectedRoutes>
+        </Suspense>
+      ),
+    },
+    {
+      path: "/auth/signin",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <ProtectedRoutes>
+            <Login />
+          </ProtectedRoutes>
         </Suspense>
       ),
     },

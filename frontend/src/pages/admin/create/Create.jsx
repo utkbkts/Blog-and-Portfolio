@@ -1,4 +1,3 @@
-import { useAuth, useUser } from "@clerk/clerk-react";
 import Loading from "../../../components/Loading";
 import Input from "../../../ui/Input";
 import Button from "../../../ui/Button";
@@ -36,8 +35,6 @@ const optionsCategory = [
 ];
 
 const AdminCreate = () => {
-  const { isLoaded, isSignedIn } = useUser();
-  const { getToken } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const existingPost = location.state?.post;
@@ -147,6 +144,7 @@ const AdminCreate = () => {
           <p className="text-red-500">{errors.categoryHeader.message}</p>
         )}
         <Upload
+          folder={"website"}
           type={"image"}
           setData={(data) =>
             setValue("img", {
@@ -159,14 +157,14 @@ const AdminCreate = () => {
             Add a cover image
           </Button>
         </Upload>
-      {existingPost?.img?.url ||
-  (img?.url && (
-    <img
-      src={existingPost?.img?.url || img?.url}
-      alt="image"
-      className="w-[350px] h-[350px] object-cover"
-    />
-  ))}
+        {existingPost?.img?.url ||
+          (img?.url && (
+            <img
+              src={existingPost?.img?.url || img?.url}
+              alt="image"
+              className="w-[350px] h-[350px] object-cover"
+            />
+          ))}
         {errors.img && <p className="text-red-500">{errors.img.message}</p>}
 
         <Input
@@ -198,12 +196,14 @@ const AdminCreate = () => {
           <div className="flex flex-col gap-2 mr-2">
             <Upload
               type={"image"}
+              folder={"website"}
               setData={(data) => setValue("image", { url: data.secure_url })}
             >
               🌆
             </Upload>
             <Upload
               type="video"
+              folder={"website"}
               setData={(data) => setValue("video", { url: data.secure_url })}
             >
               ▶️

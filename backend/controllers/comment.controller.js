@@ -1,33 +1,41 @@
 import { catchAsyncError } from "catchasyncerror";
 import ErrorHandler from "../utils/handlerError.js";
 import Comment from "../models/comment.model.js";
-import User from "../models/user.model.js";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const addComment = catchAsyncError(async (req, res, next) => {
-  const clerkUserId = req.auth.userId;
+  const userId = req?.user?._id;
   const postId = req.params.postId;
+  const { comment, button } = req.body;
 
-  if (!clerkUserId) {
+  if (!userId) {
     return res.status(401).json("Not authenticated!");
   }
 
-  const user = await User.findOne({ clerkUserId });
+  if (button) {
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_PRO_APP_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = comment + "Correct this comment for me and make more sense.";
+
+    await model.generateContent(prompt);
+  }
 
   const existingComment = await Comment.findOne({
-    user: user._id,
+    user: userId,
     post: postId,
   });
 
   if (existingComment) {
     return res.status(409).json("You have already commented on this post!");
   }
-  const comment = await Comment.create({
-    ...req.body,
-    user: user._id,
+  const data = await Comment.create({
+    comment,
+    user: userId,
     post: postId,
   });
 
-  return res.status(201).json(comment);
+  return res.status(201).json(data);
 });
 
 const getComments = catchAsyncError(async (req, res) => {
@@ -39,13 +47,12 @@ const getComments = catchAsyncError(async (req, res) => {
 });
 
 const deleteComment = async (req, res) => {
-  const clerkUserId = req.auth.userId;
+  const userId = req?.user?._id;
   const id = req.params.commentId;
 
-  if (!clerkUserId) {
+  if (!userId) {
     return res.status(401).json("Not authenticated!");
   }
-  const user = await User.findOne({ clerkUserId });
 
   if (user?.role === "admin") {
     await Comment.findByIdAndDelete({ _id: id });
@@ -53,7 +60,7 @@ const deleteComment = async (req, res) => {
   }
   const deletedComment = await Comment.findOneAndDelete({
     _id: id,
-    user: user._id,
+    user: userId,
   });
 
   if (!deletedComment) {
@@ -64,21 +71,16 @@ const deleteComment = async (req, res) => {
 };
 
 const updatedComment = catchAsyncError(async (req, res, next) => {
-  const clerkUserId = req.auth.userId;
+  const userId = req?.user?._id;
   const commentId = req.params.commentId;
   const { comment } = req.body;
 
-  if (!clerkUserId) {
+  if (!userId) {
     return next(new ErrorHandler("Not authenticated", 401));
   }
 
-  const user = await User.findOne({ clerkUserId });
-  if (!user) {
-    return next(new ErrorHandler("User not found", 404));
-  }
-
   const updatedComment = await Comment.findOneAndUpdate(
-    { _id: commentId, user: user._id },
+    { _id: commentId, user: userId },
     { comment },
     { new: true, runValidators: true }
   );

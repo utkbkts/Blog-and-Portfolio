@@ -4,7 +4,7 @@ import { isAuthenticatedUser } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.put("/:postId", userController.likePost);
+router.put("/:postId", isAuthenticatedUser, userController.likePost);
 
 router.post("/register", userController.register);
 

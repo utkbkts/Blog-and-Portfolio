@@ -1,7 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
 const AdminLayouts = () => {
-  const { user } = useUser();
+  let user;
   const navigate = useNavigate();
   if (user?.publicMetadata?.role !== "admin") {
     navigate("/");

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
-const Upload = ({ setData, type, children }) => {
+const Upload = ({ setData, type, children, folder }) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
 
@@ -13,7 +13,7 @@ const Upload = ({ setData, type, children }) => {
         cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
         uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET,
         resourceType: type,
-        folder: "website",
+        folder: folder,
       },
       (error, result) => {
         if (!error && result?.event === "success") {

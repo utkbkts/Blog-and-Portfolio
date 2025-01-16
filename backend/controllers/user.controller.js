@@ -89,25 +89,35 @@ const login = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(new ErrorHandler("Please enter your Email or password", 400));
+    return res.status(400).json({
+      message: "Please enter your Email or password",
+    });
   }
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
-    return next(new ErrorHandler("Email or password is incorrect.", 401));
+    return res.status(401).json({
+      message: "Email or password is incorrect.",
+    });
   }
   const isPasswordMatched = await user.comparePassword(password);
 
   if (!isPasswordMatched) {
-    return next(new ErrorHandler("Password is incorrect", 401));
+    return res.status(400).json({
+      message: "Password is incorrect",
+    });
   }
 
   if (user.isBlocked === true) {
-    return next(new ErrorHandler("Your account has been blocked..", 401));
+    return res.status(404).json({
+      message: "Your account has been blocked..",
+    });
   }
 
   if (user.isVerified === false) {
-    return next(new ErrorHandler("Please verify your account", 401));
+    return res.status(404).json({
+      message: "Please verify your account",
+    });
   }
   sendToken(user, 200, res);
 });
