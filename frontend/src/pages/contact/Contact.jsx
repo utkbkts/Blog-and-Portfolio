@@ -72,7 +72,7 @@ const Contact = () => {
   };
   return (
     <div className=" bg-gray-100 text-white">
-      <div className="flex md:flex-row flex-col mt-44  md:h-[400px]">
+      <div className="flex md:flex-row flex-col mt-44  md:h-[540px]">
         <div className="flex-1" ref={ref}>
           <motion.form
             variants={listVariant}
