@@ -3,11 +3,13 @@ import dotnev from "dotenv";
 import path from "path";
 import cors from "cors";
 import ConnectedDatabase from "./db/mongoDb.js";
-import { clerkMiddleware } from "@clerk/express";
+import mongoSanitize from "express-mongo-sanitize";
+import compression from "compression";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
 
 //routes
 import postRouter from "./routes/post.route.js";
-import webHookRouter from "./routes/webhook.route.js";
 import commentRouter from "./routes/comment.route.js";
 import userRouter from "./routes/user.route.js";
 import contactRouter from "./routes/contact.route.js";
@@ -21,19 +23,31 @@ app.use(
     credentials: true,
   })
 );
-app.use(clerkMiddleware());
-app.use("/webhooks", webHookRouter);
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(cookieParser());
+//helmet
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: false,
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", process.env.FRONTEND_URL],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+    crossOriginResourcePolicy: { policy: "same-site" },
+  })
+);
+
+//sanitize request data
+app.use(mongoSanitize());
+
+//compress response
+app.use(compression());
 
 app.use("/api/v1/posts", postRouter);
 app.use("/api/v1/comments", commentRouter);
@@ -47,7 +61,24 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
   ConnectedDatabase();
   console.log(`Server is running on port ${process.env.PORT}`);
 });
+
+const unexpectedErrorHandler = (error) => {
+  server.close(() => {
+    console.log("Server closed due to an unexpected error.");
+    process.exit(1);
+  });
+};
+
+const gracefulShutdown = () => {
+  server.close(() => {
+    console.log("Server closed.");
+    process.exit(0);
+  });
+};
+process.on("uncaughtException", unexpectedErrorHandler);
+process.on("unhandledRejection", unexpectedErrorHandler);
+process.on("SIGTERM", gracefulShutdown);

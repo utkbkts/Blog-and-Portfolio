@@ -49,10 +49,7 @@ export const generateSlug = (input) => {
     return ""; // Handle invalid input
   }
 
-  let decodedInput = decodeURIComponent(input);
-
-  let result = decodedInput.replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
+  let result = input.split(" ").join("-");
 
   return result;
 };
-

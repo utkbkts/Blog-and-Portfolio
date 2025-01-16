@@ -1,5 +1,4 @@
 import express from "express";
-import increaseVisit from "../middlewares/increaseVisit.js";
 import postController from "../controllers/post.controller.js";
 
 const router = express.Router();
