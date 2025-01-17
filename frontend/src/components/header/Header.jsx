@@ -38,7 +38,6 @@ const Header = () => {
   const handleLogout = async () => {
     await logout();
   };
-  console.log("🚀 ~ Header ~ user:", user);
 
   return (
     <>
@@ -68,7 +67,7 @@ const Header = () => {
               </li>
             )}
             {user ? (
-              <Button onClick={handleLogout}>Logout💋</Button>
+              <Button onClick={handleLogout}>Logout✨</Button>
             ) : (
               <Link to={"/auth/signin"}>
                 <Button>Login🙌</Button>

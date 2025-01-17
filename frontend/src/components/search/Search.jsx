@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../utils/use-debounce";
+import { useGetAllPostsQuery } from "../../redux/api/postApi";
 
 const SearchPage = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const debounced = useDebounce(query, 300);
   const [isModalOpen, setModalOpen] = useState(false);
+  const { data, isLoading } = useGetAllPostsQuery();
 
   const handleSelect = (item) => {
     if (debounced) {
@@ -23,8 +25,6 @@ const SearchPage = () => {
     setQuery(newQuery);
     setModalOpen(true);
   };
-  let data;
-  let isLoading;
   return (
     <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 relative">
       <svg
@@ -44,7 +44,7 @@ const SearchPage = () => {
         placeholder="Search Title and Press Enter"
         className="bg-transparent outline-none text-white border-b"
         value={query}
-        onChange={handleInputChange} // Trigger search on input change
+        onChange={handleInputChange}
       />
       {isModalOpen && query.length > 0 && (
         <div className="absolute top-16 flex flex-col gap-4 w-[200px] bg-white rounded-md h-[200px] overflow-y-auto text-black">
@@ -52,7 +52,7 @@ const SearchPage = () => {
             data.posts.map((item) => (
               <div
                 key={item._id}
-                onClick={() => handleSelect(item)} // Select item from list
+                onClick={() => handleSelect(item)}
                 className="p-2 cursor-pointer hover:bg-slate-400 rounded-md"
               >
                 <h3>{item.title}</h3>

@@ -17,7 +17,7 @@ const PostList = ({ post }) => {
       {/* details */}
       <div className="flex flex-col gap-4 xl:w-2/3">
         <Link
-          to={`/${generateSlug(post?.title)}/${post?._id}`}
+          to={`/details/${generateSlug(post?.title)}/${post?._id}`}
           className="text-4xl font-semibold"
         >
           {post?.title}
@@ -35,7 +35,7 @@ const PostList = ({ post }) => {
           <span>{getDateLocal(post?.createdAt)}</span>
         </div>
         <p>{post?.desc}</p>
-        <Link to={`/${generateSlug(post?.title)}/${post?._id}`}>
+        <Link to={`/details/${generateSlug(post?.title)}/${post?._id}`}>
           <Button
             className={
               "w-1/3 hover:bg-opacity-60 transition-all duration-300 mt-auto"

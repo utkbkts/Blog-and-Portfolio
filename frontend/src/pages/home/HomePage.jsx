@@ -38,7 +38,11 @@ const HomePage = () => {
       {/* FeaturesBlogs */}
       <div className="pb-4">
         <h1 className="font-bold text-3xl p-8">My Blogs</h1>
-        <FeaturesBlogs sideBlogs={sideBlogs} mainBlog={mainBlog} />
+        {isLoading ? (
+          <SkeletonText />
+        ) : (
+          <FeaturesBlogs sideBlogs={sideBlogs} mainBlog={mainBlog} />
+        )}
       </div>
       {/* FeaturesProjects */}
       <div>
