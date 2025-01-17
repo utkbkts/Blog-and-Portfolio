@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useLogoutMutation } from "../../redux/api/authApi";
+import { useVerifyReplyMutation } from "../../redux/api/userApi";
 
 const Header = () => {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
@@ -14,6 +15,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const [logout, { error, isSuccess, isError }] = useLogoutMutation();
+  const [verifyEmail] = useVerifyReplyMutation();
 
   useEffect(() => {
     if (isError) {
@@ -39,6 +41,10 @@ const Header = () => {
     await logout();
   };
 
+  const handleVerify = async () => {
+    await verifyEmail();
+    toast.success("Verification email sent. Please check your inbox!");
+  };
   return (
     <>
       <header
@@ -61,7 +67,16 @@ const Header = () => {
                 <li className={link.className}>{link.name}</li>
               </Link>
             ))}
-            {user?.publicMetadata?.role === "admin" && (
+            {user?.isVerified === "false" && (
+              <Link
+                onClick={handleVerify}
+                to={"/verifyEmail"}
+                className="cursor-pointer"
+              >
+                Account Verified
+              </Link>
+            )}
+            {user?.role === "admin" && (
               <li className="hidden md:block">
                 <Link to={"/admin/create"}>Create</Link>
               </li>

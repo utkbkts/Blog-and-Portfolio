@@ -38,7 +38,29 @@ export const userApi = createApi({
         };
       },
     }),
+    verify: builder.mutation({
+      query({ code }) {
+        return {
+          url: `/verify`,
+          method: "POST",
+          body: { code },
+        };
+      },
+      invalidatesTags: ["User", "AdminUser"],
+    }),
+    verifyReply: builder.mutation({
+      query: () => ({
+        url: "/verifyEmail",
+        method: "POST",
+      }),
+      invalidatesTags: ["User", "AdminUser"],
+    }),
   }),
 });
 
-export const { useLikedPostMutation, useGetUserQuery } = userApi;
+export const {
+  useLikedPostMutation,
+  useGetUserQuery,
+  useVerifyMutation,
+  useVerifyReplyMutation,
+} = userApi;

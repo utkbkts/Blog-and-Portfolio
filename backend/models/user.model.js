@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
       public_id: {
         type: String,
       },
-      url: {
+      secure_url: {
         type: String,
       },
     },

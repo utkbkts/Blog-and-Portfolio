@@ -4,7 +4,7 @@ import Input from "../../ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { createRegisterSchema } from "../../validation/createRegisterValidation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useRegisterMutation } from "../../redux/api/authApi";
@@ -12,13 +12,14 @@ import { useRegisterMutation } from "../../redux/api/authApi";
 function Register() {
   const [registerData, { error, isSuccess, isLoading, isError }] =
     useRegisterMutation();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (isError) {
-      toast.error(error.response.data.message);
+      toast.error(error.data.message);
     }
     if (isSuccess) {
       toast.success("Register is successfully !!");
+      navigate("/verifyEmail");
     }
   }, [isSuccess, error, isError]);
 
@@ -102,17 +103,22 @@ function Register() {
             </span>
           )}
         </div>
-        <div className="w-12 ">
+        <div className="w-full ">
           <Upload setData={handleUpload} folder={"website/avatar"}>
             {img?.secure_url ? (
               <img
                 src={img.secure_url}
                 alt="avatar"
                 title="avatar-png"
-                className="w-44 h-32"
+                className="w-full h-32"
               />
             ) : (
-              <img src="/avatar.png" alt="avatar" title="avatar-png" />
+              <img
+                src="/avatar.png"
+                alt="avatar"
+                title="avatar-png"
+                className="w-12 h-12"
+              />
             )}
             <input
               type="file"

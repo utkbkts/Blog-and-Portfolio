@@ -4,6 +4,7 @@ import MainLayouts from "../layouts/MainLayouts";
 import Loading from "../components/Loading";
 import ProtectedRoutes from "./ProtectedRoutes";
 const HomePage = React.lazy(() => import("../pages/home/HomePage"));
+const VerifyEmail = React.lazy(() => import("../pages/verify/VerifyEmail"));
 const Register = React.lazy(() => import("../pages/auth/Register"));
 const Login = React.lazy(() => import("../pages/auth/Login"));
 const DetailPage = React.lazy(() => import("../pages/detail/DetailPage"));
@@ -96,6 +97,14 @@ export const MainRoutes = {
       element: (
         <Suspense fallback={<Loading />}>
           <Contact />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/verifyEmail",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <VerifyEmail />
         </Suspense>
       ),
     },

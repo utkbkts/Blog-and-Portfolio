@@ -16,4 +16,10 @@ router.post("/logout", userController.logout);
 
 router.get("/me", isAuthenticatedUser, userController.meProfile);
 
+router.post(
+  "/verifyEmail",
+  isAuthenticatedUser,
+  userController.verifySendClick
+);
+
 export default router;

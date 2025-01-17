@@ -16,7 +16,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(error.response.data.message);
+      toast.error(error.data.message);
     }
     if (loginSuccess) {
       toast.success("Login is successfully !!");

@@ -14,7 +14,7 @@ const Sidebar = ({ post }) => {
   const [liked, { isSuccess, data }] = useLikedPostMutation();
   const navigate = useNavigate();
   const isLikedByUser = post?.liked?.some(
-    (like) => like.user.toString() === user._id.toString()
+    (like) => like?.user?.toString() === user?._id?.toString()
   );
   const [isLiked, setIsLiked] = useState(isLikedByUser);
   //likedPost

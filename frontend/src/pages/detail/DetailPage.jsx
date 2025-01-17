@@ -64,12 +64,16 @@ const DetailPage = () => {
           <Sidebar post={data} />
         </div>
       </div>
-      {user ? (
+      {user && user.isVerified === "true" ? (
         <Comments postId={postId} title={title} />
       ) : (
         <h1 className="text-center text-white text-2xl font-bold pt-12">
           <hr />
-          Log in now to comment
+          {!user
+            ? "Log in now to comment"
+            : user.isVerified === "false"
+            ? "Please verify your account"
+            : null}
         </h1>
       )}
     </div>

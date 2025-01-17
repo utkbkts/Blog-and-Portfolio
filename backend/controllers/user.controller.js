@@ -1,145 +1,171 @@
 import { catchAsyncError } from "catchasyncerror";
-import ErrorHandler from "../utils/handlerError.js";
 import User from "../models/user.model.js";
 import Post from "../models/post.model.js";
-import { upload_file } from "../utils/cloudinary.js";
 import sendToken from "../utils/sendToken.js";
 import { sendVerificationToken } from "../utils/passwordTemplate.js";
 import sendEmail from "../utils/sendEmail.js";
 
 const register = catchAsyncError(async (req, res, next) => {
   const { username, email, img, password } = req.body;
-
-  if (!username || !email || !img || !password) {
-    return next(new ErrorHandler("All fields required", 404));
-  }
-
-  const isEmailExist = await User.findOne({ email });
-
-  if (isEmailExist) {
-    return next(new ErrorHandler("Email is already", 404));
-  }
-
-  let picture = {};
-
-  if (img) {
-    try {
-      const avatarUpload = await upload_file(img, "website/avatar");
-      picture = {
-        public_id: avatarUpload.public_id,
-        url: avatarUpload.url,
-      };
-    } catch (error) {
-      return next(new ErrorHandler("Error uploading image to Cloudinary", 500));
+  try {
+    if (!username || !email || !img || !password) {
+      return res.status(404).json({
+        message: "All fields Required",
+      });
     }
+
+    const isEmailExist = await User.findOne({ email });
+
+    if (isEmailExist) {
+      return res.status(404).json({
+        message: "Email is already",
+      });
+    }
+
+    const verificationToken = Math.floor(
+      100000 + Math.random() * 900000
+    ).toString();
+
+    const verificationTokenExpiresAt = Date.now() + 15 * 60 * 1000;
+
+    const messageHtml = sendVerificationToken(verificationToken);
+
+    await User.create({
+      username,
+      email,
+      img,
+      password,
+      verificationToken,
+      verificationTokenExpiresAt,
+    });
+    await sendEmail({
+      email,
+      subject: "Verification Token",
+      message: messageHtml,
+    });
+
+    return res.status(201).json({
+      message: "Check and verify your email account",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
   }
-  const verificationToken = Math.floor(
-    100000 + Math.random() * 900000
-  ).toString();
-
-  const verificationTokenExpiresAt = Date.now() + 15 * 60 * 1000;
-
-  const messageHtml = sendVerificationToken(verificationToken);
-
-  await User.create({
-    username,
-    email,
-    img: picture,
-    password,
-    verificationToken,
-    verificationTokenExpiresAt,
-  });
-  await sendEmail({
-    email,
-    subject: "Verification Token",
-    message: messageHtml,
-  });
-
-  return res.status(201).json({
-    message: "Check and verify your email account",
-  });
 });
 
-const verifyEmail = catchAsyncError(async (req, res, next) => {
+const verifyEmail = catchAsyncError(async (req, res) => {
   const { code } = req.body;
+  try {
+    if (!code) {
+      return res.status(400).json({
+        message: "Code is not found",
+      });
+    }
 
-  if (!code) {
-    return next(new ErrorHandler("Code is not found", 400));
+    const user = await User.findOne({
+      verificationToken: code,
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid Verification Code",
+      });
+    }
+
+    if (user.verificationTokenExpiresAt <= Date.now()) {
+      return res.status(400).json({
+        message: "Verification token has expired. Please request a new one.",
+      });
+    }
+
+    user.isVerified = true;
+    user.verificationToken = undefined;
+    user.verificationTokenExpiresAt = undefined;
+
+    await user.save();
+
+    sendToken(user, 200, res);
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message,
+    });
   }
-
-  const user = await User.findOne({
-    verificationToken: code,
-    verificationTokenExpiresAt: { $gt: Date.now() },
-  });
-
-  if (!user) {
-    return next(new ErrorHandler("Invalid Verification Code", 400));
-  }
-
-  user.isVerified = true;
-  user.verificationToken = undefined;
-  user.verificationTokenExpiresAt = undefined;
-
-  await user.save();
-
-  sendToken(user, 200, res);
 });
 
 const login = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({
-      message: "Please enter your Email or password",
-    });
-  }
-  const user = await User.findOne({ email }).select("+password");
+  try {
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Please enter your Email or password",
+      });
+    }
+    const user = await User.findOne({ email }).select("+password");
 
-  if (!user) {
-    return res.status(401).json({
-      message: "Email or password is incorrect.",
-    });
-  }
-  const isPasswordMatched = await user.comparePassword(password);
+    if (!user) {
+      return res.status(401).json({
+        message: "Email or password is incorrect.",
+      });
+    }
+    const isPasswordMatched = await user.comparePassword(password);
 
-  if (!isPasswordMatched) {
-    return res.status(400).json({
-      message: "Password is incorrect",
-    });
-  }
+    if (!isPasswordMatched) {
+      return res.status(400).json({
+        message: "Password is incorrect",
+      });
+    }
 
-  if (user.isBlocked === true) {
-    return res.status(404).json({
-      message: "Your account has been blocked..",
-    });
-  }
+    if (user.isBlocked === true) {
+      return res.status(404).json({
+        message: "Your account has been blocked..",
+      });
+    }
 
-  if (user.isVerified === false) {
-    return res.status(404).json({
-      message: "Please verify your account",
+    if (user.isVerified === false) {
+      return res.status(404).json({
+        message: "Please verify your account",
+      });
+    }
+    sendToken(user, 200, res);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
     });
   }
-  sendToken(user, 200, res);
 });
 
 const logout = catchAsyncError(async (req, res, next) => {
-  res.cookie("token", "", {
-    expires: new Date(Date.now()),
-    httpOnly: true,
-  });
+  try {
+    res.cookie("token", "", {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
 
-  res.status(200).json({
-    success: true,
-    message: "Logged Out",
-  });
+    res.status(200).json({
+      success: true,
+      message: "Logged Out",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
 });
 
 const meProfile = catchAsyncError(async (req, res, next) => {
-  const user = await User.findById(req?.user?._id);
+  try {
+    const user = await User.findById(req?.user?._id);
 
-  res.status(200).json({
-    user,
-  });
+    return res.status(200).json({
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
 });
 
 const likePost = catchAsyncError(async (req, res, next) => {
@@ -147,13 +173,17 @@ const likePost = catchAsyncError(async (req, res, next) => {
   const postId = req?.params?.postId;
 
   if (!userId) {
-    return next(new ErrorHandler("User Id Not Found", 404));
+    return res.status(400).json({
+      message: "User Id Not Found",
+    });
   }
 
   const postToLike = await Post.findById(postId);
 
   if (!postToLike) {
-    return next(new ErrorHandler("Post not found", 404));
+    return res.status(404).json({
+      message: "Post not found",
+    });
   }
 
   const alreadyLiked = postToLike.liked.some(
@@ -184,6 +214,47 @@ const likePost = catchAsyncError(async (req, res, next) => {
   });
 });
 
+const verifySendClick = catchAsyncError(async (req, res) => {
+  const userId = req.user?._id;
+
+  if (!userId) {
+    return res.status(401).json({
+      message: "Unauthorized. Please log in.",
+    });
+  }
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found.",
+    });
+  }
+
+  const verificationToken = Math.floor(
+    100000 + Math.random() * 900000
+  ).toString();
+
+  const verificationTokenExpiresAt = Date.now() + 15 * 60 * 1000;
+
+  const messageHtml = sendVerificationToken(verificationToken);
+
+  user.verificationToken = verificationToken;
+  user.verificationTokenExpiresAt = verificationTokenExpiresAt;
+
+  await user.save();
+
+  await sendEmail({
+    email: user.email,
+    subject: "Verification Token",
+    message: messageHtml,
+  });
+
+  res.status(200).json({
+    message: "Verification token has been sent to your email.",
+  });
+});
+
 export default {
   likePost,
   register,
@@ -191,4 +262,5 @@ export default {
   login,
   logout,
   meProfile,
+  verifySendClick,
 };
