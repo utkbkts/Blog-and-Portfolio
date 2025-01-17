@@ -5,7 +5,6 @@ import cors from "cors";
 import ConnectedDatabase from "./db/mongoDb.js";
 import mongoSanitize from "express-mongo-sanitize";
 import compression from "compression";
-import helmet from "helmet";
 import cookieParser from "cookie-parser";
 
 //routes
@@ -26,22 +25,9 @@ app.use(
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
-//helmet
 
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      useDefaults: false,
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", process.env.FRONTEND_URL],
-        objectSrc: ["'none'"],
-        upgradeInsecureRequests: [],
-      },
-    },
-    crossOriginResourcePolicy: { policy: "same-site" },
-  })
-);
+
+
 
 //sanitize request data
 app.use(mongoSanitize());
