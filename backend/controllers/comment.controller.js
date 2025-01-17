@@ -80,7 +80,6 @@ const updatedComment = catchAsyncError(async (req, res, next) => {
   const userId = req?.user?._id;
   const commentId = req.params.commentId;
   const { comment } = req.body;
-  console.log("🚀 ~ updatedComment ~ comment:", comment);
 
   if (!userId) {
     return next(new ErrorHandler("Not authenticated", 401));
