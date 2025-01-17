@@ -1,16 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import TextArea from "../../ui/TextArea";
-import axiosInstance from "../../utils/axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { messageSendValidation } from "../../validation/sendMessage";
 import ContactSvg from "./partials/ContactSvg";
 import { useInView, motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useContactSendMutation } from "../../redux/api/contactApi";
 
 const listVariant = {
   initial: {
@@ -31,6 +30,8 @@ const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: "-200px" });
   const [token, setToken] = useState("");
+  const [contactSend, { isLoading, isError, error, isSuccess }] =
+    useContactSendMutation();
   const {
     handleSubmit,
     register,
@@ -41,29 +42,25 @@ const Contact = () => {
     mode: "onChange",
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: async (data) => {
-      const response = await axiosInstance.post(`/contact/send`, data);
-      return response.data;
-    },
-    onSuccess: () => {
-      toast.success("Message sent successfully.");
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.response.data.message);
+    }
+    if (isSuccess) {
+      toast.success("Message sent successfully");
       setValue("email", "");
       setValue("desc", "");
       setValue("subject", "");
-    },
-    onError: () => {
-      toast.error("Something went wrong !!");
-    },
-  });
+    }
+  }, [isError, isSuccess, error]);
 
   const onChange = (value) => {
     setToken(value);
     ref.current.reset();
   };
 
-  const onSubmit = (data) => {
-    mutate({
+  const onSubmit = async (data) => {
+    await contactSend({
       email: data.email,
       message: data.desc,
       subject: data.subject,
@@ -86,7 +83,7 @@ const Contact = () => {
             <motion.div variants={listVariant} className="flex flex-col">
               <label>Email</label>
               <Input
-                loading={isPending}
+                loading={isLoading}
                 register={register("email")}
                 type="email"
                 name="email"
@@ -99,7 +96,7 @@ const Contact = () => {
             <motion.div variants={listVariant} className="flex flex-col">
               <label className="">Subject</label>
               <Input
-                loading={isPending}
+                loading={isLoading}
                 type="text"
                 register={register("subject")}
                 name="subject"
@@ -112,7 +109,7 @@ const Contact = () => {
             <motion.div variants={listVariant} className="flex flex-col">
               <label>Message</label>
               <TextArea
-                loading={isPending}
+                loading={isLoading}
                 register={register("desc")}
                 rows={3}
                 name="desc"
@@ -132,7 +129,7 @@ const Contact = () => {
               />
             </motion.div>
             <motion.div variants={listVariant} className="w-full">
-              <Button type="submit" loading={isPending} className={"w-full"}>
+              <Button type="submit" loading={isLoading} className={"w-full"}>
                 Send
               </Button>
             </motion.div>

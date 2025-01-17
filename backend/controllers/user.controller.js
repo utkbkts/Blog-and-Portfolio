@@ -143,35 +143,30 @@ const meProfile = catchAsyncError(async (req, res, next) => {
 });
 
 const likePost = catchAsyncError(async (req, res, next) => {
-  const clerkUserId = req.auth.userId;
-  const postId = req.params.postId;
+  const userId = req?.user?._id;
+  const postId = req?.params?.postId;
 
-  if (!clerkUserId) {
-    return next(new ErrorHandler("Clerk User Id Not Found", 404));
+  if (!userId) {
+    return next(new ErrorHandler("User Id Not Found", 404));
   }
 
-  const userMe = await User.findOne({ clerkUserId });
   const postToLike = await Post.findById(postId);
-
-  if (!userMe) {
-    return next(new ErrorHandler("User not found", 404));
-  }
 
   if (!postToLike) {
     return next(new ErrorHandler("Post not found", 404));
   }
 
   const alreadyLiked = postToLike.liked.some(
-    (like) => like.user.toString() === userMe._id.toString()
+    (like) => like.user.toString() === userId.toString()
   );
 
   if (alreadyLiked) {
     await Post.findByIdAndUpdate(postId, {
-      $pull: { liked: { user: userMe._id } },
+      $pull: { liked: { user: userId } },
     });
   } else {
     await Post.findByIdAndUpdate(postId, {
-      $push: { liked: { user: userMe._id } },
+      $push: { liked: { user: userId } },
     });
   }
 

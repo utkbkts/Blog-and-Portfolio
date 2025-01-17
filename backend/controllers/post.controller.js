@@ -7,8 +7,8 @@ import apiFilter from "../utils/apiFilters.js";
 import { generateSlug } from "../utils/generateSlug.js";
 dotenv.config();
 
-const findUserByClerkId = async (clerkUserId) => {
-  const user = await User.findOne({ clerkUserId });
+const findUserByClerkId = async (userId) => {
+  const user = await User.findOne({ _id: userId });
   if (!user) {
     throw new ErrorHandler("User not found", 400);
   }
@@ -115,10 +115,10 @@ const getPosts = catchAsyncError(async (req, res) => {
 });
 
 const getPost = catchAsyncError(async (req, res) => {
-  const { title, id } = req.params;
+  const { title, postId } = req.params;
   const post = await Post.findOne({
     title: generateSlug(title),
-    _id: id,
+    _id: postId,
   }).populate("user");
 
   if (!post) {
@@ -129,29 +129,27 @@ const getPost = catchAsyncError(async (req, res) => {
 });
 
 const createPost = catchAsyncError(async (req, res, next) => {
-  const { title, desc, category, categoryHeader, img, content } = req.body;
+  const { title, desc, category, categoryHeader, content } = req.body;
 
-  if (!title || !desc || !category || !categoryHeader || !img || !content) {
+  if (!title || !desc || !category || !categoryHeader || !content) {
     return next(new ErrorHandler("All fields are required", 400));
   }
 
-  const clerkUserId = req.auth.userId;
-  const user = await findUserByClerkId(clerkUserId);
+  const userId = req.user._id;
+  const user = await findUserByClerkId(userId);
 
   if (user?.role === "user") {
     return next(new ErrorHandler("Just only admin create post", 400));
   }
 
-  const newPost = new Post({ user: user._id, ...req.body });
+  const newPost = new Post({ user: userId, ...req.body });
   const post = await newPost.save();
   return res.status(201).json(post);
 });
 
 const deletePost = catchAsyncError(async (req, res, next) => {
-  const clerkUserId = req.auth.userId;
-
-  // Validate that the user exists
-  const user = await findUserByClerkId(clerkUserId);
+  const userId = req.user._id;
+  const user = await findUserByClerkId(userId);
 
   if (user?.role === "user") {
     return next(new ErrorHandler("Just only admin create post", 400));
@@ -160,7 +158,7 @@ const deletePost = catchAsyncError(async (req, res, next) => {
   // Find and delete the post, only if it belongs to the user
   const post = await Post.findOneAndDelete({
     _id: req.params.id,
-    user: user._id,
+    user: userId,
   });
 
   if (!post) {
@@ -173,11 +171,11 @@ const deletePost = catchAsyncError(async (req, res, next) => {
 });
 
 const updatePost = catchAsyncError(async (req, res, next) => {
-  const clerkUserId = req.auth.userId;
+  const userId = req.user._id;
   const postId = req.params.postId;
   const { title, desc, category, categoryHeader, img, content } = req.body;
 
-  const user = await findUserByClerkId(clerkUserId);
+  const user = await findUserByClerkId(userId);
 
   if (user?.role === "user") {
     return next(new ErrorHandler("Just only admin create post", 400));

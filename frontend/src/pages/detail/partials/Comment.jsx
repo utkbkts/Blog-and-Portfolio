@@ -10,15 +10,6 @@ const Comment = ({ comment, mutationDelete, mutationUpdate, currentUser }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    mutationUpdate.mutate(
-      { commentId: comment._id, newPost: { comment: editText } },
-      {
-        onSuccess: () => {
-          toast.success("Comment updated!");
-          setIsEditing(false);
-        },
-      }
-    );
   };
 
   const isUserComment = currentUser && comment?.user?._id === currentUser.id;

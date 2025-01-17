@@ -1,29 +1,28 @@
 import { Link } from "react-router-dom";
 import Sidebar from "./partials/Sidebar";
 import Comments from "./partials/Comments";
-import axiosInstance from "../../utils/axios";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { getDateLocal } from "../../helpers/helpers";
 import Loading from "../../components/Loading";
-import { useUser } from "@clerk/clerk-react";
-
-const fetchDetails = async (title, id) => {
-  const res = await axiosInstance.get(`/posts/${title}/${id}`);
-  return res.data;
-};
+import { usePostByIdQuery } from "../../redux/api/postApi";
+import { useSelector } from "react-redux";
 
 const DetailPage = () => {
-  const { title, id } = useParams();
-  const { user } = useUser();
-  const { isPending, error, data } = useQuery({
-    queryKey: ["details", title, id],
-    queryFn: () => fetchDetails(title, id),
-    retry: false,
-    refetchOnWindowFocus: false,
+  const { title, postId } = useParams();
+
+  const { data, error, isLoading } = usePostByIdQuery({
+    title,
+    postId,
   });
-  if (isPending) return <Loading />;
-  if (error) return <p>Error: {error.message}</p>;
+  const { user } = useSelector((state) => state.auth);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <h1>error</h1>;
+  }
 
   return (
     <div className="flex flex-col gap-8 pt-12">
@@ -66,7 +65,7 @@ const DetailPage = () => {
         </div>
       </div>
       {user ? (
-        <Comments postId={id} title={title} />
+        <Comments postId={postId} title={title} />
       ) : (
         <h1 className="text-center text-white text-2xl font-bold pt-12">
           <hr />

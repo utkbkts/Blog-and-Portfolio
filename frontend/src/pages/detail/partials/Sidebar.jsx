@@ -3,24 +3,53 @@ import { FaGithubSquare } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import Categories from "./Categories";
+import { useSelector } from "react-redux";
+import { useLikedPostMutation } from "../../../redux/api/userApi";
 
 const Sidebar = ({ post }) => {
-  const [isLiked, setIsLiked] = useState(post.liked || false);
+  const { user } = useSelector((state) => state.auth);
+  const [liked, { isSuccess, data }] = useLikedPostMutation();
   const navigate = useNavigate();
-  let user;
+  const isLikedByUser = post?.liked?.some(
+    (like) => like.user.toString() === user._id.toString()
+  );
+  const [isLiked, setIsLiked] = useState(isLikedByUser);
   //likedPost
+  useEffect(() => {
+    if (isSuccess && data) {
+      toast.success(data.message);
+      setIsLiked((prev) => !prev);
+    }
+  }, [isSuccess, data]);
+
+  const handleLike = async () => {
+    try {
+      await liked({ postId: post?._id });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   //updatePost
 
+  const handlePost = async () => {
+    try {
+      navigate(`/admin/create?update=${post?._id}`, {
+        state: { post: post },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="px-4 h-max sticky top-8">
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center flex-col text-center gap-2">
           <img
-            src={post?.user?.img || "/avatar.png"}
+            src={post?.user?.img?.url || "/avatar.png"}
             className="w-12 h-12 rounded-full object-cover"
           />
           <Link className="text-white">{post?.user?.username}</Link>
@@ -35,12 +64,12 @@ const Sidebar = ({ post }) => {
         </div>
       </div>
       <div className="flex flex-col items-center gap-2 pt-4">
-        {user?.publicMetadata.role === "admin" && (
+        {user?.role === "admin" && (
           <>
             <FaTrash size={20} className="text-red-600" />
             <span className="text-white cursor-pointer">Delete Post</span>
             <FaEdit
-              onClick={() => mutationUpdate.mutate()}
+              onClick={handlePost}
               size={25}
               className="text-blue-600 pb-1 cursor-pointer"
             />
@@ -48,16 +77,16 @@ const Sidebar = ({ post }) => {
           </>
         )}
         {isLiked ? (
-          <Heart
-            onClick={() => mutationLiked.mutate()}
-            size={25}
-            className={`pb-1 cursor-pointer text-blue-400`}
-          />
-        ) : (
           <FaHeart
-            onClick={() => mutationLiked.mutate()}
+            onClick={handleLike}
             size={25}
             className={`pb-1 cursor-pointer text-red-600`}
+          />
+        ) : (
+          <Heart
+            onClick={handleLike}
+            size={25}
+            className={`pb-1 cursor-pointer text-blue-400`}
           />
         )}
         <span className="text-white cursor-pointer">Like Post</span>

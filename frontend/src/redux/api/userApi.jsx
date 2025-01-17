@@ -30,5 +30,15 @@ export const userApi = createApi({
       },
       providesTags: ["User", "AdminUser"],
     }),
+    likedPost: builder.mutation({
+      query({ postId }) {
+        return {
+          url: `/${postId}`,
+          method: "PUT",
+        };
+      },
+    }),
   }),
 });
+
+export const { useLikedPostMutation, useGetUserQuery } = userApi;

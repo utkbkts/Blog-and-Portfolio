@@ -10,12 +10,14 @@ import "react-quill-new/dist/quill.snow.css";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createMessageSchema } from "../../../validation/createMessage-schema";
-import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Upload from "../../../components/upload/Upload";
+import {
+  useCreatePostMutation,
+  useUpdatePostMutation,
+} from "../../../redux/api/postApi";
 
 const categoryHeader = [
   { value: "Blog", label: "Blog" },
@@ -36,8 +38,21 @@ const optionsCategory = [
 
 const AdminCreate = () => {
   const location = useLocation();
+  const existingPost = location?.state?.post;
   const navigate = useNavigate();
-  const existingPost = location.state?.post;
+  const [createPost, { isLoading, isError, error, isSuccess }] =
+    useCreatePostMutation();
+
+  const [
+    updatePost,
+    {
+      isLoading: loadingUpdate,
+      isError: updateIsError,
+      error: updateError,
+      isSuccess: updateSuccess,
+    },
+  ] = useUpdatePostMutation();
+
   const {
     register,
     handleSubmit,
@@ -49,6 +64,28 @@ const AdminCreate = () => {
     resolver: zodResolver(createMessageSchema),
     mode: "onChange",
   });
+
+  //create
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.response.data.message);
+    }
+    if (isSuccess) {
+      toast.success("Created Successfully");
+      navigate("/");
+    }
+  }, [error, isSuccess, isError]);
+
+  //update
+  useEffect(() => {
+    if (updateIsError) {
+      toast.error(updateError.response.data.message);
+    }
+    if (updateSuccess) {
+      toast.success("Updated Successfully");
+      navigate("/");
+    }
+  }, [updateError, updateSuccess, updateIsError]);
 
   useEffect(() => {
     if (existingPost) {
@@ -85,46 +122,40 @@ const AdminCreate = () => {
   }, []);
 
   // Create or Update Mutation
-  const mutation = useMutation({
-    mutationFn: async (postData) => {
-      const token = await getToken();
-      const url = existingPost ? `/posts/${existingPost._id}` : `/posts/create`;
 
-      const method = existingPost ? "put" : "post";
-      return axiosInstance[method](url, postData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-    },
-  });
-
-  const onSubmit = (data) => {
-    mutation.mutate(data, {
-      onSuccess: () => {
-        toast.success(
-          existingPost
-            ? "Post updated successfully!"
-            : "Post created successfully!"
-        );
-        if (!existingPost) {
-          setValue("title", "");
-          setValue("desc", "");
-          setValue("category", "");
-          setValue("categoryHeader", "");
-          setValue("content", "");
-          setValue("img", null);
-        }
-        navigate(`/${existingPost.title}/${existingPost._id}`);
-      },
-    });
+  const onSubmit = async (data) => {
+    try {
+      if (existingPost) {
+        await updatePost({
+          postId: existingPost?._id,
+          body: {
+            title: data.title,
+            desc: data.desc,
+            category: data.category,
+            img: data.img,
+            categoryHeader: data.categoryHeader,
+            content: data.content,
+          },
+        });
+      } else {
+        await createPost({
+          title: data.title,
+          desc: data.desc,
+          category: data.category,
+          img: data.img,
+          categoryHeader: data.categoryHeader,
+          content: data.content,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  if (!isLoaded) {
+  if (isLoading) {
     return <Loading />;
   }
 
-  if (!isSignedIn) {
-    return <h1>You should login</h1>;
-  }
   return (
     <div className="h-full">
       <h1 className="text-2xl text-white text-center pb-4">
@@ -157,14 +188,11 @@ const AdminCreate = () => {
             Add a cover image
           </Button>
         </Upload>
-        {existingPost?.img?.url ||
-          (img?.url && (
-            <img
-              src={existingPost?.img?.url || img?.url}
-              alt="image"
-              className="w-[350px] h-[350px] object-cover"
-            />
-          ))}
+        <img
+          src={existingPost?.img?.url || img?.url}
+          alt="image"
+          className="w-[350px] h-[350px] object-cover"
+        />
         {errors.img && <p className="text-red-500">{errors.img.message}</p>}
 
         <Input
@@ -223,7 +251,7 @@ const AdminCreate = () => {
         )}
 
         <Button
-          loading={mutation.isPending}
+          loading={isLoading || loadingUpdate}
           type="submit"
           className="text-white"
         >

@@ -1,20 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import axiosInstance from "../../../utils/axios";
 import { Link } from "react-router-dom";
-
-const fetchCategory = async () => {
-  const res = await axiosInstance.get("/posts/categories");
-  return res.data;
-};
+import { usePostGetCategoryAllQuery } from "../../../redux/api/postApi";
 
 const Categories = () => {
-  const { error, data } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => fetchCategory(),
-    retry: false,
-    refetchOnWindowFocus: false,
-  });
-  if (error) return <p>Error: {error.message}</p>;
+  const { data } = usePostGetCategoryAllQuery();
 
   return (
     <div className="flex flex-col gap-2 ">
