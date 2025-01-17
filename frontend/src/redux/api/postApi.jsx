@@ -30,36 +30,6 @@ export const postApi = createApi({
       providesTags: ["Post"],
     }),
 
-    submitReview: builder.mutation({
-      query({ body, title, postId }) {
-        return {
-          url: `/newComment/${title}/${postId}`,
-          method: "PUT",
-          body,
-        };
-      },
-      invalidatesTags: ["Post", "Review"],
-    }),
-    getUserReviews: builder.query({
-      query: ({ title, id }) => `/${title}/${id}`,
-      providesTags: ["Post", "Review"],
-    }),
-    deleteReview: builder.mutation({
-      query(commentId) {
-        return {
-          url: `/${commentId}`,
-          method: "DELETE",
-        };
-      },
-    }),
-    updateReview: builder.mutation({
-      query(commentId) {
-        return {
-          url: `/${commentId}`,
-          method: "PUT",
-        };
-      },
-    }),
     createPost: builder.mutation({
       query(body) {
         return {

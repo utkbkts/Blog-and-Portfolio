@@ -71,7 +71,9 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
               {/* Title */}
               <Link
                 className="font-medium text-gray-800 hover:text-blue-500 transition-colors duration-200"
-                to={`/${generateSlug(sideBlog?.title)}/${sideBlog?._id}`}
+                to={`/details/${generateSlug(sideBlog?.title)}/${
+                  sideBlog?._id
+                }`}
               >
                 {sideBlog?.title}
               </Link>

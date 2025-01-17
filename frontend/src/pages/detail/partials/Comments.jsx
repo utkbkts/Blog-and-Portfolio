@@ -5,41 +5,22 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createCommentSchema } from "../../../validation/createComment";
 import {
-  useDeleteReviewMutation,
   useGetUserReviewsQuery,
   useSubmitReviewMutation,
-  useUpdateReviewMutation,
-} from "../../../redux/api/postApi";
+} from "../../../redux/api/commentApi";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Comments = ({ postId, title }) => {
   const [submitReview, { isError, error, isSuccess, isLoading }] =
-    useSubmitReviewMutation({ postId, title });
-  const [
-    updateReviews,
-    {
-      isError: isupdateError,
-      error: updateError,
-      isSuccess: updateSucces,
-      isLoading: updateLoading,
-    },
-  ] = useUpdateReviewMutation({ postId, title });
-  const [
-    deleteReviews,
-    {
-      isError: isDeleteError,
-      error: deleteError,
-      isSuccess: deleteSuccess,
-      isLoading: deleteLoading,
-    },
-  ] = useDeleteReviewMutation({ postId, title });
-  const { data } = useGetUserReviewsQuery({ postId, title });
+    useSubmitReviewMutation();
+
+  const { data } = useGetUserReviewsQuery({ title, id: postId });
   const { user } = useSelector((state) => state.auth);
+
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(createCommentSchema),
@@ -49,37 +30,23 @@ const Comments = ({ postId, title }) => {
   //new comment
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Comment success send");
+      toast.success("Your comment has been sent successfully.");
     }
     if (isError) {
       toast.error(error.response.data.message);
     }
   }, [isSuccess, isError, error]);
 
-  //delete comment
-  useEffect(() => {
-    if (deleteSuccess) {
-      toast.success("Comment success send");
-    }
-    if (isDeleteError) {
-      toast.error(deleteError.response.data.message);
-    }
-  }, [deleteSuccess, isDeleteError, deleteError]);
-
-  //update comment
-  useEffect(() => {
-    if (updateSucces) {
-      toast.success("Comment success send");
-    }
-    if (isupdateError) {
-      toast.error(updateError.response.data.message);
-    }
-  }, [updateSucces, isupdateError, updateError]);
-
   const onSubmit = async (data) => {
-    await submitReview({
-      comment: data.comment,
-    });
+    try {
+      await submitReview({
+        comment: data.comment,
+        title,
+        postId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -94,6 +61,7 @@ const Comments = ({ postId, title }) => {
           <textarea
             {...register("comment")}
             placeholder="Write a comment..."
+            name="comment"
             className="w-full p-4 rounded-xl outline-none"
           />
           {errors.comment && (
@@ -116,8 +84,6 @@ const Comments = ({ postId, title }) => {
               img: user?.imageUrl,
             },
           }}
-          mutationDelete={deleteReviews}
-          mutationUpdate={updateReviews}
           currentUser={user}
         />
       ))}

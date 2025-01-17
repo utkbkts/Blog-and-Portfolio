@@ -10,8 +10,9 @@ router.post(
   commentController.addComment
 );
 router.get("/:title/:postId", commentController.getComments);
+
 router.delete(
-  "/:commentId",
+  "/delete/:commentId",
   isAuthenticatedUser,
   commentController.deleteComment
 );

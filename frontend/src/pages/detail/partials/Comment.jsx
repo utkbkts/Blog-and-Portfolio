@@ -1,15 +1,70 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getDateLocal } from "../../../helpers/helpers";
 import Response from "./Response";
 import { Pencil, Trash } from "lucide-react";
 import { toast } from "react-toastify";
+import Button from "../../../ui/Button";
+import {
+  useDeleteReviewMutation,
+  useUpdateReviewMutation,
+} from "../../../redux/api/commentApi";
 
-const Comment = ({ comment, mutationDelete, mutationUpdate, currentUser }) => {
+const Comment = ({ comment, currentUser }) => {
+  const [
+    updateReviews,
+    {
+      isError: isupdateError,
+      error: updateError,
+      isSuccess: updateSucces,
+      isLoading: updateLoading,
+    },
+  ] = useUpdateReviewMutation();
+
+  const [
+    deleteReviews,
+    { isError: isDeleteError, error: deleteError, isSuccess: deleteSuccess },
+  ] = useDeleteReviewMutation();
+
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(comment?.comment);
 
-  const onSubmit = (e) => {
+  //update comment
+  useEffect(() => {
+    if (updateSucces) {
+      toast.success("Your comment has been updated successfully.");
+      setIsEditing(false);
+    }
+    if (isupdateError) {
+      toast.error(updateError.response.data.message);
+    }
+  }, [updateSucces, isupdateError, updateError]);
+
+  //delete comment
+  useEffect(() => {
+    if (deleteSuccess) {
+      toast.success("Your comment has been successfully deleted.");
+    }
+    if (isDeleteError) {
+      toast.error(deleteError.response.data.message);
+    }
+  }, [deleteSuccess, isDeleteError, deleteError]);
+
+  const handleDelete = async () => {
+    try {
+      await deleteReviews({
+        commentId: comment?._id,
+      });
+    } catch (error) {
+      console.log("Delete error:", error);
+    }
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
+    await updateReviews({
+      commentId: comment?._id,
+      comment: editText,
+    });
   };
 
   const isUserComment = currentUser && comment?.user?._id === currentUser.id;
@@ -35,7 +90,7 @@ const Comment = ({ comment, mutationDelete, mutationUpdate, currentUser }) => {
             <Trash
               size={20}
               className="cursor-pointer"
-              onClick={() => mutationDelete.mutate(comment?._id)}
+              onClick={handleDelete}
             />
           </div>
         )}
@@ -48,12 +103,13 @@ const Comment = ({ comment, mutationDelete, mutationUpdate, currentUser }) => {
               onChange={(e) => setEditText(e.target.value)}
               className="w-full p-2 rounded-lg border"
             />
-            <button
+            <Button
+              loading={updateLoading}
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-lg"
             >
               Update
-            </button>
+            </Button>
           </form>
         ) : (
           <p>{comment?.comment}</p>

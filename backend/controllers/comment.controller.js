@@ -46,34 +46,41 @@ const getComments = catchAsyncError(async (req, res) => {
   return res.json(comments);
 });
 
-const deleteComment = async (req, res) => {
-  const userId = req?.user?._id;
+const deleteComment = catchAsyncError(async (req, res) => {
+  const userId = req.user?._id;
   const id = req.params.commentId;
 
-  if (!userId) {
-    return res.status(401).json("Not authenticated!");
-  }
+  try {
+    if (!userId) {
+      return res.status(401).json("Not authenticated!");
+    }
 
-  if (user?.role === "admin") {
-    await Comment.findByIdAndDelete({ _id: id });
-    return res.status(200).json("Comment has been deleted");
-  }
-  const deletedComment = await Comment.findOneAndDelete({
-    _id: id,
-    user: userId,
-  });
+    if (req.user?.role === "admin") {
+      await Comment.findByIdAndDelete({ _id: id });
+      return res.status(200).json("Comment has been deleted");
+    }
 
-  if (!deletedComment) {
-    return res.status(403).json("You can delete only your comment!");
-  }
+    const deletedComment = await Comment.findOneAndDelete({
+      _id: id,
+      user: userId,
+    });
 
-  res.status(200).json("Comment deleted");
-};
+    if (!deletedComment) {
+      return res.status(403).json("You can delete only your comment!");
+    }
+    return res.status(200).json({ message: "Comment deleted" });
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+});
 
 const updatedComment = catchAsyncError(async (req, res, next) => {
   const userId = req?.user?._id;
   const commentId = req.params.commentId;
   const { comment } = req.body;
+  console.log("🚀 ~ updatedComment ~ comment:", comment);
 
   if (!userId) {
     return next(new ErrorHandler("Not authenticated", 401));
