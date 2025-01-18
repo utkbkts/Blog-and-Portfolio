@@ -1,10 +1,31 @@
 import { Link } from "react-router-dom";
+import {useEffect} from "react"
 import OutsideClickHandler from "react-outside-click-handler";
 import { X } from "lucide-react";
 import { motion } from "framer-motion";
 import { HeaderLinks } from "./header-data";
 import Button from "../../../ui/Button";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { useLogoutMutation } from "../../../redux/api/userApi";
 const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
+  const { user } = useSelector((state) => state.auth);
+
+  const [logout, { error, isSuccess, isError }] = useLogoutMutation();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.response.data.message);
+    }
+    if (isSuccess) {
+      toast.success("Logout is successfully !!");
+    }
+  }, [isSuccess, error, isError]);
+
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <OutsideClickHandler onOutsideClick={() => setIsMenuOpen(false)}>
       <motion.div
@@ -24,7 +45,13 @@ const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
                 {item.name}
               </Link>
             ))}
-            as
+            {user ? (
+              <Button onClick={handleLogout}>Logout✨</Button>
+            ) : (
+              <Link to={"/auth/signin"}>
+                <Button>Login🙌</Button>
+              </Link>
+            )}
           </ul>
         </div>
       </motion.div>
