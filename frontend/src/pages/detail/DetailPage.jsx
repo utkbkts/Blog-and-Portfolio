@@ -6,7 +6,8 @@ import { getDateLocal } from "../../helpers/helpers";
 import Loading from "../../components/Loading";
 import { usePostByIdQuery } from "../../redux/api/postApi";
 import { useSelector } from "react-redux";
-
+import Markdown from "markdown-to-jsx";
+import Code from "../../components/code/Code";
 const DetailPage = () => {
   const { title, postId } = useParams();
 
@@ -57,7 +58,17 @@ const DetailPage = () => {
       {/* content */}
       <div className="flex flex-col md:flex-row gap-8 justify-between">
         <div className="lg:text-lg flex flex-col gap-6 text-slate-300">
-          <div dangerouslySetInnerHTML={{ __html: data?.content }} />
+          <Markdown
+            options={{
+              overrides: {
+                Code: {
+                  component: Code,
+                },
+              },
+            }}
+          >
+            {data?.content}
+          </Markdown>
         </div>
         {/* menu */}
         <div>

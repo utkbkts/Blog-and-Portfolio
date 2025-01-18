@@ -18,6 +18,8 @@ import {
   useCreatePostMutation,
   useUpdatePostMutation,
 } from "../../../redux/api/postApi";
+import Markdown from "markdown-to-jsx";
+import Code from "../../../components/code/Code";
 
 const categoryHeader = [
   { value: "Blog", label: "Blog" },
@@ -259,10 +261,17 @@ const AdminCreate = () => {
         </Button>
       </form>
       <div className="lg:text-lg flex flex-col  text-slate-300">
-        <div
-          className="px-4"
-          dangerouslySetInnerHTML={{ __html: contentHtml }}
-        />
+        <Markdown
+          options={{
+            overrides: {
+              Code: {
+                component: Code,
+              },
+            },
+          }}
+        >
+          {contentHtml}
+        </Markdown>
       </div>
     </div>
   );
