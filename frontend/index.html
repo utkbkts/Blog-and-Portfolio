@@ -14,6 +14,7 @@
       name="description"
       content="Discover the work of a skilled Frontend Developer & Backend Developer. Specializing in Node.js, React, and full-stack development for innovative web solutions."
     />
+    <meta name="title" content="Software Developer & Cyber Security & Full Stack Developer" />
     <!-- canonical tags -->
     <link rel="canonical" href="https://www.utkubektasoglu.com/" />
     <!-- meta name google search console -->
@@ -50,17 +51,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script>
-      const titleText =
-        "Software Developer & Cyber Security & Full Stack Developer";
-      let index = 0;
-
-      function scrollTitle() {
-        document.title = titleText.slice(index) + titleText.slice(0, index);
-        index = (index + 1) % titleText.length;
-      }
-
-      setInterval(scrollTitle, 1000);
-    </script>
   </body>
 </html>
