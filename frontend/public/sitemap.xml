@@ -1,54 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-   <url>
-      <loc>https://www.utkubektasoglu.com/</loc>
-      <lastmod>2025-01-01</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>1.0</priority>
-   </url>
-
-   <url>
-      <loc>https://www.utkubektasoglu.com/login</loc>
-      <lastmod>2025-01-01</lastmod>
-      <changefreq>never</changefreq>
-      <priority>0.5</priority>
-   </url>
-
-   <url>
-      <loc>https://www.utkubektasoglu.com/register</loc>
-      <lastmod>2025-01-01</lastmod>
-      <changefreq>never</changefreq>
-      <priority>0.5</priority>
-   </url>
-
-   <url>
-      <loc>https://www.utkubektasoglu.com/trendingProjects</loc>
-      <lastmod>2025-01-01</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-   </url>
-
-   <url>
-      <loc>https://www.utkubektasoglu.com/trendingBlogs</loc>
-      <lastmod>2025-01-01</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-   </url>
-
-   <url>
-      <loc>https://www.utkubektasoglu.com/about</loc>
-      <lastmod>2025-01-01</lastmod>
-      <changefreq>never</changefreq>
-      <priority>0.6</priority>
-   </url>
-
-   <url>
-      <loc>https://www.utkubektasoglu.com/contact</loc>
-      <lastmod>2025-01-01</lastmod>
-      <changefreq>never</changefreq>
-      <priority>0.6</priority>
-   </url>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://www.utkubektasoglu.com/</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/auth/signin</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/verifyEmail</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/group</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/about</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/postList</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/trendingProjects</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/trendingBlogs</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/auth/signup</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/contact</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/dashboard</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.utkubektasoglu.com/create</loc>
+	<lastmod>2025-01-19T14:28:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
 </urlset>
