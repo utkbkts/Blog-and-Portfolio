@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { generateSlug, getDateLocal } from "../../../helpers/helpers";
 import Button from "../../../ui/Button";
+import { Eye } from "lucide-react";
 
 const PostList = ({ post }) => {
   return (
@@ -33,6 +34,10 @@ const PostList = ({ post }) => {
             {post?.category}
           </Link>
           <span>{getDateLocal(post?.createdAt)}</span>
+          <span className="flex items-center gap-1">
+            <Eye size={15} />
+            <span>({post?.visit ? post?.visit : 0})</span>
+          </span>
         </div>
         <p>{post?.desc}</p>
         <Link to={`/details/${generateSlug(post?.title)}/${post?._id}`}>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../../../ui/Button";
 import { generateSlug, getDateLocal } from "../../../helpers/helpers";
-import { Heart } from "lucide-react";
+import { Eye, Heart } from "lucide-react";
 
 const FeaturesProjects = ({ post }) => {
   return (
@@ -27,6 +27,10 @@ const FeaturesProjects = ({ post }) => {
           <span className="flex items-center gap-1">
             <Heart size={15} />
             <span>({post?.likedCount ? post?.likedCount : 0})</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <Eye size={15} />
+            <span>({post?.visit ? post?.visit : 0})</span>
           </span>
         </div>
         <h1 className="font-bold text-3xl">{post?.title}</h1>

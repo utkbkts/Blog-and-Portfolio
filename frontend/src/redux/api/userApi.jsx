@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   setisAuthenticated,
@@ -23,7 +24,7 @@ export const userApi = createApi({
           dispatch(setUser(data));
           dispatch(setisAuthenticated(true));
         } catch (error) {
-          console.log(error);
+          //console.log(error)
         } finally {
           dispatch(setLoading(false));
         }

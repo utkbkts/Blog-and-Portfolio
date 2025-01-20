@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../../../ui/Button";
 import { generateSlug, getDateLocal } from "../../../helpers/helpers";
-import { Heart } from "lucide-react";
+import { Eye, Heart } from "lucide-react";
 const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
   return (
     <div className="flex flex-col lg:flex-row gap-12 px-4 lg:px-12">
@@ -26,6 +26,10 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
           <span className="flex items-center gap-1">
             <Heart size={15} />
             <span>({mainBlog?.likedCount ? mainBlog?.likedCount : 0})</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <Eye size={15} />
+            <span>({mainBlog?.visit ? mainBlog?.visit : 0})</span>
           </span>
         </div>
         {/* Title */}
@@ -63,9 +67,14 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
                 <span>{getDateLocal(sideBlog?.createdAt)}</span>
                 <span className="flex items-center gap-1">
                   <Heart size={15} />
+
                   <span>
                     ({sideBlog?.likedCount ? sideBlog?.likedCount : 0})
                   </span>
+                </span>
+                <span className="flex items-center gap-1">
+                  <Eye size={15} />
+                  <span>({sideBlog?.visit ? sideBlog?.visit : 0})</span>
                 </span>
               </div>
               {/* Title */}

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Sidebar from "./partials/Sidebar";
 import Comments from "./partials/Comments";
 import { useParams } from "react-router-dom";
-import { getDateLocal } from "../../helpers/helpers";
+import { generateSlug, getDateLocal } from "../../helpers/helpers";
 import Loading from "../../components/Loading";
 import { usePostByIdQuery } from "../../redux/api/postApi";
 import { useSelector } from "react-redux";
@@ -28,7 +28,7 @@ const DetailPage = () => {
 
   return (
     <>
-      <MetaData title={"Detail"} />
+      <MetaData title={generateSlug(title)} />
       <div className="flex flex-col gap-8 pt-12">
         {/* detial */}
         <div className="flex gap-8">
