@@ -4,9 +4,6 @@ import Button from "../../../ui/Button";
 import SelectInput from "../../../ui/SelectInput";
 import TextArea from "../../../ui/TextArea";
 
-import ReactQuill from "react-quill-new";
-import "react-quill-new/dist/quill.snow.css";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createMessageSchema } from "../../../validation/createMessage-schema";
@@ -18,8 +15,10 @@ import {
   useCreatePostMutation,
   useUpdatePostMutation,
 } from "../../../redux/api/postApi";
-import Markdown from "markdown-to-jsx";
-import Code from "../../../components/code/Code";
+import ReactQuillComp from "../../../components/reactQuill/ReactQuillComp";
+
+import parse from "html-react-parser";
+import DOMPurify from "dompurify";
 
 const categoryHeader = [
   { value: "Blog", label: "Blog" },
@@ -70,7 +69,7 @@ const AdminCreate = () => {
   //create
   useEffect(() => {
     if (isError) {
-      toast.error(error.response.data.message);
+      toast.error(error.data.message);
     }
     if (isSuccess) {
       toast.success("Created Successfully");
@@ -81,7 +80,7 @@ const AdminCreate = () => {
   //update
   useEffect(() => {
     if (updateIsError) {
-      toast.error(updateError.response.data.message);
+      toast.error(updateError.data.message);
     }
     if (updateSuccess) {
       toast.success("Updated Successfully");
@@ -103,6 +102,8 @@ const AdminCreate = () => {
   }, [existingPost, reset]);
   //image and video
   const contentHtml = watch("content");
+  const sanitizedHtml = DOMPurify.sanitize(contentHtml);
+
   const image = watch("image");
   const img = watch("img");
   const video = watch("video");
@@ -159,119 +160,115 @@ const AdminCreate = () => {
   }
 
   return (
-    <div className="h-full">
-      <h1 className="text-2xl text-white text-center pb-4">
-        {existingPost ? "Update Post" : "Create a New Post"}
-      </h1>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-6 p-4"
-      >
-        <SelectInput
-          register={register("categoryHeader")}
-          onChange={(e) => setValue("categoryHeader", e.target.value)}
-          className="custom-class"
-          options={categoryHeader}
-        />
-        {errors.categoryHeader && (
-          <p className="text-red-500">{errors.categoryHeader.message}</p>
-        )}
-        <Upload
-          folder={"website"}
-          type={"image"}
-          setData={(data) =>
-            setValue("img", {
-              public_id: data.public_id,
-              url: data.secure_url,
-            })
-          }
+    <div className="mb-4">
+      <div className="h-full">
+        <h1 className="text-2xl text-white text-center pb-4">
+          {existingPost ? "Update Post" : "Create a New Post"}
+        </h1>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-6 p-4"
         >
-          <Button type="button" className="text-white md:w-1/4 w-full">
-            Add a cover image
-          </Button>
-        </Upload>
-        <img
-          src={existingPost?.img?.url || img?.url}
-          alt="image"
-          className="w-[350px] h-[350px] object-cover"
-        />
-        {errors.img && <p className="text-red-500">{errors.img.message}</p>}
+          <SelectInput
+            register={register("categoryHeader")}
+            onChange={(e) => setValue("categoryHeader", e.target.value)}
+            className="custom-class"
+            options={categoryHeader}
+          />
+          {errors.categoryHeader && (
+            <p className="text-red-500">{errors.categoryHeader.message}</p>
+          )}
+          <Upload
+            folder={"website"}
+            type={"image"}
+            setData={(data) =>
+              setValue("img", {
+                public_id: data.public_id,
+                url: data.secure_url,
+              })
+            }
+          >
+            <Button type="button" className="text-white md:w-1/4 w-full">
+              Add a cover image
+            </Button>
+          </Upload>
+          <img
+            src={existingPost?.img?.url || img?.url}
+            alt="image"
+            className="w-[350px] h-[350px] object-cover"
+          />
+          {errors.img && <p className="text-red-500">{errors.img.message}</p>}
 
-        <Input
-          register={register("title")}
-          name="title"
-          type="text"
-          placeholder="title"
-        />
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-        <SelectInput
-          register={register("category")}
-          onChange={(e) => setValue("category", e.target.value)}
-          className="custom-class"
-          options={optionsCategory}
-        />
-        {errors.category && (
-          <p className="text-red-500">{errors.category.message}</p>
-        )}
+          <Input
+            register={register("title")}
+            name="title"
+            type="text"
+            placeholder="title"
+          />
+          {errors.title && (
+            <p className="text-red-500">{errors.title.message}</p>
+          )}
+          <SelectInput
+            register={register("category")}
+            onChange={(e) => setValue("category", e.target.value)}
+            className="custom-class"
+            options={optionsCategory}
+          />
+          {errors.category && (
+            <p className="text-red-500">{errors.category.message}</p>
+          )}
 
-        <TextArea
-          rows={5}
-          register={register("desc")}
-          placeholder="Description"
-          name="desc"
-          className="resize-none"
-        />
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-        <div className="flex flex-1">
-          <div className="flex flex-col gap-2 mr-2">
-            <Upload
-              type={"image"}
-              folder={"website"}
-              setData={(data) => setValue("image", { url: data.secure_url })}
-            >
-              🌆
-            </Upload>
-            <Upload
-              type="video"
-              folder={"website"}
-              setData={(data) => setValue("video", { url: data.secure_url })}
-            >
-              ▶️
-            </Upload>
+          <TextArea
+            rows={5}
+            register={register("desc")}
+            placeholder="Description"
+            name="desc"
+            className="resize-none"
+          />
+          {errors.title && (
+            <p className="text-red-500">{errors.title.message}</p>
+          )}
+          <div className="flex flex-1">
+            <div className="flex flex-col gap-2 mr-2">
+              <Upload
+                type={"image"}
+                folder={"website"}
+                setData={(data) => setValue("image", { url: data.secure_url })}
+              >
+                🌆
+              </Upload>
+              <Upload
+                type="video"
+                folder={"website"}
+                setData={(data) => setValue("video", { url: data.secure_url })}
+              >
+                ▶️
+              </Upload>
+            </div>
           </div>
-        </div>
-        <ReactQuill
-          theme="snow"
-          value={watch("content")}
-          onChange={(value) => setValue("content", value)}
-          className="text-black flex-1 bg-white shadow-lg"
-          placeholder="Write your story here..."
-        />
-        <input type="hidden" {...register("content")} />
-        {errors.content && (
-          <p className="text-red-500">{errors.content.message}</p>
-        )}
+          <ReactQuillComp
+            theme="snow"
+            value={watch("content")}
+            onChange={(value) => setValue("content", value)}
+            placeholder="Write your story here..."
+          />
+          <input type="hidden" {...register("content")} />
 
-        <Button
-          loading={isLoading || loadingUpdate}
-          type="submit"
-          className="text-white"
-        >
-          {existingPost ? "Update" : "Create"}
-        </Button>
-      </form>
-      <div className="lg:text-lg flex flex-col  text-slate-300">
-        <Markdown
-          options={{
-            overrides: {
-              Code: {
-                component: Code,
-              },
-            },
-          }}
-        >
-          {contentHtml}
-        </Markdown>
+          {errors.content && (
+            <p className="text-red-500">{errors.content.message}</p>
+          )}
+
+          <Button
+            loading={isLoading || loadingUpdate}
+            type="submit"
+            className="text-white"
+          >
+            {existingPost ? "Update" : "Create"}
+          </Button>
+        </form>
+      </div>
+      <div className="lg:text-lg flex flex-col  text-slate-300 blog-view">
+        {parse(sanitizedHtml)}
       </div>
     </div>
   );

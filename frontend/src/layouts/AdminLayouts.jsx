@@ -21,7 +21,7 @@ const AdminLayouts = () => {
   }
 
   return (
-    <div className="flex flex-col bg-quaternary">
+    <div className="flex flex-col bg-quaternary h-full">
       <div className="flex-grow min-h-screen pt-32 container mx-auto">
         <Outlet />
       </div>
