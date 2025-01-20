@@ -6,9 +6,11 @@ import { generateSlug, getDateLocal } from "../../helpers/helpers";
 import Loading from "../../components/Loading";
 import { usePostByIdQuery } from "../../redux/api/postApi";
 import { useSelector } from "react-redux";
-import Markdown from "markdown-to-jsx";
-import Code from "../../components/code/Code";
 import MetaData from "../../layouts/MetaData";
+
+import parse from "html-react-parser";
+import DOMPurify from "dompurify";
+
 const DetailPage = () => {
   const { title, postId } = useParams();
 
@@ -17,6 +19,8 @@ const DetailPage = () => {
     postId,
   });
   const { user } = useSelector((state) => state.auth);
+
+  const sanitize = DOMPurify.sanitize(data?.content);
 
   if (isLoading) {
     return <Loading />;
@@ -61,17 +65,7 @@ const DetailPage = () => {
         {/* content */}
         <div className="flex flex-col md:flex-row gap-8 justify-between">
           <div className="lg:text-lg flex flex-col gap-6 text-slate-300">
-            <Markdown
-              options={{
-                overrides: {
-                  Code: {
-                    component: Code,
-                  },
-                },
-              }}
-            >
-              {data?.content}
-            </Markdown>
+            {parse(sanitize)}
           </div>
           {/* menu */}
           <div>
