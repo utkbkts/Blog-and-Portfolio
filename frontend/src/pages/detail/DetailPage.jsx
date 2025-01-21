@@ -64,7 +64,7 @@ const DetailPage = () => {
         </div>
         {/* content */}
         <div className="flex flex-col md:flex-row gap-8 justify-between">
-          <div className="lg:text-lg flex flex-col gap-6 text-slate-300">
+          <div className="lg:text-lg flex flex-col gap-6 text-slate-300 blog-view">
             {parse(sanitize)}
           </div>
           {/* menu */}

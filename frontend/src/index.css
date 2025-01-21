@@ -153,7 +153,7 @@
     text-decoration: underline;
   }
   pre {
-    background-color: black;
+    background-color: rgb(61, 60, 60);
     padding: 10px 20px;
     border-radius: 10px;
     color: whitesmoke;
@@ -161,20 +161,18 @@
 }
 .blog-view h1 {
   font-size: 2.5rem;
-  margin-left: 1.5rem;
 }
 .blog-view h2 {
-  margin-left: 1.5rem;
   font-size: 1.5rem;
 }
 .blog-view ul {
   list-style-type: disc;
-  margin-left: 1.5rem;
+  margin-left: 1rem;
 }
 
 .blog-view ol {
   list-style-type: decimal;
-  margin-left: 1.5rem;
+  margin-left: 1rem;
 }
 
 .blog-view li {
@@ -186,4 +184,7 @@ blockquote {
   padding: 0.5rem 1rem;
   margin: 1rem 0;
   background-color: #f9f9f9;
+}
+.blog-view br {
+  display: none;
 }
