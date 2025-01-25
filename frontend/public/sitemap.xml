@@ -1,87 +1,70 @@
-
-    <?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://www.utkubektasoglu.com/</loc>
-    </url>
-    </url>
-      
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Chat-App/67741259f92f1ad3b49190e3</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Matching-App/67741631cfbf8c3b49e2fa02</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Job-Application-And-Project-Sharing-Platform/6774197fcfbf8c3b49e2fa13</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Blog-And-Portfolio/67742accacfe118e58130de8</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Whatsapp-Clone/67742bbcacfe118e58130e11</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Lezzet-Bahcesi-Restoran-Sitesi/67742c67acfe118e58130e20</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Master-Everyday-English-In-4-Minutes-Simple-Phrases-For-Daily-Conversations-Day1/67742ef9aa751cd5f9cd55bf</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Master-Everyday-English-In-5-Minutes-Simple-Phrases-For-Daily-Conversations-Day2/67742fc2aa751cd5f9cd55d4</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/JavaScript-The-Power-And-Evolution-Of-The-Web/677431c9aa751cd5f9cd55e6</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Python-The-Star-Language-Of-Modern-Software-Development/6774333caa751cd5f9cd5610</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Cloudflare-Google-Search-Console-Registration-Problem-FIXED/6776f955ec79ed9ea48d5bc6</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Digital-clock-python-code-Beginner/6777d9d5f2734f91f05f5e8a</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Convert-PDFs-to-Audiobooks-with-Ease-Using-Python/6777db77f2734f91f05f5ead</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/Yazılım-kursları-ve-yalanları-|-Software-|-Frontend-|-Backend-|-Cyber-Security-Hepsi-yalan-!!/67890a870c237bb022a14988</loc>
-              </url>
-            
-              <url>
-                  <loc>https://www.utkubektasoglu.com/details/MERN-Stack-Interview-Questions/678f7c3c428d305be26f2980</loc>
-              </url>
-            
-    <url>
-        <loc>https://www.utkubektasoglu.com/trendingProjects</loc>
-    </url>
-    <url>
-        <loc>https://www.utkubektasoglu.com/trendingBlogs</loc>
-    </url>
-    <url>
-        <loc>https://www.utkubektasoglu.com/about</loc>
-    </url>
-    <url>
-        <loc>https://www.utkubektasoglu.com/auth/signup</loc>
-    </url>
-    <url>
-        <loc>https://www.utkubektasoglu.com/auth/signin</loc>
-    </url>
-    <url>
-        <loc>https://www.utkubektasoglu.com/contact</loc>
-    </url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.utkubektasoglu.com/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Chat-App/67741259f92f1ad3b49190e3</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Matching-App/67741631cfbf8c3b49e2fa02</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Job-Application-And-Project-Sharing-Platform/6774197fcfbf8c3b49e2fa13</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Blog-And-Portfolio/67742accacfe118e58130de8</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Whatsapp-Clone/67742bbcacfe118e58130e11</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Lezzet-Bahcesi-Restoran-Sitesi/67742c67acfe118e58130e20</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Master-Everyday-English-In-4-Minutes-Simple-Phrases-For-Daily-Conversations-Day1/67742ef9aa751cd5f9cd55bf</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Master-Everyday-English-In-5-Minutes-Simple-Phrases-For-Daily-Conversations-Day2/67742fc2aa751cd5f9cd55d4</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/JavaScript-The-Power-And-Evolution-Of-The-Web/677431c9aa751cd5f9cd55e6</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Python-The-Star-Language-Of-Modern-Software-Development/6774333caa751cd5f9cd5610</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Cloudflare-Google-Search-Console-Registration-Problem-FIXED/6776f955ec79ed9ea48d5bc6</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Digital-clock-python-code-Beginner/6777d9d5f2734f91f05f5e8a</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Convert-PDFs-to-Audiobooks-with-Ease-Using-Python/6777db77f2734f91f05f5ead</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/Yazılım-kursları-ve-yalanları-|-Software-|-Frontend-|-Backend-|-Cyber-Security-Hepsi-yalan-!!/67890a870c237bb022a14988</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/details/MERN-Stack-Interview-Questions/678f7c3c428d305be26f2980</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/trendingProjects</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/trendingBlogs</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/about</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/auth/signup</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/auth/signin</loc>
+  </url>
+  <url>
+    <loc>https://www.utkubektasoglu.com/contact</loc>
+  </url>
 </urlset>
