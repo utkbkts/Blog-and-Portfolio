@@ -5,6 +5,7 @@ import User from "../models/user.model.js";
 import dotenv from "dotenv";
 import apiFilter from "../utils/apiFilters.js";
 import { generateSlug } from "../utils/generateSlug.js";
+import { generateSitemap } from "../routes/generate.sitemap.js";
 dotenv.config();
 
 const findUserByClerkId = async (userId) => {
@@ -124,7 +125,6 @@ const getPost = catchAsyncError(async (req, res) => {
   if (!post) {
     return res.status(404).json({ message: "Post not found" });
   }
-
   return res.status(200).json(post);
 });
 
@@ -144,6 +144,8 @@ const createPost = catchAsyncError(async (req, res, next) => {
 
   const newPost = new Post({ user: userId, ...req.body });
   const post = await newPost.save();
+  generateSitemap();
+
   return res.status(201).json(post);
 });
 

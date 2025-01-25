@@ -12,7 +12,6 @@ import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
 import userRouter from "./routes/user.route.js";
 import contactRouter from "./routes/contact.route.js";
-
 const __dirname = path.resolve();
 dotnev.config();
 const app = express();

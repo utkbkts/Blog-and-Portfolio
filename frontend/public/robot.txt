@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: https://utkubektasoglu.com/admin/**/*
+
+Sitemap: https://utkubektasoglu.com/sitemap.xml
