@@ -1,9 +1,4 @@
 export const generateSlug = (input) => {
-  if (typeof input !== "string") {
-    return "";
-  }
-
-  let result = input.split(" ").join("-");
-
+  const result = input.replace(/-/g, " ");
   return result;
 };
