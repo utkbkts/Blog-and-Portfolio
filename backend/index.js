@@ -12,9 +12,11 @@ import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
 import userRouter from "./routes/user.route.js";
 import contactRouter from "./routes/contact.route.js";
+
+//socket
+import { app, server } from "./socket/server.js";
 const __dirname = path.resolve();
 dotnev.config();
-const app = express();
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
@@ -43,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const server = app.listen(process.env.PORT, () => {
+ server.listen(process.env.PORT, () => {
   ConnectedDatabase();
   console.log(`Server is running on port ${process.env.PORT}`);
 });
