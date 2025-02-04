@@ -13,7 +13,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
           src={mainBlog?.img?.url}
         />
         {/* Details */}
-        <div className="flex items-center gap-2 text-sm text-gray-500 flex-wrap sm:justify-start justify-center">
+        <div className="flex items-center gap-2  text-sm text-gray-500 flex-wrap">
           <h1 className="font-semibold text-gray-700 text-lg">01.</h1>
           <Link
             to={`/postList?category=${mainBlog?.category}`}
@@ -43,11 +43,11 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
       </div>
 
       {/* Other Blogs */}
-      <div className="w-full lg:w-1/2 flex flex-col gap-8 h-[550px]">
+      <div className="w-full lg:w-1/2 flex flex-col gap-8 h-[550px] ">
         {sideBlogs?.map((sideBlog, index) => (
           <div
             key={sideBlog?._id}
-            className="flex gap-4 overflow-hidden rounded-xl "
+            className="flex gap-4  overflow-hidden rounded-xl "
           >
             <img
               src={sideBlog?.img?.url}
@@ -56,7 +56,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
             {/* Blog Details */}
             <div className="w-2/3 flex flex-col gap-3 flex-grow">
               {/* Details */}
-              <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center gap-2 text-sm text-gray-500 flex-wrap">
                 <h1 className="font-semibold text-gray-700">0{index + 2}.</h1>
                 <Link
                   to={`/postList?category=${sideBlog?.category}`}

@@ -147,6 +147,7 @@
 }
 
 .blog-view {
+  overflow: hidden;
   a {
     color: blue;
     font-weight: 600;
@@ -157,10 +158,12 @@
     padding: 10px 20px;
     border-radius: 10px;
     color: whitesmoke;
+    overflow-x: auto;
   }
 }
 .blog-view h1 {
   font-size: 2.5rem;
+  
 }
 .blog-view h2 {
   font-size: 1.5rem;
@@ -187,4 +190,14 @@ blockquote {
 }
 .blog-view br {
   display: none;
+}
+@media (max-width: 768px) {
+  .blog-view h1 {
+    font-size: 1.5rem;
+    
+  }
+  .blog-view h2 {
+    font-size: 1rem;
+  }
+  
 }

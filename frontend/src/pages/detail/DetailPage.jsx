@@ -37,7 +37,7 @@ const DetailPage = () => {
         {/* detial */}
         <div className="flex gap-8">
           <div className="lg:w-3/5 flex flex-col gap-8">
-            <h1 className="text-3xl font-bold text-white">{data?.title}</h1>
+            <h1 className="md:text-3xl text-md font-bold text-white">{data?.title}</h1>
             <div className="flex items-center gap-2 text-slate-400 text-sm">
               <span>Written By</span>
               <span className="text-blue-400 underline">
@@ -63,7 +63,7 @@ const DetailPage = () => {
           </div>
         </div>
         {/* content */}
-        <div className="flex flex-col md:flex-row gap-8 justify-between">
+        <div className="flex flex-col lg:flex-row gap-8 justify-between">
           <div className="lg:text-lg flex flex-col gap-6 text-slate-300 blog-view">
             {parse(sanitize)}
           </div>

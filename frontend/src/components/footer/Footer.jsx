@@ -1,71 +1,89 @@
-import { Footer } from "flowbite-react";
 import { BsGithub, BsLinkedin, BsYoutube } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export function FooterComponent() {
+  const currentDate = new Date().getFullYear();
   return (
-    <div className="flex flex-col text-white container mx-auto md:max-w-[1024px]">
-      <div className="w-full">
-        <div className="grid w-full  sm:flex sm:justify-between justify-center  md:flex md:grid-cols-1">
-          <div>
-            <Footer.Brand
-              href="/"
-              src="/logo.png"
-              alt="utkutoygunbektasoglu"
-              className="w-24 h-24"
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
-            <div>
-              <Footer.Title title="about" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="/about">Me</Footer.Link>
-                <Footer.Link href="#">S.S.S</Footer.Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="Follow us" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="https://github.com/utkbkts" target="_blank">
-                  Github
-                </Footer.Link>
-                <Footer.Link
-                  href="https://www.linkedin.com/in/utku-bektasoglu"
-                  target="_blank"
-                >
-                  Linkedin
-                </Footer.Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="Legal" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#">Privacy Policy</Footer.Link>
-                <Footer.Link href="#">Terms &amp; Conditions</Footer.Link>
-              </Footer.LinkGroup>
-            </div>
+    <div className="flex flex-col text-white container mx-auto md:max-w-[1440px]">
+      <div className="flex mds:items-start mds:justify-between mds:flex-row flex-col justify-center items-center gap-6 mds:gap-0">
+        <img
+          src={"/logo.png"}
+          alt="logo"
+          title="logo-avatar"
+          className="w-32 h-32 object-cover"
+        />
+        <div className="flex flex-col mds:items-start items-center  gap-2">
+          <h1 className="text-white font-bold font-heading ">About</h1>
+          <div className="flex flex-col gap-1">
+            <Link
+              to={"/about"}
+              target="_blank"
+              className="cursor-pointer hover:underline"
+            >
+              Me
+            </Link>
+            <Link to={"/S.S.S"} target="_blank" className="cursor-pointer hover:underline">S.S.S</Link>
           </div>
         </div>
-        <Footer.Divider />
-        <div className="w-full flex sm:flex-row flex-col items-center sm:justify-between justify-center pt-4 pb-4">
-          <Footer.Copyright by="" year={2024} />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon
-              href="https://github.com/utkbkts"
-              target="_blank"
-              icon={BsGithub}
-            />
-            <Footer.Icon
-              href="https://www.linkedin.com/in/utku-bektasoglu"
-              target="_blank"
-              icon={BsLinkedin}
-            />
-            <Footer.Icon
-              href="https://www.youtube.com/@Fluent-Moments"
-              target="_blank"
-              icon={BsYoutube}
-            />
+        <div className="flex flex-col mds:text-start text-center gap-2">
+          <h1 className="text-white font-bold font-heading">Support</h1>
+          <div className="flex mds:text-start text-center flex-col gap-1">
+            <span className="cursor-pointer hover:underline">
+              Privacy Policy
+            </span>
+            <span className="cursor-pointer hover:underline">Terms</span>
           </div>
         </div>
+        <div className="flex flex-col mds:items-start items-center gap-2">
+          <h1 className="text-white font-bold font-heading">Follow Us</h1>
+          <div className="flex flex-col gap-1">
+            <Link
+              target="_blank"
+              to={" https://www.linkedin.com/in/utku-toygun-bektasoglu/"}
+              className="cursor-pointer hover:underline"
+            >
+              Linkedin
+            </Link>
+            <Link
+              target="_blank"
+              to={"https://github.com/utkbkts"}
+              className="cursor-pointer hover:underline"
+            >
+              Github
+            </Link>
+            <Link
+              target="_blank"
+              to={"https://www.youtube.com/@Fluent-Moments"}
+              className="cursor-pointer hover:underline"
+            >
+              Youtube
+            </Link>
+          </div>
+        </div>
+        <h1 className="text-white font-bold font-heading flex gap-4">
+          <Link target="_blank" to={"https://github.com/utkbkts"}>
+            <BsGithub
+              size={20}
+              className="hover:text-blue-600 transition-all duration-300 cursor-pointer"
+            />
+          </Link>
+          <Link
+            target="_blank"
+            to={"https://www.linkedin.com/in/utku-toygun-bektasoglu/"}
+          >
+            <BsLinkedin
+              size={20}
+              className="hover:text-blue-600 transition-all duration-300 cursor-pointer"
+            />
+          </Link>
+          <Link target="_blank" to={"https://www.youtube.com/@Fluent-Moments"}>
+            <BsYoutube
+              size={20}
+              className="hover:text-blue-600 transition-all duration-300 cursor-pointer"
+            />
+          </Link>
+        </h1>
+        <div>DevJourney. © {currentDate}</div>
       </div>
     </div>
   );

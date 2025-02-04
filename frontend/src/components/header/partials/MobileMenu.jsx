@@ -41,14 +41,22 @@ const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
           />
           <ul className="flex items-center flex-col gap-4 pt-28 text-[#fff]">
             {HeaderLinks.map((item, index) => (
-              <Link to={item.url} key={index} className={item.className}>
+              <Link
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                to={item.url}
+                key={index}
+                className={item.className}
+              >
                 {item.name}
               </Link>
             ))}
             {user ? (
               <Button onClick={handleLogout}>Logout✨</Button>
             ) : (
-              <Link to={"/auth/signin"}>
+              <Link
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                to={"/auth/signin"}
+              >
                 <Button className={"bg-quaternary"}>Login🙌</Button>
               </Link>
             )}

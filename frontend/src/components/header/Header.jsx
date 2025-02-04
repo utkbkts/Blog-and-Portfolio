@@ -48,8 +48,8 @@ const Header = () => {
   return (
     <>
       <header
-        className={`fixed  font-heading w-full   z-[999] shadow-xl h-32   transition-transform duration-300 ${
-          isScrollingUp ? "navbar-visible bg-quaternary" : "navbar-hidden "
+        className={`fixed  font-heading w-full max-md:bg-quaternary max-md:translate-y-0  z-[999] shadow-xl h-32 transition-transform duration-300 ${
+          isScrollingUp ? "navbar-visible bg-quaternary" : "navbar-hidden"
         } top-0`}
       >
         <div className=" items-center flex justify-between container mx-auto px-4">
