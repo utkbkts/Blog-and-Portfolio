@@ -110,7 +110,7 @@ const Sss = () => {
               <span>{activeId === item.id ? <Minus /> : <Plus />}</span>
             </h1>
             {activeId === item.id && (
-              <p className="text-gray-700 mt-2">
+              <div className="text-gray-700 mt-2">
                 {Array.isArray(item.desc) ? (
                   <ul className="list-disc ml-5 sm:text-md text-sm">
                     {item.desc.map((tech, index) => (
@@ -118,9 +118,9 @@ const Sss = () => {
                     ))}
                   </ul>
                 ) : (
-                  <p className="sm:text-md text-sm"> {item.desc}</p>
+                  <span className="sm:text-md text-sm"> {item.desc}</span>
                 )}
-              </p>
+              </div>
             )}
           </div>
         ))}
@@ -139,7 +139,7 @@ const Sss = () => {
               <span>{activeIdP === item.id ? <Minus /> : <Plus />}</span>
             </h1>
             {activeIdP === item.id && (
-              <p className="text-gray-700 mt-2">
+              <div className="text-gray-700 mt-2">
                 {Array.isArray(item.desc) ? (
                   <ul className="list-disc ml-5 sm:text-md text-sm">
                     {item.desc.map((tech, index) => (
@@ -147,9 +147,9 @@ const Sss = () => {
                     ))}
                   </ul>
                 ) : (
-                  <p className="sm:text-md text-sm"> {item.desc}</p>
+                  <span className="sm:text-md text-sm"> {item.desc}</span>
                 )}
-              </p>
+              </div>
             )}
           </div>
         ))}
