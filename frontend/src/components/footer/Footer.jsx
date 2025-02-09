@@ -22,15 +22,25 @@ export function FooterComponent() {
             >
               Me
             </Link>
-            <Link to={"/S.S.S"} target="_blank" className="cursor-pointer hover:underline">S.S.S</Link>
+            <Link
+              to={"/S.S.S"}
+              target="_blank"
+              className="cursor-pointer hover:underline"
+            >
+              S.S.S
+            </Link>
           </div>
         </div>
         <div className="flex flex-col mds:text-start text-center gap-2">
           <h1 className="text-white font-bold font-heading">Support</h1>
           <div className="flex mds:text-start text-center flex-col gap-1">
-            <span className="cursor-pointer hover:underline">
+            <Link
+              to={"/policy"}
+              target="_blank"
+              className="cursor-pointer hover:underline"
+            >
               Privacy Policy
-            </span>
+            </Link>
             <span className="cursor-pointer hover:underline">Terms</span>
           </div>
         </div>

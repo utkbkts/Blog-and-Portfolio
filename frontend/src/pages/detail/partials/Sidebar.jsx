@@ -11,7 +11,7 @@ import { useLikedPostMutation } from "../../../redux/api/userApi";
 
 const Sidebar = ({ post }) => {
   const { user } = useSelector((state) => state.auth);
-  const [liked, { isSuccess, data }] = useLikedPostMutation();
+  const [liked, { isSuccess, data,isError,error }] = useLikedPostMutation();
   const navigate = useNavigate();
   const isLikedByUser = post?.liked?.some(
     (like) => like?.user?.toString() === user?._id?.toString()
@@ -23,13 +23,16 @@ const Sidebar = ({ post }) => {
       toast.success(data.message);
       setIsLiked((prev) => !prev);
     }
-  }, [isSuccess, data]);
+    if(isError){
+      toast.error(error.data.message)
+    }
+  }, [isSuccess, data,error,isError]);
 
   const handleLike = async () => {
     try {
       await liked({ postId: post?._id });
     } catch (err) {
-      console.error(err);
+      toast.error(err.message)
     }
   };
 

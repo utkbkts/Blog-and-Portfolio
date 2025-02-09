@@ -18,6 +18,7 @@ const TrendingProjects = React.lazy(() =>
 const Contact = React.lazy(() => import("../pages/contact/Contact"));
 const About = React.lazy(() => import("../pages/about/About"));
 const Sss = React.lazy(() => import("../pages/privacy/Sss"));
+const PrivacyPolicy = React.lazy(() => import("../pages/privacy/PrivacyPolicy"));
 
 export const MainRoutes = {
   path: "/",
@@ -114,6 +115,14 @@ export const MainRoutes = {
       element: (
         <Suspense fallback={<Loading />}>
           <Sss />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/policy",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <PrivacyPolicy />
         </Suspense>
       ),
     },
