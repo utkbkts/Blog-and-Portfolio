@@ -9,7 +9,7 @@ export const commentApi = createApi({
   tagTypes: ["Comments"],
   endpoints: (builder) => ({
     submitReview: builder.mutation({
-      query({ comment, title, postId }) {
+      query({ comment, title, postId}) {
         return {
           url: `/newComment/${title}/${postId}`,
           method: "POST",

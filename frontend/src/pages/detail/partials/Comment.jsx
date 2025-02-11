@@ -67,6 +67,7 @@ const Comment = ({ comment, currentUser }) => {
     });
   };
 
+
   const isUserComment = currentUser && comment?.user?._id === currentUser.id;
 
   return (

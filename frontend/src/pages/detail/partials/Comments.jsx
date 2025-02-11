@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 const Comments = ({ postId, title }) => {
   const [submitReview, { isError, error, isSuccess, isLoading }] =
     useSubmitReviewMutation();
-
   const { data } = useGetUserReviewsQuery({ title, id: postId });
   const { user } = useSelector((state) => state.auth);
 
@@ -27,16 +26,19 @@ const Comments = ({ postId, title }) => {
     mode: "onChange",
   });
 
-  //new comment
+  // Yeni yorum eklenince bildirim ver
   useEffect(() => {
     if (isSuccess) {
       toast.success("Your comment has been sent successfully.");
     }
     if (isError) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "An error occurred.");
     }
   }, [isSuccess, isError, error]);
 
+
+
+  // Normal yorum gönderme
   const onSubmit = async (data) => {
     try {
       await submitReview({
@@ -51,7 +53,7 @@ const Comments = ({ postId, title }) => {
 
   return (
     <div className="flex flex-col gap-8 lg:w-3/5">
-      <h1 className="text-xl text-white ">Comments</h1>
+      <h1 className="text-xl text-white">Comments</h1>
       <hr className="text-white" />
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -68,7 +70,7 @@ const Comments = ({ postId, title }) => {
             <p className="text-red-500">{errors.comment.message}</p>
           )}
         </div>
-        <Button loading={isLoading} type="submit" className={"text-white"}>
+        <Button loading={isLoading} type="submit" className="text-white">
           Send
         </Button>
       </form>
