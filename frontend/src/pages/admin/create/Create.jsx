@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createMessageSchema } from "../../../validation/createMessage-schema";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Upload from "../../../components/upload/Upload";
 import {
@@ -24,18 +24,6 @@ const categoryHeader = [
   { value: "Blog", label: "Blog" },
   { value: "Project", label: "Project" },
 ];
-const optionsCategory = [
-  { value: "Database", label: "Database" },
-  { value: "React.JS", label: "React.JS" },
-  { value: "Node.JS", label: "Node.JS" },
-  { value: "Javascript", label: "Javascript" },
-  { value: "Typescript", label: "Typescript" },
-  { value: "Go", label: "Go" },
-  { value: "Python", label: "Python" },
-  { value: "Cyber Security", label: "Cyber Security" },
-  { value: "Software", label: "Software" },
-  { value: "English", label: "English" },
-];
 
 const AdminCreate = () => {
   const location = useLocation();
@@ -43,7 +31,7 @@ const AdminCreate = () => {
   const navigate = useNavigate();
   const [createPost, { isLoading, isError, error, isSuccess }] =
     useCreatePostMutation();
-
+  const [skills, setSkills] = useState([]);
   const [
     updatePost,
     {
@@ -60,10 +48,14 @@ const AdminCreate = () => {
     watch,
     setValue,
     reset,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(createMessageSchema),
     mode: "onChange",
+    defaultValues: {
+      category: [],
+    },
   });
 
   //create
@@ -124,6 +116,24 @@ const AdminCreate = () => {
     }
   }, []);
 
+  //category
+
+ const handleCategoryChange = (e) => {
+   if (e.key === "Enter") {
+     e.preventDefault();
+     
+     const category = getValues("category").trim()
+     if (!category) return;
+     
+     setSkills([...skills, category]);
+     setValue("category",[])
+    }
+  };
+
+  const handleCategoryRemoved = (id) => {
+    const newSkill = skills.filter((skill, index) => index !== id);
+    setSkills(newSkill);
+  };
   // Create or Update Mutation
 
   const onSubmit = async (data) => {
@@ -134,7 +144,7 @@ const AdminCreate = () => {
           body: {
             title: data.title,
             desc: data.desc,
-            category: data.category,
+            category: skills,
             img: data.img,
             categoryHeader: data.categoryHeader,
             content: data.content,
@@ -144,7 +154,7 @@ const AdminCreate = () => {
         await createPost({
           title: data.title,
           desc: data.desc,
-          category: data.category,
+          category: skills,
           img: data.img,
           categoryHeader: data.categoryHeader,
           content: data.content,
@@ -208,12 +218,26 @@ const AdminCreate = () => {
           {errors.title && (
             <p className="text-red-500">{errors.title.message}</p>
           )}
-          <SelectInput
+          <Input
             register={register("category")}
-            onChange={(e) => setValue("category", e.target.value)}
-            className="custom-class"
-            options={optionsCategory}
+            name="category"
+            type="text"
+            onKeyDown={handleCategoryChange}
+            placeholder="category"
           />
+          <div className="flex items-center gap-4 ">
+            {skills.map((cat, index) => (
+              <main key={index}>
+                <span
+                  className="text-white cursor-pointer"
+                  onClick={() => handleCategoryRemoved(index)}
+                >
+                  X
+                </span>
+                <div className="bg-white rounded-xl py-2 px-4">{cat}</div>
+              </main>
+            ))}
+          </div>
           {errors.category && (
             <p className="text-red-500">{errors.category.message}</p>
           )}

@@ -13,14 +13,14 @@ export function FooterComponent() {
           className="w-32 h-32 object-cover"
         />
         <div className="flex flex-col mds:items-start items-center  gap-2">
-          <h1 className="text-white font-bold font-heading ">About</h1>
+          <h1 className="text-white font-bold font-heading ">Hakkımda</h1>
           <div className="flex flex-col gap-1">
             <Link
               to={"/about"}
               target="_blank"
               className="cursor-pointer hover:underline"
             >
-              Me
+              Ben
             </Link>
             <Link
               to={"/S.S.S"}
@@ -32,20 +32,20 @@ export function FooterComponent() {
           </div>
         </div>
         <div className="flex flex-col mds:text-start text-center gap-2">
-          <h1 className="text-white font-bold font-heading">Support</h1>
+          <h1 className="text-white font-bold font-heading">Destek</h1>
           <div className="flex mds:text-start text-center flex-col gap-1">
             <Link
               to={"/policy"}
               target="_blank"
               className="cursor-pointer hover:underline"
             >
-              Privacy Policy
+              Gizlilik Politikası 
             </Link>
-            <span className="cursor-pointer hover:underline">Terms</span>
+            <span className="cursor-pointer hover:underline">Şartlar ve Koşullar</span>
           </div>
         </div>
         <div className="flex flex-col mds:items-start items-center gap-2">
-          <h1 className="text-white font-bold font-heading">Follow Us</h1>
+          <h1 className="text-white font-bold font-heading">Beni Takip Edin</h1>
           <div className="flex flex-col gap-1">
             <Link
               target="_blank"
@@ -63,7 +63,7 @@ export function FooterComponent() {
             </Link>
             <Link
               target="_blank"
-              to={"https://www.youtube.com/@Fluent-Moments"}
+              to={"https://www.youtube.com/@DevJourneyYT"}
               className="cursor-pointer hover:underline"
             >
               Youtube
@@ -86,7 +86,7 @@ export function FooterComponent() {
               className="hover:text-blue-600 transition-all duration-300 cursor-pointer"
             />
           </Link>
-          <Link target="_blank" to={"https://www.youtube.com/@Fluent-Moments"}>
+          <Link target="_blank" to={"https://www.youtube.com/@DevJourneyYT"}>
             <BsYoutube
               size={20}
               className="hover:text-blue-600 transition-all duration-300 cursor-pointer"

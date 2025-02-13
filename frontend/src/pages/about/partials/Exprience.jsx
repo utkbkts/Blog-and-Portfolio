@@ -28,7 +28,7 @@ const Experience = () => {
             title="🎉 CATCH-ASYNC-ERROR"
             address="Istanbul , Turkey"
             work={
-              "CatchAsyncError is a lightweight middleware for handling asynchronous errors in your Node.js applications. It simplifies error handling by allowing you to write cleaner code without repetitive try-catch blocks."
+             "CatchAsyncError, Node.js uygulamalarınızda asenkron hataları yönetmek için hafif bir ara yazılımdır. Tekrarlayan try-catch blokları olmadan daha temiz kod yazmanıza olanak tanıyarak hata yönetimini basitleştirir."
             }
             link="https://github.com/utkbkts/catchAsyncError-npm"
           />
@@ -38,7 +38,7 @@ const Experience = () => {
           <Detail
             position="Full Stack Project"
             company="Github"
-            title="🎉 Restaurant Food Ordering"
+            title="🎉 Yemek sipariş takip uygulaması"
             address="Istanbul , Turkey"
             work={
               "Backend: Node.js, MongoDB | Frontend: React.js, Ant Design | State Management: React-Redux,Redux-Toolkit, RTKQuery | Validation: React-Hook-Form | Zod, Ant Design Rules | Metadata:React-Helmet | Others: Docker,PM2, Worker"
@@ -51,7 +51,7 @@ const Experience = () => {
           <Detail
             position="Full Stack Project"
             company="Github"
-            title="🎉 Matching App"
+            title="🎉 Eşleştirme Projesi"
             address="Istanbul , Turkey"
             work={
               "Backend: Node.js, MongoDB | Frontend: React.js, Typescript,ShadCN | State Management: React-Redux,Redux-Toolkit, RTK Query | Validation: React-Hook-Form | Zod | Metadata:React-Helmet"
@@ -63,7 +63,7 @@ const Experience = () => {
           <Detail
             position="Full Stack Project"
             company="Github"
-            title="🎉 Job application and project sharing platform"
+            title="🎉 İş başvuru ve paylaşım platformu"
             address="Istanbul , Turkey"
             work={
               "Backend: Node.js, MongoDB,Socket,IO | Frontend: React.js,ShadCN | State Management: React-Redux,Redux-Toolkit, RTK Query | Validation: React-Hook-Form | Zod | Metadata:React-Helmet"

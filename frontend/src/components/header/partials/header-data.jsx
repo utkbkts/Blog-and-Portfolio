@@ -1,11 +1,15 @@
 export const HeaderLinks = [
-  { name: "Home", className: "header-link", url: "/" },
-  { name: "Trending Blog", className: "header-link", url: "/trendingBlogs" },
+  { name: "Ana Sayfa", className: "header-link", url: "/" },
   {
-    name: "Trending Projects",
+    name: "Popüler Bloglar",
     className: "header-link",
-    url: "/trendingProjects",
+    url: "/populer-bloglar",
   },
-  { name: "About", className: "header-link", url: "/about" },
-  { name: "Contact", className: "header-link", url: "/contact" },
+  {
+    name: "Öne Çıkan Projeler",
+    className: "header-link",
+    url: "/one-cikan-projeler",
+  },
+  { name: "Hakkımızda", className: "header-link", url: "/hakkimizda" },
+  { name: "İletişim", className: "header-link", url: "/iletisim" },
 ];

@@ -18,21 +18,36 @@ const PostList = ({ post }) => {
       {/* details */}
       <div className="flex flex-col gap-4 xl:w-2/3">
         <Link
-          to={`/details/${generateSlug(post?.title)}/${post?._id}`}
+          to={`/detay/${generateSlug(post?.title)}/${post?._id}`}
           className="text-4xl font-semibold"
         >
           {post?.title}
         </Link>
         <div className="flex items-center gap-1 text-gray-400 text-sm">
-          <span>Written by</span>
           <span className="text-blue-400">{post?.user?.username}</span>
-          <span>on</span>
-          <Link
-            to={`/postList?category=${post?.category}`}
-            className="text-blue-400"
-          >
-            {post?.category}
-          </Link>
+          <span>Tarafından</span>
+          {Array.isArray(post?.category) ? (
+            post.category.map((cat, index) => (
+              <Link
+                key={index}
+                to={`/postList?category=${encodeURIComponent(cat)}`}
+                className="text-blue-400 mr-2"
+              >
+                {cat}
+                {index !== post.category.length - 1 && ", "}
+              </Link>
+            ))
+          ) : (
+            <Link
+              to={`/postList?category=${encodeURIComponent(
+                post?.category || ""
+              )}`}
+              className="text-blue-400"
+            >
+              {post?.category}
+            </Link>
+          )}
+
           <span>{getDateLocal(post?.createdAt)}</span>
           <span className="flex items-center gap-1">
             <Eye size={15} />
@@ -40,13 +55,13 @@ const PostList = ({ post }) => {
           </span>
         </div>
         <p>{post?.desc}</p>
-        <Link to={`/details/${generateSlug(post?.title)}/${post?._id}`}>
+        <Link to={`/detay/${generateSlug(post?.title)}/${post?._id}`}>
           <Button
             className={
               "w-1/3 hover:bg-opacity-60 transition-all duration-300 mt-auto"
             }
           >
-            Read More
+            Daha fazla
           </Button>
         </Link>
       </div>

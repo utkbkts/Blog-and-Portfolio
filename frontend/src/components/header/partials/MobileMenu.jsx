@@ -18,7 +18,7 @@ const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
       toast.error(error?.response?.data?.message || error?.data?.message);
     }
     if (isSuccess) {
-      toast.success("Logout is successfully !!");
+      toast.success("Çıkış başarılı !!");
     }
   }, [isSuccess, error, isError]);
 

@@ -41,7 +41,7 @@ const SearchPage = () => {
       <input
         type="text"
         name="search"
-        placeholder="Search Title and Press Enter"
+        placeholder="Başlık Ara and Enter'e bas"
         className="bg-transparent outline-none text-white border-b"
         value={query}
         onChange={handleInputChange}
@@ -60,11 +60,11 @@ const SearchPage = () => {
             ))
           ) : isLoading ? (
             <div className="flex items-center flex-col justify-center h-full">
-              Loading...
+              Yükleniyor...
             </div>
           ) : (
             <p className="text-gray-500 flex items-center justify-center h-full">
-              No results found
+              Sonuç bulunamadı
             </p>
           )}
         </div>

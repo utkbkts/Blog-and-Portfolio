@@ -15,12 +15,28 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
         {/* Details */}
         <div className="flex items-center gap-2  text-sm text-gray-500 flex-wrap">
           <h1 className="font-semibold text-gray-700 text-lg">01.</h1>
-          <Link
-            to={`/postList?category=${mainBlog?.category}`}
-            className="text-blue-500 font-medium hover:underline"
-          >
-            {mainBlog?.category}
-          </Link>
+          {Array.isArray(mainBlog?.category) ? (
+            mainBlog.category.map((cat, index) => (
+              <Link
+                key={index}
+                to={`/postList?category=${encodeURIComponent(cat)}`}
+                className="text-blue-400 mr-2"
+              >
+                {cat}
+                {index !== mainBlog.category.length - 1 && ", "}
+              </Link>
+            ))
+          ) : (
+            <Link
+              to={`/postList?category=${encodeURIComponent(
+                mainBlog?.category || ""
+              )}`}
+              className="text-blue-400"
+            >
+              {mainBlog?.category}
+            </Link>
+          )}
+
           <span>{getDateLocal(mainBlog?.createdAt)}</span>
           <span>By {mainBlog?.user?.username}</span>
           <span className="flex items-center gap-1">
@@ -34,7 +50,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
         </div>
         {/* Title */}
         <Link
-          to={`/details/${generateSlug(mainBlog?.title)}/${mainBlog?._id}`}
+          to={`/detay/${generateSlug(mainBlog?.title)}/${mainBlog?._id}`}
           className="text-xl lg:text-3xl font-bold text-gray-800 hover:text-blue-500 transition-colors duration-200 sm:text-left text-center"
         >
           {mainBlog?.title}
@@ -58,12 +74,27 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
               {/* Details */}
               <div className="flex items-center gap-2 text-sm text-gray-500 flex-wrap">
                 <h1 className="font-semibold text-gray-700">0{index + 2}.</h1>
-                <Link
-                  to={`/postList?category=${sideBlog?.category}`}
-                  className="text-blue-500 font-medium hover:underline"
-                >
-                  {sideBlog?.category}
-                </Link>
+                {Array.isArray(sideBlog?.category) ? (
+                  sideBlog.category.map((cat, index) => (
+                    <Link
+                      key={index}
+                      to={`/postList?category=${encodeURIComponent(cat)}`}
+                      className="text-blue-400 mr-2"
+                    >
+                      {cat}
+                      {index !== sideBlog.category.length - 1 && ", "}
+                    </Link>
+                  ))
+                ) : (
+                  <Link
+                    to={`/postList?category=${encodeURIComponent(
+                      sideBlog?.category || ""
+                    )}`}
+                    className="text-blue-400"
+                  >
+                    {sideBlog?.category}
+                  </Link>
+                )}
                 <span>{getDateLocal(sideBlog?.createdAt)}</span>
                 <span className="flex items-center gap-1">
                   <Heart size={15} />
@@ -80,9 +111,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
               {/* Title */}
               <Link
                 className="font-medium text-gray-800 hover:text-blue-500 transition-colors duration-200"
-                to={`/details/${generateSlug(sideBlog?.title)}/${
-                  sideBlog?._id
-                }`}
+                to={`/detay/${generateSlug(sideBlog?.title)}/${sideBlog?._id}`}
               >
                 {sideBlog?.title}
               </Link>

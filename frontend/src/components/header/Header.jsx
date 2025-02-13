@@ -22,7 +22,7 @@ const Header = () => {
       toast.error(error.response.data.message);
     }
     if (isSuccess) {
-      toast.success("Logout is successfully !!");
+      toast.success("Çıkış başarılı !!");
     }
   }, [isSuccess, error, isError]);
 
@@ -70,7 +70,7 @@ const Header = () => {
             {user?.isVerified === "false" && (
               <Link
                 onClick={handleVerify}
-                to={"/verifyEmail"}
+                to={"/email-dogrula"}
                 className="cursor-pointer"
               >
                 Account Verified
@@ -78,14 +78,14 @@ const Header = () => {
             )}
             {user?.role === "admin" && (
               <li className="hidden md:block">
-                <Link to={"/admin/create"}>Create</Link>
+                <Link to={"/admin/create"}>Oluştur</Link>
               </li>
             )}
             {user ? (
-              <Button onClick={handleLogout}>Logout✨</Button>
+              <Button onClick={handleLogout}>Çıkış yap✨</Button>
             ) : (
-              <Link to={"/auth/signin"}>
-                <Button>Login🙌</Button>
+              <Link to={"/giris-yap"}>
+                <Button>Giriş yap🙌</Button>
               </Link>
             )}
           </ul>

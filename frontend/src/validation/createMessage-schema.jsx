@@ -9,13 +9,13 @@ const messageIsRequired = z
 
 export const createMessageSchema = z.object({
   title: messageIsRequired,
-  category: messageIsRequired,
+  category: z.coerce.string(),
   desc: messageIsRequired,
   categoryHeader: messageIsRequired,
-  img: z.object({
-    public_id: z.string(),
-    url: z.string().url("Invalid video URL").nonempty("Video URL is required"),
-  }),
+  // img: z.object({
+  //   public_id: z.string(),
+  //   url: z.string().url("Invalid video URL").nonempty("Video URL is required"),
+  // }),
   content: z
     .string({
       required_error: "required",

@@ -18,12 +18,27 @@ const FeaturesProjects = ({ post }) => {
           <span className="text-slate-300">
             {getDateLocal(post?.createdAt)}
           </span>
-          <Link
-            to={`/postList?category=${post?.category}`}
-            className="text-blue-400 hover:underline pt-[1px]"
-          >
-            {post?.category}
-          </Link>
+          {Array.isArray(post?.category) ? (
+            post.category.map((cat, index) => (
+              <Link
+                key={index}
+                to={`/postList?category=${encodeURIComponent(cat)}`}
+                className="text-blue-400 mr-2"
+              >
+                {cat}
+                {index !== post.category.length - 1 && ", "}
+              </Link>
+            ))
+          ) : (
+            <Link
+              to={`/postList?category=${encodeURIComponent(
+                post?.category || ""
+              )}`}
+              className="text-blue-400"
+            >
+              {post?.category}
+            </Link>
+          )}
           <span className="flex items-center gap-1">
             <Heart size={15} />
             <span>({post?.likedCount ? post?.likedCount : 0})</span>
@@ -35,7 +50,7 @@ const FeaturesProjects = ({ post }) => {
         </div>
         <h1 className="font-bold text-3xl">{post?.title}</h1>
         <p className="text-slate-300">{post?.desc.slice(0, 500)}...</p>
-        <Link to={`/details/${generateSlug(post?.title)}/${post?._id}`}>
+        <Link to={`/detay/${generateSlug(post?.title)}/${post?._id}`}>
           <Button
             className={
               "sm:w-1/3 w-full hover:bg-opacity-60 transition-all duration-300 mt-auto"

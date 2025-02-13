@@ -20,7 +20,7 @@ const Login = () => {
       toast.error(error.data.message);
     }
     if (loginSuccess) {
-      toast.success("Login is successfully !!");
+      toast.success("Giriş Başarılı !!");
     }
   }, [loginSuccess, error, isError]);
 
@@ -45,7 +45,7 @@ const Login = () => {
       <MetaData title={"Login"} />
       <div className="min-h-[80vh] flex flex-col items-center justify-center">
         <h1 className="text-white text-center text-2xl font-heading mb-12">
-          Sign In
+          Giriş yap
         </h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -65,9 +65,9 @@ const Login = () => {
             )}
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-white text-md font-heading">Password</label>
+            <label className="text-white text-md font-heading">Şifre</label>
             <Input
-              placeholder={"Password"}
+              placeholder={"Şifre"}
               className={"w-full"}
               loading={loginLoading}
               register={register("password")}
@@ -86,14 +86,14 @@ const Login = () => {
               type="submit"
               className={"text-white w-full"}
             >
-              Sign In
+              Giriş yap
             </Button>
           </div>
         </form>
         <span className="mt-4 text-white flex items-center gap-1">
-          Don&apos;t you have an account?{" "}
-          <Link to={"/auth/signup"} className="text-blue-400 underline">
-            Sign Up
+          Hesabın yok mu?{" "}
+          <Link to={"/kayit-ol"} className="text-blue-400 underline">
+            Kayıt ol
           </Link>
         </span>
       </div>

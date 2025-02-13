@@ -31,7 +31,7 @@ const Comment = ({ comment, currentUser }) => {
   //update comment
   useEffect(() => {
     if (updateSucces) {
-      toast.success("Your comment has been updated successfully.");
+      toast.success("Yorumun başarılı bir şekilde güncellendi");
       setIsEditing(false);
     }
     if (isupdateError) {
@@ -42,7 +42,7 @@ const Comment = ({ comment, currentUser }) => {
   //delete comment
   useEffect(() => {
     if (deleteSuccess) {
-      toast.success("Your comment has been successfully deleted.");
+      toast.success("Yorumun başarılı bir şekilde silindi.");
     }
     if (isDeleteError) {
       toast.error(deleteError.response.data.message);

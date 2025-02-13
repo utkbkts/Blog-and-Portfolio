@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
-import ErrorHandler from "../utils/handlerError.js";
 
 export const isAuthenticatedUser = async (req, res, next) => {
   try {
@@ -8,7 +7,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
 
     if (!token) {
       return res.status(401).json({
-        message: "Please Login",
+        message: "Lütfen Giriş Yap.",
       });
     }
 

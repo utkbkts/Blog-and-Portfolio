@@ -35,7 +35,7 @@ export const MainRoutes = {
     },
 
     {
-      path: "/details/:title/:postId",
+      path: "/detay/:title/:postId",
       element: (
         <Suspense fallback={<Loading />}>
           <DetailPage />
@@ -51,7 +51,7 @@ export const MainRoutes = {
       ),
     },
     {
-      path: "/trendingProjects",
+      path: "/one-cikan-projeler",
       element: (
         <Suspense fallback={<Loading />}>
           <TrendingProjects />
@@ -59,7 +59,7 @@ export const MainRoutes = {
       ),
     },
     {
-      path: "/trendingBlogs",
+      path: "/populer-bloglar",
       element: (
         <Suspense fallback={<Loading />}>
           <TrendingBlogs />
@@ -67,7 +67,7 @@ export const MainRoutes = {
       ),
     },
     {
-      path: "/about",
+      path: "/hakkimizda",
       element: (
         <Suspense fallback={<Loading />}>
           <About />
@@ -75,7 +75,7 @@ export const MainRoutes = {
       ),
     },
     {
-      path: "/auth/signup",
+      path: "/kayit-ol",
       element: (
         <Suspense fallback={<Loading />}>
           <ProtectedRoutes>
@@ -85,7 +85,7 @@ export const MainRoutes = {
       ),
     },
     {
-      path: "/auth/signin",
+      path: "/giris-yap",
       element: (
         <Suspense fallback={<Loading />}>
           <ProtectedRoutes>
@@ -95,7 +95,7 @@ export const MainRoutes = {
       ),
     },
     {
-      path: "/contact",
+      path: "/iletisim",
       element: (
         <Suspense fallback={<Loading />}>
           <Contact />
@@ -103,7 +103,7 @@ export const MainRoutes = {
       ),
     },
     {
-      path: "/verifyEmail",
+      path: "/email-dogrula",
       element: (
         <Suspense fallback={<Loading />}>
           <VerifyEmail />

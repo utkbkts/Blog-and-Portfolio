@@ -29,7 +29,7 @@ const Comments = ({ postId, title }) => {
   // Yeni yorum eklenince bildirim ver
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Your comment has been sent successfully.");
+      toast.success("Yorumun başarılı bir şekilde gönderildi.");
     }
     if (isError) {
       toast.error(error.response?.data?.message || "An error occurred.");

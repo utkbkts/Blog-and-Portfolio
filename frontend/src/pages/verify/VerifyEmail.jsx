@@ -13,7 +13,7 @@ const VerifyEmail = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Email verified successfully");
+      toast.success("Email doğrulama başarılı");
       navigate("/");
     }
   }, [isSuccess, navigate]);

@@ -6,7 +6,7 @@ const MainCategories = () => {
   return (
     <div className="hidden md:flex bg-white text-quaternary rounded-3xl xl:rounded-full p-4 shadow-lg items-center justify-center gap-8">
       {/* Links */}
-      <div className="lg:flex-1 flex items-center justify-center ">
+      <div className="lg:flex-1 flex items-center justify-center overflow-y-auto">
         {data?.categories?.map((item, index) => (
           <>
             <Link

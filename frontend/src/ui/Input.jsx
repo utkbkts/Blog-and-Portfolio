@@ -9,6 +9,7 @@ const Input = ({
   value,
   placeholder,
   register,
+  onKeyDown
 }) => {
   return (
     <input
@@ -18,6 +19,7 @@ const Input = ({
       value={value}
       placeholder={placeholder}
       type={type}
+      onKeyDown={onKeyDown}
       className={cn(
         "bg-black py-2 px-4 rounded-md outline-none text-white",
         className

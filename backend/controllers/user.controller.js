@@ -208,8 +208,8 @@ const likePost = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     message: alreadyLiked
-      ? "Like removed successfully!"
-      : "Post liked successfully!",
+      ? "Beğeni kaldırıldı !"
+      : "Beğenildi !",
     likedCount: totalLikes,
   });
 });

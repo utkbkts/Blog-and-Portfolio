@@ -19,7 +19,7 @@ function Register() {
       toast.error(error.data.message);
     }
     if (isSuccess) {
-      toast.success("Register is successfully !!");
+      toast.success("Kayıt Başarılı !!");
       navigate("/verifyEmail");
     }
   }, [isSuccess, error, isError]);
@@ -56,20 +56,20 @@ function Register() {
 
   return (
     <>
-      <MetaData title={"Sign Up"} />
+      <MetaData title={"Kayıt ol"} />
       <div className="min-h-[80vh] flex flex-col items-center justify-center">
         <h1 className="text-white text-center text-2xl font-heading mb-12">
-          Sign Up
+          Kayıt Ol
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex items-center gap-4">
             <div className="flex flex-col ">
               <label className="text-white text-md font-heading">
-                Username
+                Kullanıcı adı
               </label>
               <Input
                 loading={isLoading}
-                placeholder={"username"}
+                placeholder={"Kullanıcı Adı"}
                 register={register("username")}
               />
               {errors.username && (
@@ -93,9 +93,9 @@ function Register() {
             </div>
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-white text-md font-heading">Password</label>
+            <label className="text-white text-md font-heading">Şifre</label>
             <Input
-              placeholder={"Password"}
+              placeholder={"Şifre"}
               type={"password"}
               loading={isLoading}
               className={"w-full"}
@@ -142,14 +142,14 @@ function Register() {
               type="submit"
               className={"text-white w-full"}
             >
-              Create a new account.
+              Yeni hesap oluştur.
             </Button>
           </div>
         </form>
         <span className="mt-4 text-white flex items-center gap-1">
-          Do you have an account?{" "}
-          <Link to={"/auth/signin"} className="text-blue-400 underline">
-            Login
+          Hesabın var mı?{" "}
+          <Link to={"/giris-yap"} className="text-blue-400 underline">
+            Giriş yap
           </Link>
         </span>
       </div>

@@ -48,7 +48,7 @@ const Contact = () => {
       toast.error(error.response.data.message);
     }
     if (isSuccess) {
-      toast.success("Message sent successfully");
+      toast.success("Message gönderme işlemi başarılı");
       setValue("email", "");
       setValue("desc", "");
       setValue("subject", "");
@@ -70,7 +70,7 @@ const Contact = () => {
   };
   return (
     <>
-      <MetaData title={"Contact"} />
+      <MetaData title={"İletişim"} />
       <div className=" bg-gray-100 text-white">
         <div className="flex md:flex-row flex-col mt-44  md:h-[540px]">
           <div className="flex-1" ref={ref}>
@@ -81,7 +81,7 @@ const Contact = () => {
               className="flex flex-col font-body gap-4 w-full"
             >
               <motion.h1 variants={listVariant} className="text-2xl font-bold">
-                Let&apos;s keep in touch
+              Bağlantıda kalalım
               </motion.h1>
               <motion.div variants={listVariant} className="flex flex-col">
                 <label>Email</label>
@@ -97,26 +97,26 @@ const Contact = () => {
                 )}
               </motion.div>
               <motion.div variants={listVariant} className="flex flex-col">
-                <label className="">Subject</label>
+                <label >Konu Başlığı</label>
                 <Input
                   loading={isLoading}
                   type="text"
                   register={register("subject")}
                   name="subject"
-                  placeholder="Subject"
+                  placeholder="Başlık"
                 />
                 {errors.subject && (
                   <p className="text-red-500">{errors.subject.message}</p>
                 )}
               </motion.div>
               <motion.div variants={listVariant} className="flex flex-col">
-                <label>Message</label>
+                <label>Mesaj</label>
                 <TextArea
                   loading={isLoading}
                   register={register("desc")}
                   rows={3}
                   name="desc"
-                  placeholder="Message"
+                  placeholder="Mesajını gir"
                   className={"resize-none"}
                 />
                 {errors.desc && (
@@ -133,7 +133,7 @@ const Contact = () => {
               </motion.div>
               <motion.div variants={listVariant} className="w-full">
                 <Button type="submit" loading={isLoading} className={"w-full"}>
-                  Send
+                  Gönder
                 </Button>
               </motion.div>
             </motion.form>
