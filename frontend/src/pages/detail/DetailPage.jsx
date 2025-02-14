@@ -39,11 +39,10 @@ const DetailPage = () => {
           <div className="lg:w-3/5 flex flex-col gap-8">
             <h1 className="md:text-3xl text-md font-bold text-white">{data?.title}</h1>
             <div className="flex items-center gap-2 text-slate-400 text-sm">
-              <span>Written By</span>
               <span className="text-blue-400 underline">
                 {data?.user?.username}
               </span>
-              <span>on</span>
+              <span>Tarafından</span>
               <Link
                 to={`/postList?category=${data?.category}`}
                 className="text-blue-400 underline"
@@ -78,9 +77,9 @@ const DetailPage = () => {
           <h1 className="text-center text-white text-2xl font-bold pt-12">
             <hr />
             {!user
-              ? "Log in now to comment"
+              ? "Yorum yapmak için şimdi giriş yapın"
               : user.isVerified === "false"
-              ? "Please verify your account"
+              ? "Lütfen hesabınızı doğrulayın"
               : null}
           </h1>
         )}

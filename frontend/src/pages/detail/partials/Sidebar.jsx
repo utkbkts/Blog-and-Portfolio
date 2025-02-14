@@ -70,13 +70,13 @@ const Sidebar = ({ post }) => {
         {user?.role === "admin" && (
           <>
             <FaTrash size={20} className="text-red-600" />
-            <span className="text-white cursor-pointer">Delete Post</span>
+            <span className="text-white cursor-pointer">Sil</span>
             <FaEdit
               onClick={handlePost}
               size={25}
               className="text-blue-600 pb-1 cursor-pointer"
             />
-            <span className="text-white">Edit Post</span>
+            <span className="text-white">Güncelle</span>
           </>
         )}
         {isLiked ? (
@@ -92,10 +92,10 @@ const Sidebar = ({ post }) => {
             className={`pb-1 cursor-pointer text-blue-400`}
           />
         )}
-        <span className="text-white cursor-pointer">Like Post</span>
+        <span className="text-white cursor-pointer">Beğen</span>
       </div>
       <h1 className="mt-8 mb-4 text-center  font-medium text-xl text-white">
-        Categories
+        Kategoriler
       </h1>
       <div className="flex flex-col items-center text-center gap-2 text-sm text-blue-400">
         <Categories />
