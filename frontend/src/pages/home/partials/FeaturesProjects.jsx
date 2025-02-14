@@ -56,7 +56,7 @@ const FeaturesProjects = ({ post }) => {
               "sm:w-1/3 w-full hover:bg-opacity-60 transition-all duration-300 mt-auto"
             }
           >
-            Read More
+           Daha fazla
           </Button>
         </Link>
       </div>

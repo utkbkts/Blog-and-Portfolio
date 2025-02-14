@@ -105,7 +105,7 @@ const getPosts = catchAsyncError(async (req, res) => {
 
   const results = await Post.aggregate(pipeline);
   const data = results[0];
-
+  generateSitemap();
   return res.status(200).json({
     success: true,
     ...data,
@@ -134,7 +134,6 @@ const createPost = catchAsyncError(async (req, res, next) => {
   if (!title || !desc || !category || !categoryHeader || !content) {
     return next(new ErrorHandler("All fields are required", 400));
   }
-  console.log("🚀 ~ createPost ~ category:", category)
 
   const userId = req.user._id;
   const user = await findUserByClerkId(userId);

@@ -1,6 +1,6 @@
 import fs from "fs";
 import Post from "../models/post.model.js";
-import { generateSlug } from "../utils/generateSlug.js";
+import { generateMapSlug, generateSlug } from "../utils/generateSlug.js";
 
 export const generateSitemap = async () => {
   try {
@@ -15,29 +15,29 @@ export const generateSitemap = async () => {
     .map((page) => {
       return `
   <url>
-    <loc>https://www.utkubektasoglu.com/details/${generateSlug(page.title)}/${
+    <loc>https://www.utkubektasoglu.com/detay/${generateMapSlug(page.title)}/${
         page._id
       }</loc>
   </url>`;
     })
     .join("")}
   <url>
-    <loc>https://www.utkubektasoglu.com/trendingProjects</loc>
+    <loc>https://www.utkubektasoglu.com/one-cikan-projeler</loc>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/trendingBlogs</loc>
+    <loc>https://www.utkubektasoglu.com/populer-bloglar</loc>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/about</loc>
+    <loc>https://www.utkubektasoglu.com/hakkimizda</loc>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/auth/signup</loc>
+    <loc>https://www.utkubektasoglu.com/kayit-ol</loc>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/auth/signin</loc>
+    <loc>https://www.utkubektasoglu.com/giris-yap</loc>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/contact</loc>
+    <loc>https://www.utkubektasoglu.com/iletisim</loc>
   </url>
 </urlset>`.trim();
 

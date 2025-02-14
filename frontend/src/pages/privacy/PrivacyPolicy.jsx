@@ -1,80 +1,54 @@
 const PrivacyPolicy = () => {
   return (
     <div className="flex items-center justify-center flex-col gap-4 mt-12 text-white font-body text-center">
-      <h1 className="text-4xl font-bold">Privacy Policy</h1>
-      <span>Last Updated: 10.02.2025</span>
-      <h2>
-        When you visit our website we may collect the following information:
-      </h2>
+      <h1 className="text-4xl font-bold">Gizlilik Politikası</h1>
+      <span>Son Güncelleme: 10.02.2025</span>
+      <h2>Web sitemizi ziyaret ettiğinizde aşağıdaki bilgileri toplayabiliriz:</h2>
       <p>
-        <strong className="underline">Voluntarily Provided Information:</strong>{" "}
-        Name, email address, and other information you share through contact
-        forms or email.
+        <strong className="underline">Gönüllü Olarak Sağlanan Bilgiler:</strong>{" "}
+        İsim, e-posta adresi ve iletişim formları veya e-posta yoluyla paylaştığınız diğer bilgiler.
       </p>
       <p>
-        <strong className="underline">
-          Automatically Collected Information:
-        </strong>{" "}
-        Your IP address, browser type, pages you visit, and other analytics data
-        (through services like Google Analytics).
+        <strong className="underline">Otomatik Olarak Toplanan Bilgiler:</strong>{" "}
+        IP adresiniz, tarayıcı türünüz, ziyaret ettiğiniz sayfalar ve diğer analiz verileri (Google Analytics gibi hizmetler aracılığıyla).
       </p>
       <p>
-        <strong className="underline">Cookies:</strong> Cookies may be used to
-        ensure the proper functioning of the website and to enhance user
-        experience.
+        <strong className="underline">Çerezler:</strong> Web sitesinin düzgün çalışmasını sağlamak ve kullanıcı deneyimini iyileştirmek için çerezler kullanılabilir.
       </p>
-      <h2 className="underline text-xl font-bold">2. Use of Information</h2>
-      <strong className="underline">
-        The data collected may be used for the following purposes:{" "}
-      </strong>
+      <h2 className="underline text-xl font-bold">2. Bilgilerin Kullanımı</h2>
+      <strong className="underline">Toplanan veriler aşağıdaki amaçlarla kullanılabilir:</strong>
       <ul className="list-disc text-start">
-        <li>To improve and personalize website content</li>{" "}
-        <li>To improve user experience,</li>{" "}
-        <li>To respond to communication requests</li>{" "}
-        <li>To comply with legal requirements.</li>
+        <li>Web sitesi içeriğini geliştirmek ve kişiselleştirmek</li>{" "}
+        <li>Kullanıcı deneyimini iyileştirmek</li>{" "}
+        <li>İletişim taleplerine yanıt vermek</li>{" "}
+        <li>Yasal gerekliliklere uymak</li>
       </ul>
-      <h2 className="underline text-xl font-bold">
-        3. Cookies and Tracking Technologies
-      </h2>
+      <h2 className="underline text-xl font-bold">3. Çerezler ve İzleme Teknolojileri</h2>
       <p>
-        Our website uses cookies. You can manage or disable cookies from your
-        browser settings. However, disabling some cookies may cause some
-        functions of the website to not work properly.
+        Web sitemiz çerezleri kullanmaktadır. Çerezleri tarayıcı ayarlarınızdan yönetebilir veya devre dışı bırakabilirsiniz. Ancak bazı çerezleri devre dışı bırakmak, web sitesinin bazı işlevlerinin düzgün çalışmamasına neden olabilir.
       </p>
-      <h2 className="underline text-xl font-bold">
-        4. Third Party Services
-      </h2>
+      <h2 className="underline text-xl font-bold">4. Üçüncü Taraf Hizmetleri</h2>
       <p>
-        Our website may use third-party services (such as Google Analytics) to
-        analyze visitor statistics and improve user experience. These services
-        have their own privacy policies.
+        Web sitemiz, ziyaretçi istatistiklerini analiz etmek ve kullanıcı deneyimini geliştirmek için üçüncü taraf hizmetlerini (örneğin Google Analytics) kullanabilir. Bu hizmetlerin kendi gizlilik politikaları bulunmaktadır.
       </p>
-      <h2 className="underline text-xl font-bold">5. Data Protection</h2>
+      <h2 className="underline text-xl font-bold">5. Veri Koruma</h2>
       <p>
-        Appropriate security measures are taken to protect your personal data
-        against unauthorized access, alteration or deletion. However, we cannot
-        guarantee that any data transmission over the Internet is completely
-        secure.
+        Kişisel verilerinizi yetkisiz erişime, değiştirilmeye veya silinmeye karşı korumak için uygun güvenlik önlemleri alınmaktadır. Ancak, internet üzerinden yapılan veri iletimlerinin tamamen güvenli olduğunu garanti edemeyiz.
       </p>
-      <h2 className="underline text-xl font-bold">6. User Rights</h2>
+      <h2 className="underline text-xl font-bold">6. Kullanıcı Hakları</h2>
       <p>
-        You have the following rights regarding your personal data: Request
-        information on how your data is processed, Request correction or
-        deletion of your data, Disable cookies or change your browser settings.
-        You can contact us to exercise any of these rights.
+        Kişisel verilerinizle ilgili aşağıdaki haklara sahipsiniz: Verilerinizin nasıl işlendiği hakkında bilgi talep etme, Verilerinizin düzeltilmesini veya silinmesini isteme, Çerezleri devre dışı bırakma veya tarayıcı ayarlarını değiştirme. Bu haklardan herhangi birini kullanmak için bizimle iletişime geçebilirsiniz.
       </p>
-      <h2 className="underline text-xl font-bold">7. Contact Information</h2>
+      <h2 className="underline text-xl font-bold">7. İletişim Bilgileri</h2>
       <p>
-        If you have any questions about our privacy policy, you can contact us
-        at the following address:
+        Gizlilik politikamız hakkında herhangi bir sorunuz varsa, aşağıdaki adres üzerinden bizimle iletişime geçebilirsiniz:
       </p>
       <ul className="list-disc text-start">
-        <li>📧 Email: utkutoygunbektasoglu@gmail.com </li>
-        <li>🌐 Website: www.utkubektasoglu.com</li>
+        <li>📧 E-posta: utkutoygunbektasoglu@gmail.com </li>
+        <li>🌐 Web Sitesi: www.utkubektasoglu.com</li>
       </ul>
       <p className="underline">
-        This privacy policy may be updated as necessary. You can visit our page
-        regularly to follow the updates.
+        Bu gizlilik politikası gerektiğinde güncellenebilir. Güncellemeleri takip etmek için sayfamızı düzenli olarak ziyaret edebilirsiniz.
       </p>
     </div>
   );
