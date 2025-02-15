@@ -55,7 +55,7 @@ const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
             ) : (
               <Link
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                to={"/auth/signin"}
+                to={"/giris-yap"}
               >
                 <Button className={"bg-quaternary"}>Login🙌</Button>
               </Link>
