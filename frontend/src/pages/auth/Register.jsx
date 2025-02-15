@@ -61,8 +61,8 @@ function Register() {
         <h1 className="text-white text-center text-2xl font-heading mb-12">
           Kayıt Ol
         </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="flex items-center gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 sm:w-[470px] w-full">
+          <div className="flex sm:items-center gap-4 sm:flex-row flex-col">
             <div className="flex flex-col ">
               <label className="text-white text-md font-heading">
                 Kullanıcı adı
