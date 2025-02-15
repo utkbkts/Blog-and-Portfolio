@@ -20,7 +20,7 @@ function Register() {
     }
     if (isSuccess) {
       toast.success("Kayıt Başarılı !!");
-      navigate("/verifyEmail");
+      navigate("/email-dogrula");
     }
   }, [isSuccess, error, isError]);
 
