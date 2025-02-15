@@ -34,7 +34,6 @@ function Register() {
     resolver: zodResolver(createRegisterSchema),
     mode: "onChange",
   });
-  console.log("🚀 ~ Register ~ errors:", errors)
 
   const img = watch("img");
 
