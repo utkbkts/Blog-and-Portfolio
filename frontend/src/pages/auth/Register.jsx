@@ -34,6 +34,7 @@ function Register() {
     resolver: zodResolver(createRegisterSchema),
     mode: "onChange",
   });
+  console.log("🚀 ~ Register ~ errors:", errors)
 
   const img = watch("img");
 
@@ -108,7 +109,7 @@ function Register() {
               </span>
             )}
           </div>
-          <div className="w-full ">
+          <div className="w-full flex flex-col gap-4">
             <Upload setData={handleUpload} folder={"website/avatar"}>
               {img?.secure_url ? (
                 <img
@@ -132,8 +133,8 @@ function Register() {
                 {...register("img")}
               />
             </Upload>
-            {errors.img && (
-              <span className="text-red-500 text-sm">{errors.img.message}</span>
+            {errors?.img?.secure_url && (
+              <span className="text-red-500 text-sm">{errors.img?.secure_url?.message}</span>
             )}
           </div>
           <div>

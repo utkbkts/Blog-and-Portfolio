@@ -2,24 +2,26 @@ import { z } from "zod";
 
 const usernameRequired = z
   .string({
-    required_error: "required",
+    required_error: "Zorunlu alan",
   })
-  .min(6, "Username must be maximum 6 characters")
-  .regex(/^[^<>/]*$/, "Invalid characters in message");
+  .min(6, "Parola en az 6 karakter olmalıdır.")
+  .regex(/^[^<>/]*$/, "Geçersiz karakter girildi.");
 
 const passwordRequired = z
   .string({
-    required_error: "required",
+    required_error: "Zorunlu alan",
   })
-  .min(6, "Password must be maximum 6 characters")
-  .regex(/^[^<>/]*$/, "Invalid characters in message");
+  .min(6, "Parola en az 6 karakter olmalıdır.")
+  .regex(/^[^<>/]*$/, "Geçersiz karakter girildi.");
 
 export const createRegisterSchema = z.object({
   username: usernameRequired,
-  email: z.string().email(),
+  email: z
+    .string({ message: "Zorunlu alan" })
+    .email({ message: "Geçersiz Email" }),
   password: passwordRequired,
   img: z.object({
-    secure_url: z.string(),
+    secure_url: z.string({ message: "Resim alanı zorunludur" }),
     public_id: z.string(),
   }),
 });
