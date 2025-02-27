@@ -1,15 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Yellowtail&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+
+@theme {
+  --font-cavet: "Caveat", "serif";
+  --font-yellow-tail: "Yellowtail", cursive;
+  --font-poppins: "Open Sans", sans-serif;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-mds: 978px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  --color-quaternary: #213555;
+  --color-black: #3e5879;
+  --color-gray: #d8c4b6;
+  --color-white: #f5efe7;
+
+  --background-quaternary: #213555;
+  --background-black: #3e5879;
+  --background-gray: #d8c4b6;
+  --background-white: #f5efe7;
 }
 
 @layer base {
   body {
-    @apply font-body;
+    font-family: var(--font-poppins);
   }
 }
 
@@ -163,7 +185,6 @@
 }
 .blog-view h1 {
   font-size: 2.5rem;
-  
 }
 .blog-view h2 {
   font-size: 1.5rem;
@@ -194,10 +215,8 @@ blockquote {
 @media (max-width: 768px) {
   .blog-view h1 {
     font-size: 1.5rem;
-    
   }
   .blog-view h2 {
     font-size: 1rem;
   }
-  
 }

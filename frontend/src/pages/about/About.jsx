@@ -28,7 +28,7 @@ const About = () => {
   return (
     <>
       <MetaData title={"Hakkımda"} />
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen ">
         <div className="flex md:flex-row flex-col items-center mt-12">
           <div className="md:w-1/2 w-full flex flex-col gap-4">
             <div className="relative isolate left-[80%] md:block hidden">
@@ -60,7 +60,7 @@ const About = () => {
             </div>
             <AnimatePresence mode="wait">
               <motion.div
-                className="text-4xl text-white font-bold font-heading"
+                className="xl:text-4xl  text-[18px]  text-white font-bold font-heading"
                 key={index}
                 initial={{ y: "100%", opacity: 0 }}
                 animate={{ y: "0%", opacity: 1 }}
@@ -70,7 +70,7 @@ const About = () => {
                 {words[index]}
               </motion.div>
             </AnimatePresence>
-            <p className="text-white font-heading text-xl bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] bg-clip-text text-transparent">
+            <p className="text-white font-heading xl:text-xl text-[15px]  bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] bg-clip-text ">
               “Bir itibarı inşa etmek 20 yıl alır, ancak bir siber olay onu
               birkaç dakikada yok edebilir.” — Stephane Nappo
             </p>

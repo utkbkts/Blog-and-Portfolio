@@ -5,7 +5,7 @@ const Introduction = () => {
     "Yenilik ve yaratıcılığı harmanlayan projelerim, düşüncelerim ve fikirlerimden oluşan özenle seçilmiş koleksiyonumu keşfedin. İlham almak, iş birliği yapmak veya sadece merakınızı gidermek için buradaysanız, içeriğe dalın ve yolculuğumu benzersiz kılan detayları keşfedin.";
 
   return (
-    <div className="text-center p-6">
+    <div className="text-center p-6 flex flex-col gap-4">
       <motion.h1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -13,13 +13,13 @@ const Introduction = () => {
           duration: 1.5,
           staggerChildren: 0.2,
         }}
-        className="font-bold text-4xl mb-4"
+        className="font-bold text-4xl mb-4 "
       >
         Yaratıcı Alanıma Hoş Geldiniz
       </motion.h1>
       <motion.h1
         transition={{ duration: 1 }}
-        className=" text-[18px]  text-center"
+        className=" text-[18px]  text-center "
       >
         {textTitle.split("").map((char, index) => (
           <motion.span

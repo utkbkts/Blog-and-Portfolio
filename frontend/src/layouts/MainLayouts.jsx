@@ -4,9 +4,9 @@ import { FooterComponent } from "../components/footer/Footer";
 
 const MainLayouts = () => {
   return (
-    <div className="flex flex-col bg-quaternary ">
+    <div className="flex flex-col items-center justify-center !mt-[8rem] bg-quaternary ">
       <Header />
-      <div className="flex-grow min-h-screen pt-32 container mx-auto p-10">
+      <div className="flex-grow min-h-screen  container mx-auto p-10 !pt-4">
         <Outlet />
       </div>
       <FooterComponent />

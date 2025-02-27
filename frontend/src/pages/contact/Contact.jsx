@@ -48,7 +48,7 @@ const Contact = () => {
       toast.error(error.response.data.message);
     }
     if (isSuccess) {
-      toast.success("Message gönderme işlemi başarılı");
+      toast.success("Mesaj gönderme işlemi başarılı");
       setValue("email", "");
       setValue("desc", "");
       setValue("subject", "");
@@ -71,7 +71,7 @@ const Contact = () => {
   return (
     <>
       <MetaData title={"İletişim"} />
-      <div className=" bg-gray-100 text-white">
+      <div className="  text-white">
         <div className="flex md:flex-row flex-col mt-44  md:h-[540px]">
           <div className="flex-1" ref={ref}>
             <motion.form

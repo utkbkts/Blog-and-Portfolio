@@ -1,6 +1,6 @@
 import fs from "fs";
 import Post from "../models/post.model.js";
-import { generateMapSlug, generateSlug } from "../utils/generateSlug.js";
+import { generateMapSlug } from "../utils/generateSlug.js";
 
 export const generateSitemap = async () => {
   try {

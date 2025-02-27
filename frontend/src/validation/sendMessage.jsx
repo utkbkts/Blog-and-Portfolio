@@ -2,10 +2,10 @@ import { z } from "zod";
 
 const messageIsRequired = z
   .string({
-    required_error: "required",
+    required_error: "zorunlu alan",
   })
-  .min(1, "Message cannot be empty")
-  .regex(/^[^<>/]*$/, "Invalid characters in message");
+  .min(1, "Alanlar boş bırakılamaz")
+  .regex(/^[^<>/]*$/, "Geçersiz karakterler girdin.");
 
 export const messageSendValidation = z.object({
   subject: messageIsRequired,

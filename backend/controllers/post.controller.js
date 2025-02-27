@@ -105,7 +105,6 @@ const getPosts = catchAsyncError(async (req, res) => {
 
   const results = await Post.aggregate(pipeline);
   const data = results[0];
-  generateSitemap();
   return res.status(200).json({
     success: true,
     ...data,

@@ -5,21 +5,21 @@ import { Eye } from "lucide-react";
 
 const PostList = ({ post }) => {
   return (
-    <div className="flex flex-col xl:flex-row gap-8 mb-12 text-white">
+    <div className="flex flex-col xl:flex-row gap-2 mb-12 text-white">
       {/* image */}
       <div className="xl:w-1/3">
         <img
           src={post?.img?.url}
           alt={post?.title}
           title={post?.title}
-          className="w-[400px] h-[300px] object-cover"
+          className="mds:w-[400px] w-full h-[300px] object-cover"
         />
       </div>
       {/* details */}
       <div className="flex flex-col gap-4 xl:w-2/3">
         <Link
           to={`/detay/${generateSlug(post?.title)}/${post?._id}`}
-          className="text-4xl font-semibold"
+          className="mds:text-4xl text-xl font-semibold"
         >
           {post?.title}
         </Link>
@@ -54,11 +54,11 @@ const PostList = ({ post }) => {
             <span>({post?.visit ? post?.visit : 0})</span>
           </span>
         </div>
-        <p>{post?.desc}</p>
+        <p>{post?.desc.slice(0,200)}...</p>
         <Link to={`/detay/${generateSlug(post?.title)}/${post?._id}`}>
           <Button
             className={
-              "w-1/3 hover:bg-opacity-60 transition-all duration-300 mt-auto"
+              "sm:w-1/3 w-full hover:bg-opacity-60 transition-all duration-300 mt-auto"
             }
           >
             Daha fazla

@@ -7,7 +7,7 @@ const Button = ({ className, onClick, type = "button", loading, children }) => {
       onClick={onClick}
       type={type}
       className={cn(
-        "bg-black py-2 px-4 rounded-md flex items-center justify-center",
+        "bg-black py-2 px-4 rounded-md flex items-center justify-center cursor-pointer",
         loading ? "opacity-50 cursor-not-allowed" : "",
         className
       )}

@@ -25,7 +25,7 @@ const HomePage = () => {
   const sideBlogs = data?.blogPosts.slice(1, 4);
   const mainBlog = data?.blogPosts[0];
   return (
-    <div className="text-[#fff] pt-12">
+    <div className="text-[#fff] pt-12 ">
       {/* BreadCrumb */}
       {/* Introduction */}
       <div>
@@ -36,8 +36,9 @@ const HomePage = () => {
         <MainCategories />
       </div>
       {/* FeaturesBlogs */}
-      <div className="pb-4">
-        <h1 className="font-bold text-3xl p-8">Bloglarım</h1>
+      <div className="pb-4 ">
+        <h1 className="font-bold mds:text-3xl text-xl pt-8 text-center uppercase">Bloglarım</h1>
+        <hr className="text-gray-500 mb-4"/>
         {isLoading ? (
           <SkeletonText />
         ) : (
@@ -49,7 +50,9 @@ const HomePage = () => {
         <Slider />
       </div>
       <div className="flex flex-col gap-3">
-        <h1 className="font-bold text-3xl p-8">Projelerim</h1>
+        <h1 className="font-bold  mds:text-3xl text-xl pt-8 text-center uppercase">Projelerim</h1>
+        <hr className="text-gray-500 mb-4"/>
+
         {isLoading ? (
           <>
             <SkeletonText />
