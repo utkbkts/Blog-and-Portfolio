@@ -56,7 +56,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
           {mainBlog?.title}
         </Link>
         <p className="text-slate-300">{mainBlog?.desc.slice(0, 200)}</p>
-        <Link to={`/${generateSlug(mainBlog?.title)}/${mainBlog?._id}`}>
+        <Link to={`/detay/${generateSlug(mainBlog?.title)}/${mainBlog?._id}`}>
           <Button
             className={
               "sm:w-1/3 w-full hover:bg-opacity-60 transition-all duration-300 mt-auto"
@@ -125,7 +125,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
                 {sideBlog?.title}
               </Link>
               <p className="text-slate-300">{sideBlog?.desc.slice(0, 50)}...</p>
-              <Link to={`/${generateSlug(sideBlog?.title)}/${sideBlog?._id}`}>
+              <Link to={`/detay/${generateSlug(sideBlog?.title)}/${sideBlog?._id}`}>
                 <Button
                   className={
                     "sm:w-1/3 w-full hover:bg-opacity-60 transition-all duration-300 mt-auto"
