@@ -11,6 +11,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
         <img
           className="rounded-3xl object-cover shadow-lg transition-transform duration-300 hover:scale-105 h-[400px]"
           src={mainBlog?.img?.url}
+          alt={mainBlog?.img?.url}
         />
         {/* Details */}
         <div className="flex items-center gap-2  text-sm text-gray-200 flex-wrap">
@@ -125,7 +126,9 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
                 {sideBlog?.title}
               </Link>
               <p className="text-slate-300">{sideBlog?.desc.slice(0, 50)}...</p>
-              <Link to={`/detay/${generateSlug(sideBlog?.title)}/${sideBlog?._id}`}>
+              <Link
+                to={`/detay/${generateSlug(sideBlog?.title)}/${sideBlog?._id}`}
+              >
                 <Button
                   className={
                     "sm:w-1/3 w-full hover:bg-opacity-60 transition-all duration-300 mt-auto"

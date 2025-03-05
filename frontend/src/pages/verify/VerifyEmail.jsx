@@ -53,7 +53,7 @@ const VerifyEmail = () => {
     try {
       await codeVerify({ code: verificationCode });
     } catch (error) {
-      console.log(error);
+      alert("Lütfen tekrar deneyiniz", error);
     }
   };
 

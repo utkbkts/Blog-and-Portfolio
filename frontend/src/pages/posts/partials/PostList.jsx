@@ -5,7 +5,7 @@ import { Eye } from "lucide-react";
 
 const PostList = ({ post }) => {
   return (
-    <div className="flex flex-col xl:flex-row gap-2 mb-12 text-white">
+    <div className="flex flex-col xl:flex-row gap-2 mb-12 text-white" >
       {/* image */}
       <div className="xl:w-1/3">
         <img

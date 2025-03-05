@@ -33,7 +33,7 @@ const DetailPage = () => {
   return (
     <>
       <MetaData title={generateSlug(title)} />
-      <div className="flex flex-col gap-8 pt-12">
+      <div className="flex flex-col gap-8 pt-12" >
         {/* detial */}
         <div className="flex gap-8">
           <div className="lg:w-3/5 flex flex-col gap-8">

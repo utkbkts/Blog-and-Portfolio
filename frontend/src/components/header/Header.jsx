@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../../ui/Button";
 import { HeaderLinks } from "./partials/header-data";
 import MobileMenu from "./partials/MobileMenu";
@@ -8,10 +8,11 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useLogoutMutation } from "../../redux/api/authApi";
 import { useVerifyReplyMutation } from "../../redux/api/userApi";
+import lodash from "lodash";
 
 const Header = () => {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(100);
+  const lastScrollY = useRef(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const [logout, { error, isSuccess, isError }] = useLogoutMutation();
@@ -26,16 +27,25 @@ const Header = () => {
     }
   }, [isSuccess, error, isError]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsScrollingUp(currentScrollY < lastScrollY);
-      setLastScrollY(currentScrollY);
-    };
+  const handleScroll = lodash.throttle(() => {
+    const currentScroll = Math.round(window.scrollY);
 
+    if (currentScroll === 0) {
+      setIsScrollingUp(true);
+    } else {
+      setIsScrollingUp(lastScrollY.current > currentScroll);
+    }
+
+    lastScrollY.current = currentScroll;
+  }, 200);
+
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleLogout = async () => {
     await logout();
@@ -48,9 +58,9 @@ const Header = () => {
   return (
     <>
       <header
-        className={`fixed  font-heading w-full max-md:bg-quaternary max-md:translate-y-0  z-[999] shadow-xl h-32 transition-transform duration-300 ${
-          isScrollingUp ? "navbar-visible bg-quaternary" : "navbar-hidden"
-        } top-0`}
+        className={`fixed !top-0  font-heading w-full max-md:bg-quaternary max-md:translate-y-0  z-[999] shadow-xl h-32 transition-transform duration-300 ${
+          isScrollingUp ? "translate-y-0 bg-quaternary" : "-translate-y-[100%]"
+        } `}
       >
         <div className=" items-center flex justify-between container mx-auto px-4">
           <div>

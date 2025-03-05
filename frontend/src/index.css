@@ -6,7 +6,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 @theme {
   --font-cavet: "Caveat", "serif";
   --font-yellow-tail: "Yellowtail", cursive;
@@ -53,16 +52,6 @@
 }
 .header-link:hover::before {
   transform: scaleX(1);
-}
-
-.navbar-hidden {
-  transform: translateY(-100%);
-  transition: transform 0.3s ease;
-}
-
-.navbar-visible {
-  transform: translateY(0);
-  transition: transform 0.3s ease;
 }
 
 /* react quill */

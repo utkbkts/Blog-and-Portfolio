@@ -5,9 +5,8 @@ import App from "./App.jsx";
 import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import { store } from "./redux/store/store.jsx";
-import { userApi } from "./redux/api/userApi.jsx";
 import { OnlineUsersProvider } from "./context/SocketContext.jsx";
-store.dispatch(userApi.endpoints.getUser.initiate(""));
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>

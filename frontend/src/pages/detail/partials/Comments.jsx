@@ -36,8 +36,6 @@ const Comments = ({ postId, title }) => {
     }
   }, [isSuccess, isError, error]);
 
-
-
   // Normal yorum gönderme
   const onSubmit = async (data) => {
     try {
@@ -47,7 +45,7 @@ const Comments = ({ postId, title }) => {
         postId,
       });
     } catch (error) {
-      console.log(error);
+      alert("Lütfen tekrar deneyiniz", error);
     }
   };
 

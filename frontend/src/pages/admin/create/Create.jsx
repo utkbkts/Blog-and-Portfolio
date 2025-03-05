@@ -118,15 +118,15 @@ const AdminCreate = () => {
 
   //category
 
- const handleCategoryChange = (e) => {
-   if (e.key === "Enter") {
-     e.preventDefault();
-     
-     const category = getValues("category").trim()
-     if (!category) return;
-     
-     setSkills([...skills, category]);
-     setValue("category",[])
+  const handleCategoryChange = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      const category = getValues("category").trim();
+      if (!category) return;
+
+      setSkills([...skills, category]);
+      setValue("category", []);
     }
   };
 
@@ -161,7 +161,7 @@ const AdminCreate = () => {
         });
       }
     } catch (error) {
-      console.log(error);
+      alert("Lütfen tekrar deneyiniz", error);
     }
   };
 

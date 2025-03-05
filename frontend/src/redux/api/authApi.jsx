@@ -33,8 +33,9 @@ export const authApi = createApi({
         try {
           await queryFulfilled;
           await dispatch(userApi.endpoints.getUser.initiate());
-        } catch (error) {
-          console.error("Login failed:", error);
+          // eslint-disable-next-line no-unused-vars
+        } catch (_error) {
+          //
         }
       },
     }),
@@ -52,8 +53,9 @@ export const authApi = createApi({
           await dispatch(userApi.endpoints.getUser.initiate(""));
           dispatch(setUser(null));
           dispatch(setisAuthenticated(false));
-        } catch (error) {
-          console.error("Login failed:", error);
+          // eslint-disable-next-line no-unused-vars
+        } catch (_error) {
+          //
         }
       },
     }),

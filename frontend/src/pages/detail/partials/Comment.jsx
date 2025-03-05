@@ -54,8 +54,9 @@ const Comment = ({ comment, currentUser }) => {
       await deleteReviews({
         commentId: comment?._id,
       });
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      console.log("Delete error:", error);
+      //error
     }
   };
 
@@ -66,7 +67,6 @@ const Comment = ({ comment, currentUser }) => {
       comment: editText,
     });
   };
-
 
   const isUserComment = currentUser && comment?.user?._id === currentUser.id;
 
