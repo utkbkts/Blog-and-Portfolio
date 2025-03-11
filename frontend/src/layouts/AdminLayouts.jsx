@@ -9,7 +9,7 @@ const AdminLayouts = () => {
 
   useEffect(() => {
     if (user) {
-      if (user.role !== "admin") {
+      if (user?.role !== "admin") {
         navigate("/");
       }
       setIsLoading(false);

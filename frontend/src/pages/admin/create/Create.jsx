@@ -19,6 +19,7 @@ import ReactQuillComp from "../../../components/reactQuill/ReactQuillComp";
 
 import parse from "html-react-parser";
 import DOMPurify from "dompurify";
+import MetaData from "../../../layouts/MetaData";
 
 const categoryHeader = [
   { value: "Blog", label: "Blog" },
@@ -170,131 +171,140 @@ const AdminCreate = () => {
   }
 
   return (
-    <div className="mb-4">
-      <div className="h-full">
-        <h1 className="text-2xl text-white text-center pb-4">
-          {existingPost ? "Update Post" : "Create a New Post"}
-        </h1>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-6 p-4"
-        >
-          <SelectInput
-            register={register("categoryHeader")}
-            onChange={(e) => setValue("categoryHeader", e.target.value)}
-            className="custom-class"
-            options={categoryHeader}
-          />
-          {errors.categoryHeader && (
-            <p className="text-red-500">{errors.categoryHeader.message}</p>
-          )}
-          <Upload
-            folder={"website"}
-            type={"image"}
-            setData={(data) =>
-              setValue("img", {
-                public_id: data.public_id,
-                url: data.secure_url,
-              })
-            }
+    <>
+      <MetaData title={"Create Admin"} />
+      <div className="mb-4">
+        <div className="h-full">
+          <h1 className="text-2xl text-white text-center pb-4">
+            {existingPost ? "Update Post" : "Create a New Post"}
+          </h1>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-6 p-4"
           >
-            <Button type="button" className="text-white md:w-1/4 w-full">
-              Add a cover image
-            </Button>
-          </Upload>
-          <img
-            src={existingPost?.img?.url || img?.url}
-            alt="image"
-            className="w-[350px] h-[350px] object-cover"
-          />
-          {errors.img && <p className="text-red-500">{errors.img.message}</p>}
+            <SelectInput
+              register={register("categoryHeader")}
+              onChange={(e) => setValue("categoryHeader", e.target.value)}
+              className="custom-class"
+              options={categoryHeader}
+            />
+            {errors.categoryHeader && (
+              <p className="text-red-500">{errors.categoryHeader.message}</p>
+            )}
+            <Upload
+              folder={"website"}
+              type={"image"}
+              setData={(data) =>
+                setValue("img", {
+                  public_id: data.public_id,
+                  url: data.secure_url,
+                })
+              }
+            >
+              <Button type="button" className="text-white md:w-1/4 w-full">
+                Add a cover image
+              </Button>
+            </Upload>
+            {existingPost?.img?.url && (
+              <img
+                src={existingPost?.img?.url || img?.url}
+                alt="image"
+                className="w-[350px] h-[350px] object-cover"
+              />
+            )}
+            {errors.img && <p className="text-red-500">{errors.img.message}</p>}
 
-          <Input
-            register={register("title")}
-            name="title"
-            type="text"
-            placeholder="title"
-          />
-          {errors.title && (
-            <p className="text-red-500">{errors.title.message}</p>
-          )}
-          <Input
-            register={register("category")}
-            name="category"
-            type="text"
-            onKeyDown={handleCategoryChange}
-            placeholder="category"
-          />
-          <div className="flex items-center gap-4 ">
-            {skills.map((cat, index) => (
-              <main key={index}>
-                <span
-                  className="text-white cursor-pointer"
-                  onClick={() => handleCategoryRemoved(index)}
-                >
-                  X
-                </span>
-                <div className="bg-white rounded-xl py-2 px-4">{cat}</div>
-              </main>
-            ))}
-          </div>
-          {errors.category && (
-            <p className="text-red-500">{errors.category.message}</p>
-          )}
-
-          <TextArea
-            rows={5}
-            register={register("desc")}
-            placeholder="Description"
-            name="desc"
-            className="resize-none"
-          />
-          {errors.title && (
-            <p className="text-red-500">{errors.title.message}</p>
-          )}
-          <div className="flex flex-1">
-            <div className="flex flex-col gap-2 mr-2">
-              <Upload
-                type={"image"}
-                folder={"website"}
-                setData={(data) => setValue("image", { url: data.secure_url })}
-              >
-                🌆
-              </Upload>
-              <Upload
-                type="video"
-                folder={"website"}
-                setData={(data) => setValue("video", { url: data.secure_url })}
-              >
-                ▶️
-              </Upload>
+            <Input
+              register={register("title")}
+              name="title"
+              type="text"
+              placeholder="title"
+            />
+            {errors.title && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
+            <Input
+              register={register("category")}
+              name="category"
+              type="text"
+              onKeyDown={handleCategoryChange}
+              placeholder="category"
+            />
+            <div className="flex items-center gap-4 ">
+              {skills.map((cat, index) => (
+                <main key={index}>
+                  <span
+                    className="text-white cursor-pointer"
+                    onClick={() => handleCategoryRemoved(index)}
+                  >
+                    X
+                  </span>
+                  <div className="bg-white rounded-xl py-2 px-4">{cat}</div>
+                </main>
+              ))}
             </div>
-          </div>
-          <ReactQuillComp
-            theme="snow"
-            value={watch("content")}
-            onChange={(value) => setValue("content", value)}
-            placeholder="Write your story here..."
-          />
-          <input type="hidden" {...register("content")} />
+            {errors.category && (
+              <p className="text-red-500">{errors.category.message}</p>
+            )}
 
-          {errors.content && (
-            <p className="text-red-500">{errors.content.message}</p>
-          )}
+            <TextArea
+              rows={5}
+              register={register("desc")}
+              placeholder="Description"
+              name="desc"
+              className="resize-none"
+            />
+            {errors.title && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
+            <div className="flex flex-1">
+              <div className="flex flex-col gap-2 mr-2">
+                <Upload
+                  type={"image"}
+                  folder={"website"}
+                  setData={(data) =>
+                    setValue("image", { url: data.secure_url })
+                  }
+                >
+                  🌆
+                </Upload>
+                <Upload
+                  type="video"
+                  folder={"website"}
+                  setData={(data) =>
+                    setValue("video", { url: data.secure_url })
+                  }
+                >
+                  ▶️
+                </Upload>
+              </div>
+            </div>
+            <ReactQuillComp
+              theme="snow"
+              value={watch("content")}
+              onChange={(value) => setValue("content", value)}
+              placeholder="Write your story here..."
+            />
+            <input type="hidden" {...register("content")} />
 
-          <Button
-            loading={isLoading || loadingUpdate}
-            type="submit"
-            className="text-white"
-          >
-            {existingPost ? "Update" : "Create"}
-          </Button>
-        </form>
+            {errors.content && (
+              <p className="text-red-500">{errors.content.message}</p>
+            )}
+
+            <Button
+              loading={isLoading || loadingUpdate}
+              type="submit"
+              className="text-white"
+            >
+              {existingPost ? "Update" : "Create"}
+            </Button>
+          </form>
+        </div>
+        <div className="lg:text-lg flex flex-col  text-slate-300 blog-view">
+          {parse(sanitizedHtml)}
+        </div>
       </div>
-      <div className="lg:text-lg flex flex-col  text-slate-300 blog-view">
-        {parse(sanitizedHtml)}
-      </div>
-    </div>
+    </>
   );
 };
 
