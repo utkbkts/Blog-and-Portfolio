@@ -122,7 +122,7 @@ const AdminCreate = () => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const category = getValues("category").trim();
+      const category = getValues("category").trim().toLowerCase();
       if (!category) return;
 
       setSkills([...skills, category]);

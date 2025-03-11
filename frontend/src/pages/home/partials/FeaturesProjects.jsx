@@ -23,7 +23,7 @@ const FeaturesProjects = ({ post }) => {
               <Link
                 key={index}
                 to={`/postList?category=${encodeURIComponent(cat)}`}
-                className="text-blue-400 mr-2"
+                className="text-blue-400"
               >
                 {cat}
                 {index !== post.category.length - 1 && ", "}
@@ -56,7 +56,7 @@ const FeaturesProjects = ({ post }) => {
               "sm:w-1/3 w-full hover:bg-opacity-60 transition-all duration-300 mt-auto"
             }
           >
-           Daha fazla
+            Daha fazla
           </Button>
         </Link>
       </div>

@@ -21,7 +21,7 @@ const FeaturesBlogs = ({ mainBlog, sideBlogs }) => {
               <Link
                 key={index}
                 to={`/postList?category=${encodeURIComponent(cat)}`}
-                className="text-blue-400 mr-2"
+                className="text-blue-400"
               >
                 {cat}
                 {index !== mainBlog.category.length - 1 && ", "}
