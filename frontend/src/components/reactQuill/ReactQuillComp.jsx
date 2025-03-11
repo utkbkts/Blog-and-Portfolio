@@ -1,7 +1,6 @@
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 
-//Custom Tool Bar
 const modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
@@ -12,6 +11,7 @@ const modules = {
     ["clean"],
   ],
 };
+
 const formats = [
   "header",
   "bold",

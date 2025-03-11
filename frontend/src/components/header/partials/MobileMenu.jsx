@@ -51,13 +51,20 @@ const MobileMenu = ({ setIsMenuOpen, isMenuOpen }) => {
               </Link>
             ))}
             {user ? (
-              <Button onClick={handleLogout}>Logout✨</Button>
+              <Button
+                onClick={handleLogout}
+                className={
+                  "border border-gray-400 flex items-center justify-center"
+                }
+              >
+                Logout✨
+              </Button>
             ) : (
               <Link
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 to={"/giris-yap"}
               >
-                <Button className={"bg-quaternary"}>Login🙌</Button>
+                <Button className={"bg-quaternary "}>Login🙌</Button>
               </Link>
             )}
           </ul>

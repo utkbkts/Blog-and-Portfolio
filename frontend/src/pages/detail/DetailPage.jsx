@@ -20,8 +20,6 @@ const DetailPage = () => {
   });
   const { user } = useSelector((state) => state.auth);
 
-  const sanitize = DOMPurify.sanitize(data?.content);
-
   if (isLoading) {
     return <Loading />;
   }
@@ -33,11 +31,13 @@ const DetailPage = () => {
   return (
     <>
       <MetaData title={generateSlug(title)} />
-      <div className="flex flex-col gap-8 pt-12" >
+      <div className="flex flex-col gap-8 pt-12">
         {/* detial */}
         <div className="flex gap-8">
           <div className="lg:w-3/5 flex flex-col gap-8">
-            <h1 className="md:text-3xl text-md font-bold text-white">{data?.title}</h1>
+            <h1 className="md:text-3xl text-md font-bold text-white">
+              {data?.title}
+            </h1>
             <div className="flex items-center gap-2 text-slate-400 text-sm">
               <span className="text-blue-400 underline">
                 {data?.user?.username}
@@ -64,7 +64,7 @@ const DetailPage = () => {
         {/* content */}
         <div className="flex flex-col lg:flex-row gap-8 justify-between">
           <div className="lg:text-lg flex flex-col gap-6 text-slate-300 blog-view">
-            {parse(sanitize)}
+            {parse(DOMPurify.sanitize(data?.content))}
           </div>
           {/* menu */}
           <div>

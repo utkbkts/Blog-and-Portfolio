@@ -158,18 +158,29 @@
 }
 
 .blog-view {
-  overflow: hidden;
   a {
     color: blue;
     font-weight: 600;
     text-decoration: underline;
   }
-  pre {
-    background-color: rgb(61, 60, 60);
+  .ql-code-block-container {
+    background-color: #23241f;
+    color: #f8f8f2;
+    overflow: visible;
+    margin-bottom: 5px;
+    margin-top: 5px;
     padding: 10px 20px;
+
     border-radius: 10px;
-    color: whitesmoke;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    line-height: 1.5;
     overflow-x: auto;
+    white-space: pre-wrap;
+    border: 1px solid #444;
+  }
+  .ql-editor {
+    white-space: pre-wrap;
   }
 }
 .blog-view h1 {
@@ -198,9 +209,7 @@ blockquote {
   margin: 1rem 0;
   background-color: #f9f9f9;
 }
-.blog-view br {
-  display: none;
-}
+
 @media (max-width: 768px) {
   .blog-view h1 {
     font-size: 1.5rem;

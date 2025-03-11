@@ -52,17 +52,17 @@ const Comments = ({ postId, title }) => {
   return (
     <div className="flex flex-col gap-8 lg:w-3/5">
       <h1 className="text-xl text-white">Yorumlar</h1>
-      <hr className="text-white" />
+      <hr className="text-white w-full" />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex items-center justify-between gap-8 w-full"
+        className="flex items-end flex-col gap-2 w-full"
       >
         <div className="flex flex-col gap-2 w-full">
           <textarea
             {...register("comment")}
             placeholder="Yorum Yaz"
             name="comment"
-            className="w-full p-4 rounded-xl outline-none"
+            className="w-full p-4 rounded-xl outline-none text-white border border-gray-400 resize-none"
           />
           {errors.comment && (
             <p className="text-red-500">{errors.comment.message}</p>

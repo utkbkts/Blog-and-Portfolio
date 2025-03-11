@@ -95,7 +95,6 @@ const AdminCreate = () => {
   }, [existingPost, reset]);
   //image and video
   const contentHtml = watch("content");
-  const sanitizedHtml = DOMPurify.sanitize(contentHtml);
 
   const image = watch("image");
   const img = watch("img");
@@ -205,13 +204,14 @@ const AdminCreate = () => {
                 Add a cover image
               </Button>
             </Upload>
-            {existingPost?.img?.url && (
-              <img
-                src={existingPost?.img?.url || img?.url}
-                alt="image"
-                className="w-[350px] h-[350px] object-cover"
-              />
-            )}
+            {existingPost?.img?.url ||
+              (img?.url && (
+                <img
+                  src={existingPost?.img?.url || img?.url}
+                  alt="image"
+                  className="w-[350px] h-[350px] object-cover"
+                />
+              ))}
             {errors.img && <p className="text-red-500">{errors.img.message}</p>}
 
             <Input
@@ -301,7 +301,7 @@ const AdminCreate = () => {
           </form>
         </div>
         <div className="lg:text-lg flex flex-col  text-slate-300 blog-view">
-          {parse(sanitizedHtml)}
+          {parse(DOMPurify.sanitize(contentHtml))}
         </div>
       </div>
     </>

@@ -71,7 +71,7 @@ const Header = () => {
               className="rounded-full w-36 h-36 object-cover"
             />
           </div>
-          <ul className=" items-center gap-4  md:flex hidden text-[#fff]">
+          <ul className=" items-center gap-4  mds:flex hidden text-[#fff]">
             {HeaderLinks.map((link, index) => (
               <Link to={link.url} key={index}>
                 <li className={link.className}>{link.name}</li>
@@ -87,7 +87,7 @@ const Header = () => {
               </Link>
             )}
             {user?.role === "admin" && (
-              <li className="hidden md:block">
+              <li className="hidden mds:block">
                 <Link to={"/admin/create"}>Oluştur</Link>
               </li>
             )}
@@ -100,11 +100,11 @@ const Header = () => {
             )}
           </ul>
         </div>
-        <div className="absolute right-12 top-12 cursor-pointer md:hidden flex text-[#fff]">
+        <div className="absolute right-12 top-12 cursor-pointer mds:hidden flex text-[#fff]">
           <Menu onClick={() => setIsMenuOpen(!isMenuOpen)} />
         </div>
       </header>
-      <div className="md:hidden flex">
+      <div className="mds:hidden flex">
         {isMenuOpen && (
           <MobileMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
         )}
