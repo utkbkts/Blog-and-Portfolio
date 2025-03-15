@@ -4,7 +4,7 @@ const usernameRequired = z
   .string({
     required_error: "Zorunlu alan",
   })
-  .min(6, "Parola en az 6 karakter olmalıdır.")
+  .min(1, "kullanıcı adı zorunlu")
   .regex(/^[^<>/]*$/, "Geçersiz karakter girildi.");
 
 const passwordRequired = z
@@ -20,10 +20,6 @@ export const createRegisterSchema = z.object({
     .string({ message: "Zorunlu alan" })
     .email({ message: "Geçersiz Email" }),
   password: passwordRequired,
-  img: z.object({
-    secure_url: z.string({ message: "Resim alanı zorunludur" }),
-    public_id: z.string(),
-  }),
 });
 
 export const createLoginSchema = z.object({

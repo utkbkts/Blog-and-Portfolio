@@ -77,23 +77,18 @@ const Header = () => {
                 <li className={link.className}>{link.name}</li>
               </Link>
             ))}
-            {user?.isVerified === "false" && (
-              <Link
-                onClick={handleVerify}
-                to={"/email-dogrula"}
-                className="cursor-pointer"
-              >
-                Account Verified
-              </Link>
-            )}
             {user?.role === "admin" && (
               <li className="hidden mds:block">
                 <Link to={"/admin/create"}>Oluştur</Link>
               </li>
             )}
-            {user ? (
-              <Button onClick={handleLogout}>Çıkış yap✨</Button>
-            ) : (
+            {user && <Button onClick={handleLogout}>Çıkış yap✨</Button>}
+            {(user?.user?.isVerified === "false" && user?.user) && (
+              <Link to={"/email-dogrula"} onClick={handleVerify}>
+                <Button>Email doğrula</Button>
+              </Link>
+            )}
+            {(!user?.user && !user) && (
               <Link to={"/giris-yap"}>
                 <Button>Giriş yap🙌</Button>
               </Link>

@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import NotFound from "../components/NotFound";
 import MainLayouts from "../layouts/MainLayouts";
 import Loading from "../components/Loading";
-import ProtectedRoutes from "./ProtectedRoutes";
+import ProtectedRoutes, { ProtectedRoutesAuth } from "./ProtectedRoutes";
 const HomePage = React.lazy(() => import("../pages/home/HomePage"));
 const VerifyEmail = React.lazy(() => import("../pages/verify/VerifyEmail"));
 const Register = React.lazy(() => import("../pages/auth/Register"));
@@ -18,7 +18,9 @@ const TrendingProjects = React.lazy(() =>
 const Contact = React.lazy(() => import("../pages/contact/Contact"));
 const About = React.lazy(() => import("../pages/about/About"));
 const Sss = React.lazy(() => import("../pages/privacy/Sss"));
-const PrivacyPolicy = React.lazy(() => import("../pages/privacy/PrivacyPolicy"));
+const PrivacyPolicy = React.lazy(() =>
+  import("../pages/privacy/PrivacyPolicy")
+);
 
 export const MainRoutes = {
   path: "/",
@@ -78,9 +80,9 @@ export const MainRoutes = {
       path: "/kayit-ol",
       element: (
         <Suspense fallback={<Loading />}>
-          <ProtectedRoutes>
+          <ProtectedRoutesAuth>
             <Register />
-          </ProtectedRoutes>
+          </ProtectedRoutesAuth>
         </Suspense>
       ),
     },
@@ -88,9 +90,9 @@ export const MainRoutes = {
       path: "/giris-yap",
       element: (
         <Suspense fallback={<Loading />}>
-          <ProtectedRoutes>
+          <ProtectedRoutesAuth>
             <Login />
-          </ProtectedRoutes>
+          </ProtectedRoutesAuth>
         </Suspense>
       ),
     },
@@ -106,7 +108,9 @@ export const MainRoutes = {
       path: "/email-dogrula",
       element: (
         <Suspense fallback={<Loading />}>
-          <VerifyEmail />
+          <ProtectedRoutes>
+            <VerifyEmail />
+          </ProtectedRoutes>
         </Suspense>
       ),
     },

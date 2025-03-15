@@ -1,4 +1,3 @@
-import Upload from "../../components/upload/Upload";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,30 +26,17 @@ function Register() {
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(createRegisterSchema),
     mode: "onChange",
   });
 
-  const img = watch("img");
-
-  const handleUpload = (uploadedData) => {
-    const { public_id, secure_url } = uploadedData;
-    setValue("img", {
-      public_id,
-      secure_url,
-    });
-  };
-
   const onSubmit = async (data) => {
     await registerData({
       username: data.username,
       email: data.email,
       password: data.password,
-      img: data.img,
     });
   };
 
@@ -61,7 +47,10 @@ function Register() {
         <h1 className="text-white text-center text-2xl font-heading mb-12">
           Kayıt Ol
         </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 sm:w-[470px] w-full">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 sm:w-[470px] w-full"
+        >
           <div className="flex sm:items-center gap-4 sm:flex-row flex-col">
             <div className="flex flex-col ">
               <label className="text-white text-md font-heading">
@@ -78,7 +67,7 @@ function Register() {
                 </span>
               )}
             </div>
-            <div className="flex flex-col ">
+            <div className="flex flex-col w-full ">
               <label className="text-white text-md font-heading">Email</label>
               <Input
                 loading={isLoading}
@@ -106,34 +95,6 @@ function Register() {
               <span className="text-red-500 text-sm">
                 {errors.password.message}
               </span>
-            )}
-          </div>
-          <div className="w-full flex flex-col gap-4">
-            <Upload setData={handleUpload} folder={"website/avatar"}>
-              {img?.secure_url ? (
-                <img
-                  src={img.secure_url}
-                  alt="avatar"
-                  title="avatar-png"
-                  className="w-full h-32"
-                />
-              ) : (
-                <img
-                  src="/avatar.png"
-                  alt="avatar"
-                  title="avatar-png"
-                  className="w-12 h-12"
-                />
-              )}
-              <input
-                type="file"
-                name="img"
-                className="hidden"
-                {...register("img")}
-              />
-            </Upload>
-            {errors?.img?.secure_url && (
-              <span className="text-red-500 text-sm">{errors.img?.secure_url?.message}</span>
             )}
           </div>
           <div>

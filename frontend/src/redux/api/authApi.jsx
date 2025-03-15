@@ -19,6 +19,18 @@ export const authApi = createApi({
         };
       },
       invalidatesTags: ["User"],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          const { data } = await queryFulfilled;
+          await dispatch(userApi.endpoints.getUser.initiate());
+          dispatch(setUser(data));
+          dispatch(setisAuthenticated(true));
+          // eslint-disable-next-line no-unused-vars
+        } catch (_error) {
+          //
+        }
+      },
     }),
     login: builder.mutation({
       query(body) {

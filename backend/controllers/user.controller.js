@@ -6,9 +6,9 @@ import { sendVerificationToken } from "../utils/passwordTemplate.js";
 import sendEmail from "../utils/sendEmail.js";
 
 const register = catchAsyncError(async (req, res, next) => {
-  const { username, email, img, password } = req.body;
+  const { username, email, password } = req.body;
   try {
-    if (!username || !email || !img || !password) {
+    if (!username || !email || !password) {
       return res.status(404).json({
         message: "All fields Required",
       });
@@ -30,10 +30,9 @@ const register = catchAsyncError(async (req, res, next) => {
 
     const messageHtml = sendVerificationToken(verificationToken);
 
-    await User.create({
+    const user = await User.create({
       username,
       email,
-      img,
       password,
       verificationToken,
       verificationTokenExpiresAt,
@@ -45,6 +44,7 @@ const register = catchAsyncError(async (req, res, next) => {
     });
 
     return res.status(201).json({
+      user,
       message: "Check and verify your email account",
     });
   } catch (error) {
@@ -207,9 +207,7 @@ const likePost = catchAsyncError(async (req, res, next) => {
   await updatedPost.save();
 
   res.status(200).json({
-    message: alreadyLiked
-      ? "Beğeni kaldırıldı !"
-      : "Beğenildi !",
+    message: alreadyLiked ? "Beğeni kaldırıldı !" : "Beğenildi !",
     likedCount: totalLikes,
   });
 });

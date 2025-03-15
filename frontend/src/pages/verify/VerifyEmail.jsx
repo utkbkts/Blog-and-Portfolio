@@ -64,7 +64,7 @@ const VerifyEmail = () => {
   }, [code]);
 
   return (
-    <div className="flex items-center justify-center w-full bg-gray-800  rounded-2xl  overflow-hidden mt-44">
+    <div className="flex items-center justify-center w-full   rounded-2xl  overflow-hidden mt-44">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
