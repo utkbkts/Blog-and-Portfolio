@@ -3,14 +3,13 @@ import Input from "../../../ui/Input";
 import Button from "../../../ui/Button";
 import SelectInput from "../../../ui/SelectInput";
 import TextArea from "../../../ui/TextArea";
-
+import { Upload, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createMessageSchema } from "../../../validation/createMessage-schema";
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Upload from "../../../components/upload/Upload";
 import {
   useCreatePostMutation,
   useUpdatePostMutation,
@@ -33,6 +32,8 @@ const AdminCreate = () => {
   const [createPost, { isLoading, isError, error, isSuccess }] =
     useCreatePostMutation();
   const [skills, setSkills] = useState([]);
+  const [image, setImage] = useState(null);
+  const fileInputRef = useRef(null);
   const [
     updatePost,
     {
@@ -89,32 +90,28 @@ const AdminCreate = () => {
         category: existingPost?.category,
         categoryHeader: existingPost?.categoryHeader,
         content: existingPost?.content,
-        img: existingPost?.img,
+        image: existingPost?.img,
       });
     }
   }, [existingPost, reset]);
   //image and video
   const contentHtml = watch("content");
 
-  const image = watch("image");
-  const img = watch("img");
-  const video = watch("video");
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
-  useEffect(() => {
-    if (image && image.url) {
-      const currentContent = watch("content") || "";
-      const updatedContent = `${currentContent}<p><img src="${image.url}" alt="Uploaded image" /></p>`;
-      setValue("content", updatedContent);
-    }
-  }, []);
+  const handleResetFileInput = () => {
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
 
-  useEffect(() => {
-    if (video) {
-      const currentContent = watch("content") || "";
-      const updatedContent = `${currentContent}<p><iframe class="ql-video" src="${video.url}"></iframe></p>`;
-      setValue("content", updatedContent);
-    }
-  }, []);
 
   //category
 
@@ -137,6 +134,7 @@ const AdminCreate = () => {
   // Create or Update Mutation
 
   const onSubmit = async (data) => {
+
     try {
       if (existingPost) {
         await updatePost({
@@ -145,7 +143,7 @@ const AdminCreate = () => {
             title: data.title,
             desc: data.desc,
             category: skills,
-            img: data.img,
+            img: image,
             categoryHeader: data.categoryHeader,
             content: data.content,
           },
@@ -155,7 +153,7 @@ const AdminCreate = () => {
           title: data.title,
           desc: data.desc,
           category: skills,
-          img: data.img,
+          img: image,
           categoryHeader: data.categoryHeader,
           content: data.content,
         });
@@ -190,29 +188,43 @@ const AdminCreate = () => {
             {errors.categoryHeader && (
               <p className="text-red-500">{errors.categoryHeader.message}</p>
             )}
-            <Upload
-              folder={"website"}
-              type={"image"}
-              setData={(data) =>
-                setValue("img", {
-                  public_id: data.public_id,
-                  url: data.secure_url,
-                })
-              }
-            >
-              <Button type="button" className="text-white md:w-1/4 w-full">
-                Add a cover image
-              </Button>
-            </Upload>
-            {existingPost?.img?.url ||
-              (img?.url && (
+            {/* Image preview section */}
+            {image && (
+              <div className="relative ">
                 <img
-                  src={existingPost?.img?.url || img?.url}
-                  alt="image"
-                  className="w-[350px] h-[350px] object-cover"
+                  alt="Uploaded"
+                  className="aspect-square w-[300px] rounded-md object-cover"
+                  height="84"
+                  src={image}
+                  width="84"
                 />
-              ))}
-            {errors.img && <p className="text-red-500">{errors.img.message}</p>}
+                <span
+                  onClick={() => setImage(null)}
+                  className="absolute top-0 right-0 p-1 bg-rose-700"
+                >
+                  <X color="white" className="h-4 w-4 cursor-pointer" />
+                </span>
+              </div>
+            )}
+
+            <div
+              onClick={() => fileInputRef.current?.click()} 
+              className="flex aspect-square w-[300px] items-center justify-center rounded-md border border-dashed cursor-pointer"
+            >
+              <Upload className="h-4 w-4 text-white" />
+              <span className="sr-only">Upload</span>
+
+              {/* Hidden file input */}
+              <input
+                name="image"
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                onClick={handleResetFileInput}
+                className="hidden" 
+                accept="image/*" 
+              />
+            </div>
 
             <Input
               register={register("title")}
@@ -257,28 +269,7 @@ const AdminCreate = () => {
             {errors.title && (
               <p className="text-red-500">{errors.title.message}</p>
             )}
-            <div className="flex flex-1">
-              <div className="flex flex-col gap-2 mr-2">
-                <Upload
-                  type={"image"}
-                  folder={"website"}
-                  setData={(data) =>
-                    setValue("image", { url: data.secure_url })
-                  }
-                >
-                  🌆
-                </Upload>
-                <Upload
-                  type="video"
-                  folder={"website"}
-                  setData={(data) =>
-                    setValue("video", { url: data.secure_url })
-                  }
-                >
-                  ▶️
-                </Upload>
-              </div>
-            </div>
+            
             <ReactQuillComp
               theme="snow"
               value={watch("content")}

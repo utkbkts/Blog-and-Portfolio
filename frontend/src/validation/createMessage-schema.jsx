@@ -12,10 +12,15 @@ export const createMessageSchema = z.object({
   category: z.coerce.string(),
   desc: messageIsRequired,
   categoryHeader: messageIsRequired,
-  img: z.object({
-    public_id: z.string(),
-    url: z.string().url("Invalid video URL").nonempty("Video URL is required"),
-  }),
+  img: z
+    .object({
+      public_id: z.string(),
+      url: z
+        .string()
+        .url("Invalid video URL")
+        .nonempty("Video URL is required"),
+    })
+    .optional(),
   content: z
     .string({
       required_error: "required",

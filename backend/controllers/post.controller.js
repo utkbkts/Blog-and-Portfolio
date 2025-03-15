@@ -6,6 +6,10 @@ import dotenv from "dotenv";
 import apiFilter from "../utils/apiFilters.js";
 import { generateSlug } from "../utils/generateSlug.js";
 import { generateSitemap } from "../routes/generate.sitemap.js";
+import {
+  deleteCloudinary,
+  uploadImagesToCloudinary,
+} from "../utils/cloudinary.js";
 dotenv.config();
 
 const findUserByClerkId = async (userId) => {
@@ -128,24 +132,45 @@ const getPost = catchAsyncError(async (req, res) => {
 });
 
 const createPost = catchAsyncError(async (req, res, next) => {
-  const { title, desc, category, categoryHeader, content } = req.body;
+  const { title, desc, category, categoryHeader, content, img } = req.body;
 
-  if (!title || !desc || !category || !categoryHeader || !content) {
+  if (!title || !desc || !category || !categoryHeader || !content || !img) {
     return next(new ErrorHandler("All fields are required", 400));
   }
 
-  const userId = req.user._id;
+  const userId = req?.user?._id;
   const user = await findUserByClerkId(userId);
 
   if (user?.role === "user") {
-    return next(new ErrorHandler("Just only admin create post", 400));
+    return next(new ErrorHandler("Just only admin can create posts", 400));
   }
 
-  const newPost = new Post({ user: userId, ...req.body });
-  const post = await newPost.save();
-  generateSitemap();
+  let uploadedImageUrls = "";
+  try {
+    uploadedImageUrls = await uploadImagesToCloudinary(img, "website/posts");
 
-  return res.status(201).json(post);
+    const newPost = await Post.create({
+      ...req.body,
+      img: uploadedImageUrls,
+      user: userId,
+    });
+
+    generateSitemap();
+
+    return res.status(201).json(newPost);
+  } catch (error) {
+    if (uploadedImageUrls && uploadedImageUrls.public_id) {
+      const deletePromises = await deleteCloudinary(
+        uploadedImageUrls.public_id
+      );
+
+      if (Array.isArray(deletePromises)) {
+        await Promise.all(deletePromises);
+      }
+    }
+
+    next(error);
+  }
 });
 
 const deletePost = catchAsyncError(async (req, res, next) => {
