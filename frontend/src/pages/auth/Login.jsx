@@ -42,10 +42,10 @@ const Login = () => {
 
   return (
     <>
-      <MetaData title={"Login"} />
+      <MetaData title={"Sign In"} />
       <div className="min-h-[80vh] flex flex-col items-center justify-center">
         <h1 className="text-white text-center text-2xl font-heading mb-12">
-          Giriş yap
+          Sign In
         </h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -86,14 +86,14 @@ const Login = () => {
               type="submit"
               className={"text-white w-full"}
             >
-              Giriş yap
+              Sign in
             </Button>
           </div>
         </form>
         <span className="mt-4 text-white flex items-center gap-1">
-          Hesabın yok mu?{" "}
-          <Link to={"/kayit-ol"} className="text-blue-400 underline">
-            Kayıt ol
+          Don't have an account?{" "}
+          <Link to={"/register"} className="text-blue-400 underline">
+            Sign up
           </Link>
         </span>
       </div>

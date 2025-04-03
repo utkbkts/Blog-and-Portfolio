@@ -84,12 +84,12 @@ const Header = () => {
             )}
             {user && <Button onClick={handleLogout}>Çıkış yap✨</Button>}
             {(user?.user?.isVerified === "false" && user?.user) && (
-              <Link to={"/email-dogrula"} onClick={handleVerify}>
+              <Link to={"/verify-email"} onClick={handleVerify}>
                 <Button>Email doğrula</Button>
               </Link>
             )}
             {(!user?.user && !user) && (
-              <Link to={"/giris-yap"}>
+              <Link to={"/login"}>
                 <Button>Giriş yap🙌</Button>
               </Link>
             )}
