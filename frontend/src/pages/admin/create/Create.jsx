@@ -160,7 +160,6 @@ const AdminCreate = () => {
       alert("Lütfen tekrar deneyiniz", error);
     }
   };
-  console.log(existingPost);
   if (isLoading) {
     return <Loading />;
   }
