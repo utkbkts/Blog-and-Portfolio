@@ -1,26 +1,26 @@
 import { z } from "zod";
-
 const usernameRequired = z
   .string({
-    required_error: "Zorunlu alan",
+    required_error: "Required field",
   })
-  .min(1, "kullanıcı adı zorunlu")
-  .regex(/^[^<>/]*$/, "Geçersiz karakter girildi.");
+  .min(1, "Username is required")
+  .regex(/^[^<>/]*$/, "Invalid character entered.");
 
 const passwordRequired = z
   .string({
-    required_error: "Zorunlu alan",
+    required_error: "Required field",
   })
-  .min(6, "Parola en az 6 karakter olmalıdır.")
-  .regex(/^[^<>/]*$/, "Geçersiz karakter girildi.");
+  .min(6, "Password must be at least 6 characters long.")
+  .regex(/^[^<>/]*$/, "Invalid character entered.");
 
 export const createRegisterSchema = z.object({
   username: usernameRequired,
   email: z
-    .string({ message: "Zorunlu alan" })
-    .email({ message: "Geçersiz Email" }),
+    .string({ message: "Required field" })
+    .email({ message: "Invalid email" }),
   password: passwordRequired,
 });
+
 
 export const createLoginSchema = z.object({
   email: z.string().email(),

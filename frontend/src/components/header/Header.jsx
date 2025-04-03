@@ -82,15 +82,15 @@ const Header = () => {
                 <Link to={"/admin/create"}>Oluştur</Link>
               </li>
             )}
-            {user && <Button onClick={handleLogout}>Çıkış yap✨</Button>}
+            {user && <Button onClick={handleLogout}>Logout✨</Button>}
             {(user?.user?.isVerified === "false" && user?.user) && (
               <Link to={"/verify-email"} onClick={handleVerify}>
-                <Button>Email doğrula</Button>
+                <Button>Verify Email</Button>
               </Link>
             )}
             {(!user?.user && !user) && (
               <Link to={"/login"}>
-                <Button>Giriş yap🙌</Button>
+                <Button>Login🙌</Button>
               </Link>
             )}
           </ul>
