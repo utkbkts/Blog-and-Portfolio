@@ -20,7 +20,7 @@ const Login = () => {
       toast.error(error.data.message);
     }
     if (loginSuccess) {
-      toast.success("Giriş Başarılı !!");
+      toast.success("Login success !!");
     }
   }, [loginSuccess, error, isError]);
 
@@ -65,9 +65,9 @@ const Login = () => {
             )}
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-white text-md font-heading">Şifre</label>
+            <label className="text-white text-md font-heading">Password</label>
             <Input
-              placeholder={"Şifre"}
+              placeholder={"password"}
               className={"w-full"}
               loading={loginLoading}
               register={register("password")}
@@ -91,7 +91,7 @@ const Login = () => {
           </div>
         </form>
         <span className="mt-4 text-white flex items-center gap-1">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link to={"/register"} className="text-blue-400 underline">
             Sign up
           </Link>

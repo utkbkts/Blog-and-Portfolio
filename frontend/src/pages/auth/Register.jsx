@@ -18,7 +18,7 @@ function Register() {
       toast.error(error.data.message);
     }
     if (isSuccess) {
-      toast.success("Kayıt Başarılı !!");
+      toast.success("Sign up success !!");
       navigate("/verify-email");
     }
   }, [isSuccess, error, isError]);
