@@ -109,7 +109,7 @@ function Register() {
         </form>
         <span className="mt-4 text-white flex items-center gap-1">
           Do you have an account?{" "}
-          <Link to={"/giris-yap"} className="text-blue-400 underline">
+          <Link to={"/login"} className="text-blue-400 underline">
             Login
           </Link>
         </span>

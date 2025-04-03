@@ -23,7 +23,7 @@ const Header = () => {
       toast.error(error.response.data.message);
     }
     if (isSuccess) {
-      toast.success("Çıkış başarılı !!");
+      toast.success("Logout success!!");
     }
   }, [isSuccess, error, isError]);
 
