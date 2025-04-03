@@ -37,7 +37,7 @@ const HomePage = () => {
       </div>
       {/* FeaturesBlogs */}
       <div className="pb-4 ">
-        <h1 className="font-bold mds:text-3xl text-xl pt-8 text-center uppercase">Bloglarım</h1>
+        <h1 className="font-bold mds:text-3xl text-xl pt-8 text-center uppercase">My Blogs</h1>
         <hr className="text-gray-500 mb-4"/>
         {isLoading ? (
           <SkeletonText />
@@ -50,7 +50,7 @@ const HomePage = () => {
         <Slider />
       </div>
       <div className="flex flex-col gap-3">
-        <h1 className="font-bold  mds:text-3xl text-xl pt-8 text-center uppercase">Projelerim</h1>
+        <h1 className="font-bold  mds:text-3xl text-xl pt-8 text-center uppercase">My Projects</h1>
         <hr className="text-gray-500 mb-4"/>
 
         {isLoading ? (

@@ -71,8 +71,7 @@ const About = () => {
               </motion.div>
             </AnimatePresence>
             <p className="text-white font-heading xl:text-xl text-[15px]  bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] bg-clip-text ">
-              “Bir itibarı inşa etmek 20 yıl alır, ancak bir siber olay onu
-              birkaç dakikada yok edebilir.” — Stephane Nappo
+            “It takes 20 years to build a reputation, but a cyber incident can destroy it in minutes.” — Stephane Nappo
             </p>
           </div>
           <div className="md:w-1/2 w-full">

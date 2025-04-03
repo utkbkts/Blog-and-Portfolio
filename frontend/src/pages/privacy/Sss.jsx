@@ -1,42 +1,42 @@
 import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 const optionData = {
-  "Blog için SSS Soruları": [
+  "FAQ for Blog": [
     {
       id: 1,
-      title: "Blogun konusu nedir?",
-      desc: "Aslında her şey hakkında yazıyorum, bildiğim programlama dilleri var. Bu konular hakkında yazıyorum ya da bilmediğim konuları araştırıp bilgimi toplu halde aktarıyorum.",
+      title: "What is the blog about?",
+      desc: "I write about everything, I know programming languages. I write about these topics or research topics I don't know and share my gathered knowledge.",
     },
     {
       id: 2,
-      title: "Yeni içerikler ne sıklıkla yayınlanıyor?",
-      desc: "Haftada bir blog yazısı paylaşmaya çalışıyorum.",
+      title: "How often is new content published?",
+      desc: "I try to post a blog article once a week.",
     },
     {
       id: 3,
-      title: "Yazılarınızı nasıl seçiyorsunuz?",
-      desc: "Genellikle dokümantasyon bilgileri, Udemy videoları ve YouTube videolarından faydalanıyorum.",
+      title: "How do you choose your articles?",
+      desc: "I usually refer to documentation, Udemy videos, and YouTube videos.",
     },
     {
       id: 4,
-      title: "Konuk yazar olabilir miyim?",
-      desc: "Amacım kişisel bir blog ve portfolyo sayfası oluşturmak, ancak gelecekte her şey değişebilir. Sonuçta dünya değişiyor, değil mi? :)",
+      title: "Can I be a guest writer?",
+      desc: "My goal is to create a personal blog and portfolio page, but everything may change in the future. After all, the world is changing, right? :)",
     },
     {
       id: 5,
-      title: "Makalelerinize nasıl yorum yapabilirim?",
-      desc: "Giriş yaparak.",
+      title: "How can I comment on your articles?",
+      desc: "By logging in.",
     },
     {
       id: 6,
-      title: "Bülteninize nasıl abone olabilirim?",
-      desc: "Sayfamızı düzenli olarak takip ederek.",
+      title: "How can I subscribe to your newsletter?",
+      desc: "By regularly following my page.",
     },
   ],
-  "Portfolyo için SSS Soruları": [
+  "FAQ for Portfolio": [
     {
       id: 1,
-      title: "Hangi teknolojilerle çalışıyorsunuz?",
+      title: "Which technologies do you work with?",
       desc: [
         "JavaScript",
         "TypeScript",
@@ -57,31 +57,32 @@ const optionData = {
     },
     {
       id: 2,
-      title: "İş teklifleri için sizinle nasıl iletişime geçebilirim?",
-      desc: "utkutoygunbektasoglu@gmail.com adresine e-posta gönderebilirsiniz.",
+      title: "How can I contact you for job offers?",
+      desc: "You can send an email to utkutoygunbektasoglu@gmail.com.",
     },
     {
       id: 3,
-      title: "Açık kaynak projelere katkıda bulunuyor musunuz?",
-      desc: "Evet, bunun için beni GitHub'dan takip edebilirsiniz.",
+      title: "Do you contribute to open source projects?",
+      desc: "Yes, you can follow me on GitHub for that.",
     },
     {
       id: 4,
-      title: "Freelance çalışıyor musunuz?",
-      desc: "Evet.",
+      title: "Do you work freelance?",
+      desc: "Yes.",
     },
     {
       id: 5,
-      title: "Daha önce hangi projeleri tamamladınız?",
-      desc: "Bunun için beni GitHub'dan takip edebilirsiniz.",
+      title: "Which projects have you completed in the past?",
+      desc: "You can follow me on GitHub for that.",
     },
     {
       id: 6,
-      title: "Yeni projeleriniz hakkında nasıl bilgi alabilirim?",
-      desc: "Bunun için beni GitHub'dan takip edebilir veya utkutoygunbektasoglu@gmail.com adresine e-posta gönderebilirsiniz.",
+      title: "How can I get updates on your new projects?",
+      desc: "You can follow me on GitHub or send an email to utkutoygunbektasoglu@gmail.com.",
     },
   ],
 };
+
 
 
 const Sss = () => {
@@ -99,9 +100,9 @@ const Sss = () => {
     <div className="text-black flex items-center justify-center h-full mt-44 gap-12 lg:flex-row flex-col">
       <div className="bg-slate-200 md:w-[500px] flex flex-col gap-5 p-6 rounded-lg h-[500px] overflow-y-auto">
         <h1 className="sm:text-xl text-sm text-center font-bold font-heading">
-          Blog için SSS Soruları
+        FAQ Questions for the Blog
         </h1>
-        {optionData["Blog için SSS Soruları"].map((item) => (
+        {optionData["FAQ for Blog"].map((item) => (
           <div key={item.id} className="border-b pb-2">
             <h1
               className="flex items-center justify-between cursor-pointer font-semibold sm:text-lg text-sm"
@@ -128,9 +129,9 @@ const Sss = () => {
       </div>
       <div className="bg-slate-200 md:w-[500px] flex flex-col gap-5 p-6 rounded-lg h-[500px] overflow-y-auto">
         <h1 className="sm:text-xl tex-sm text-center font-bold font-heading">
-          Portfolyo için SSS Soruları
+        FAQ Questions for the Portfolio
         </h1>
-        {optionData["Portfolyo için SSS Soruları"].map((item) => (
+        {optionData["FAQ for Portfolio"].map((item) => (
           <div key={item.id} className="border-b pb-2">
             <h1
               className="flex items-center justify-between cursor-pointer font-semibold sm:text-lg tex-sm"

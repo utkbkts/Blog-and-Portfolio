@@ -51,7 +51,7 @@ const Comments = ({ postId, title }) => {
 
   return (
     <div className="flex flex-col gap-8 lg:w-3/5">
-      <h1 className="text-xl text-white">Yorumlar</h1>
+      <h1 className="text-xl text-white">Comments</h1>
       <hr className="text-white w-full" />
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -60,7 +60,7 @@ const Comments = ({ postId, title }) => {
         <div className="flex flex-col gap-2 w-full">
           <textarea
             {...register("comment")}
-            placeholder="Yorum Yaz"
+            placeholder="Write a Comment"
             name="comment"
             className="w-full p-4 rounded-xl outline-none text-white border border-gray-400 resize-none"
           />
@@ -69,7 +69,7 @@ const Comments = ({ postId, title }) => {
           )}
         </div>
         <Button loading={isLoading} type="submit" className="text-white">
-          Gönder
+          Send
         </Button>
       </form>
       {data?.map((item) => (

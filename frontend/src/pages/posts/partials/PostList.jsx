@@ -25,7 +25,7 @@ const PostList = ({ post }) => {
         </Link>
         <div className="flex items-center gap-1 text-gray-400 text-sm">
           <span className="text-blue-400">{post?.user?.username}</span>
-          <span>Tarafından</span>
+          <span>By</span>
           {Array.isArray(post?.category) ? (
             post.category.map((cat, index) => (
               <Link
@@ -55,13 +55,13 @@ const PostList = ({ post }) => {
           </span>
         </div>
         <p>{post?.desc.slice(0,200)}...</p>
-        <Link to={`/detay/${generateSlug(post?.title)}/${post?._id}`}>
+        <Link to={`/detail/${generateSlug(post?.title)}/${post?._id}`}>
           <Button
             className={
               "sm:w-1/3 w-full hover:bg-opacity-60 transition-all duration-300 mt-auto"
             }
           >
-            Daha fazla
+           Read More
           </Button>
         </Link>
       </div>

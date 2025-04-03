@@ -42,7 +42,7 @@ const DetailPage = () => {
               <span className="text-blue-400 underline">
                 {data?.user?.username}
               </span>
-              <span>Tarafından</span>
+              <span>By</span>
               <Link
                 to={`/postList?category=${data?.category}`}
                 className="text-blue-400 underline"
@@ -77,9 +77,9 @@ const DetailPage = () => {
           <h1 className="text-center text-white text-2xl font-bold pt-12">
             <hr />
             {!user
-              ? "Yorum yapmak için şimdi giriş yapın"
+              ? "Log in now to comment"
               : user.isVerified === "false"
-              ? "Lütfen hesabınızı doğrulayın"
+              ? "Please verify your account"
               : null}
           </h1>
         )}

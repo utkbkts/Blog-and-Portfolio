@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const Introduction = () => {
   const textTitle =
-    "Yenilik ve yaratıcılığı harmanlayan projelerim, düşüncelerim ve fikirlerimden oluşan özenle seçilmiş koleksiyonumu keşfedin. İlham almak, iş birliği yapmak veya sadece merakınızı gidermek için buradaysanız, içeriğe dalın ve yolculuğumu benzersiz kılan detayları keşfedin.";
+    "Explore my carefully curated collection of projects, thoughts, and ideas that blend innovation and creativity. Whether you're here to find inspiration, collaborate, or simply satisfy your curiosity, dive into the content and discover the details that make my journey unique.";
 
   return (
     <div className="text-center p-6 flex flex-col gap-4">
@@ -15,7 +15,7 @@ const Introduction = () => {
         }}
         className="font-bold text-4xl mb-4 "
       >
-        Yaratıcı Alanıma Hoş Geldiniz
+        Welcome to My Creative Space
       </motion.h1>
       <motion.h1
         transition={{ duration: 1 }}

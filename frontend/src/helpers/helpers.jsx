@@ -17,15 +17,15 @@ export const getDateLocal = (date) => {
   };
 
   if (time === "a few seconds") {
-    return "Şimdi";
+    return "Now";
   }
 
   if (time.search("minute") !== -1) {
     let mins = time.split(" ")[0];
     if (mins === "a") {
-      return "1 dakika önce";
+      return "1 minute once";
     } else {
-      return `${mins} dakika`;
+      return `${mins} minute`;
     }
   }
 
@@ -34,11 +34,11 @@ export const getDateLocal = (date) => {
   }
 
   if (time === "a day") {
-    return "Dün";
+    return "Yesterday";
   }
 
   if (time === "a month") {
-    return "Bir ay önce";
+    return "A month once";
   }
 
 

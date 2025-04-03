@@ -50,13 +50,13 @@ const FeaturesProjects = ({ post }) => {
         </div>
         <h1 className="font-bold mds:text-3xl text-xl">{post?.title}</h1>
         <p className="text-slate-300">{post?.desc.slice(0, 500)}...</p>
-        <Link to={`/detay/${generateSlug(post?.title)}/${post?._id}`}>
+        <Link to={`/detail/${generateSlug(post?.title)}/${post?._id}`}>
           <Button
             className={
               "sm:w-1/3 w-full hover:bg-opacity-60 transition-all duration-300 mt-auto"
             }
           >
-            Daha fazla
+           Read More
           </Button>
         </Link>
       </div>

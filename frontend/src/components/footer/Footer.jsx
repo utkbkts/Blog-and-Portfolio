@@ -13,14 +13,14 @@ export function FooterComponent() {
           className="w-32 h-32 object-cover"
         />
         <div className="flex flex-col mds:items-start items-center  gap-2">
-          <h1 className="text-white font-bold font-heading ">Hakkımda</h1>
+          <h1 className="text-white font-bold font-heading ">About</h1>
           <div className="flex flex-col gap-1">
             <Link
-              to={"/about"}
+              to={"/about-us"}
               target="_blank"
               className="cursor-pointer hover:underline"
             >
-              Ben
+              Me
             </Link>
             <Link
               to={"/S.S.S"}
@@ -32,20 +32,20 @@ export function FooterComponent() {
           </div>
         </div>
         <div className="flex flex-col mds:text-start text-center gap-2">
-          <h1 className="text-white font-bold font-heading">Destek</h1>
+          <h1 className="text-white font-bold font-heading">Support</h1>
           <div className="flex mds:text-start text-center flex-col gap-1">
             <Link
               to={"/policy"}
               target="_blank"
               className="cursor-pointer hover:underline"
             >
-              Gizlilik Politikası 
+              Privacy Policy
             </Link>
-            <span className="cursor-pointer hover:underline">Şartlar ve Koşullar</span>
+            <span className="cursor-pointer hover:underline">Terms and Conditions</span>
           </div>
         </div>
         <div className="flex flex-col mds:items-start items-center gap-2">
-          <h1 className="text-white font-bold font-heading">Beni Takip Edin</h1>
+          <h1 className="text-white font-bold font-heading">Follow Me</h1>
           <div className="flex flex-col gap-1">
             <Link
               target="_blank"
