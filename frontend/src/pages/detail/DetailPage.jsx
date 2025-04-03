@@ -18,6 +18,7 @@ const DetailPage = () => {
     title,
     postId,
   });
+  console.log("🚀 ~ DetailPage ~ data:", data)
   const { user } = useSelector((state) => state.auth);
 
   if (isLoading) {

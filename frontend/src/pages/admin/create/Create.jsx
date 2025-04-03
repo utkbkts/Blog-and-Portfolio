@@ -112,7 +112,6 @@ const AdminCreate = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-
   //category
 
   const handleCategoryChange = (e) => {
@@ -134,7 +133,6 @@ const AdminCreate = () => {
   // Create or Update Mutation
 
   const onSubmit = async (data) => {
-
     try {
       if (existingPost) {
         await updatePost({
@@ -162,7 +160,7 @@ const AdminCreate = () => {
       alert("Lütfen tekrar deneyiniz", error);
     }
   };
-
+  console.log(existingPost);
   if (isLoading) {
     return <Loading />;
   }
@@ -189,13 +187,13 @@ const AdminCreate = () => {
               <p className="text-red-500">{errors.categoryHeader.message}</p>
             )}
             {/* Image preview section */}
-            {image && (
-              <div className="relative ">
+            {(existingPost?.img?.url || image) && (
+              <div className="relative">
                 <img
                   alt="Uploaded"
                   className="aspect-square w-[300px] rounded-md object-cover"
                   height="84"
-                  src={image}
+                  src={existingPost?.img?.url || image}
                   width="84"
                 />
                 <span
@@ -208,7 +206,7 @@ const AdminCreate = () => {
             )}
 
             <div
-              onClick={() => fileInputRef.current?.click()} 
+              onClick={() => fileInputRef.current?.click()}
               className="flex aspect-square w-[300px] items-center justify-center rounded-md border border-dashed cursor-pointer"
             >
               <Upload className="h-4 w-4 text-white" />
@@ -221,8 +219,8 @@ const AdminCreate = () => {
                 ref={fileInputRef}
                 onChange={handleFileChange}
                 onClick={handleResetFileInput}
-                className="hidden" 
-                accept="image/*" 
+                className="hidden"
+                accept="image/*"
               />
             </div>
 
@@ -269,7 +267,7 @@ const AdminCreate = () => {
             {errors.title && (
               <p className="text-red-500">{errors.title.message}</p>
             )}
-            
+
             <ReactQuillComp
               theme="snow"
               value={watch("content")}

@@ -201,12 +201,24 @@ const updatePost = catchAsyncError(async (req, res, next) => {
   const postId = req.params.postId;
   const { title, desc, category, categoryHeader, img, content } = req.body;
 
+  // Kullanıcıyı veritabanında bul
   const user = await findUserByClerkId(userId);
-
-  if (user?.role === "user") {
-    return next(new ErrorHandler("Just only admin create post", 400));
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
   }
 
+  // Kullanıcı admin mi kontrol et
+  if (user.role === "user") {
+    return next(new ErrorHandler("Only admins can update posts", 403));
+  }
+
+  // Resmi Cloudinary'e yükle (eğer varsa)
+  let uploadedImageUrls = "";
+  if (img) {
+    uploadedImageUrls = await uploadImagesToCloudinary(img, "website/posts");
+  }
+
+  // Postu güncelle
   const post = await Post.findByIdAndUpdate(
     postId,
     {
@@ -214,7 +226,7 @@ const updatePost = catchAsyncError(async (req, res, next) => {
       desc,
       category,
       categoryHeader,
-      img,
+      img: uploadedImageUrls || undefined, // Eğer img boşsa eski değeri korusun
       content,
     },
     { new: true, runValidators: true }
@@ -222,7 +234,10 @@ const updatePost = catchAsyncError(async (req, res, next) => {
 
   if (!post) {
     return next(
-      new ErrorHandler("Post not found or not authorized to update", 400)
+      new ErrorHandler(
+        "Post not found or you are not authorized to update it",
+        403
+      )
     );
   }
 
