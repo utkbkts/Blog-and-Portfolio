@@ -19,14 +19,14 @@ const FeaturesProjects = ({ post }) => {
             {getDateLocal(post?.createdAt)}
           </span>
           {Array.isArray(post?.category) ? (
-            post.category.map((cat, index) => (
+            post?.category?.map((cat, index) => (
               <Link
                 key={index}
                 to={`/postList?category=${encodeURIComponent(cat)}`}
                 className="text-blue-400"
               >
                 {cat}
-                {index !== post.category.length - 1 && ", "}
+                {index !== post?.category?.length - 1 && ","}
               </Link>
             ))
           ) : (

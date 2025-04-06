@@ -18,6 +18,7 @@ const DetailPage = () => {
     title,
     postId,
   });
+  console.log("🚀 ~ DetailPage ~ data:", data);
   const { user } = useSelector((state) => state.auth);
 
   if (isLoading) {
@@ -38,17 +39,32 @@ const DetailPage = () => {
             <h1 className="md:text-3xl text-md font-bold text-white">
               {data?.title}
             </h1>
-            <div className="flex items-center gap-2 text-slate-400 text-sm">
+            <div className="flex items-center gap-2 text-slate-400 text-sm flex-wrap">
               <span className="text-blue-400 underline">
                 {data?.user?.username}
               </span>
               <span>By</span>
-              <Link
-                to={`/postList?category=${data?.category}`}
-                className="text-blue-400 underline"
-              >
-                {data?.category}
-              </Link>
+              {Array.isArray(data?.category) ? (
+                data?.category?.map((cat, index) => (
+                  <>
+                    <Link
+                      key={index}
+                      to={`/postList?category=${encodeURIComponent(cat)}`}
+                      className="text-blue-400 underline"
+                    >
+                      {cat}
+                      {index !== data?.category?.length - 1 && ","}
+                    </Link>
+                  </>
+                ))
+              ) : (
+                <Link
+                  to={`/postList?category=${data?.category}`}
+                  className="text-blue-400 underline"
+                >
+                  {data?.category}
+                </Link>
+              )}
               <span>{getDateLocal(data?.createdAt)}</span>
             </div>
             <p className="text-slate-300 font-medium">{data?.desc}</p>

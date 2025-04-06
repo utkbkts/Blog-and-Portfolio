@@ -41,7 +41,6 @@ export const getDateLocal = (date) => {
     return "A month once";
   }
 
-
   if (time.search("days") !== -1) {
     return getDay();
   }
@@ -57,4 +56,10 @@ export const generateSlug = (input) => {
   let result = input.split(" ").join("-");
 
   return result;
+};
+
+export const charUpperCase = (word) => {
+  const chart = word?.charAt(0)?.toUpperCase() + word?.slice(1)?.toLowerCase();
+
+  return chart;
 };
