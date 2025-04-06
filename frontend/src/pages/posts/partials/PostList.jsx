@@ -23,7 +23,7 @@ const PostList = ({ post }) => {
         >
           {post?.title}
         </Link>
-        <div className="flex items-center gap-1 text-gray-400 text-sm">
+        <div className="flex items-center gap-1 text-gray-400 text-sm flex-wrap">
           <span className="text-blue-400">{post?.user?.username}</span>
           <span>By</span>
           {Array.isArray(post?.category) ? (
