@@ -1,8 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../components/header/Header";
 import { FooterComponent } from "../components/footer/Footer";
+import { useEffect } from "react";
 
 const MainLayouts = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     <div className="flex flex-col items-center justify-center !mt-[8rem] bg-quaternary ">
       <Header />

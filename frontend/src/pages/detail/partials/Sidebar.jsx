@@ -97,7 +97,7 @@ const Sidebar = ({ post }) => {
       <h1 className="mt-8 mb-4 text-center  font-medium text-xl text-white">
         Categories
       </h1>
-      <div className="flex flex-col items-center text-center gap-2 text-sm text-blue-400">
+      <div className="flex flex-col items-center text-center gap-2 text-sm ">
         <Categories />
       </div>
     </div>
