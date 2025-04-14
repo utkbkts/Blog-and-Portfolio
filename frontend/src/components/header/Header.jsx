@@ -63,14 +63,14 @@ const Header = () => {
         } `}
       >
         <div className=" items-center flex justify-between container mx-auto px-4">
-          <div>
+          <Link to="/">
             <img
               src="/logo.png"
               alt="logo utku toygun"
               title="DevJourney - Software Developer"
               className="rounded-full w-36 h-36 object-cover"
             />
-          </div>
+          </Link>
           <ul className=" items-center gap-4  mds:flex hidden text-[#fff]">
             {HeaderLinks.map((link, index) => (
               <Link to={link.url} key={index}>

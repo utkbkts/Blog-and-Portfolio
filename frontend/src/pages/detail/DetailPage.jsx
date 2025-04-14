@@ -39,7 +39,7 @@ const DetailPage = () => {
             <h1 className="md:text-3xl text-md font-bold text-white">
               {data?.title}
             </h1>
-            <div className="flex items-center gap-2 text-slate-400 text-sm flex-wrap">
+            <div className="flex items-center gap-2 text-white text-sm flex-wrap">
               <span className="text-blue-400 underline">
                 {data?.user?.username}
               </span>
@@ -67,7 +67,7 @@ const DetailPage = () => {
               )}
               <span>{getDateLocal(data?.createdAt)}</span>
             </div>
-            <p className="text-slate-300 font-medium">{data?.desc}</p>
+            <p className="text-white font-medium">{data?.desc}</p>
           </div>
           <div className="hidden lg:block w-2/5">
             <img
@@ -79,7 +79,7 @@ const DetailPage = () => {
         </div>
         {/* content */}
         <div className="flex flex-col lg:flex-row gap-8 justify-between">
-          <div className="lg:text-lg flex flex-col gap-6 text-slate-300 blog-view">
+          <div className="lg:text-lg flex flex-col gap-6 text-white blog-view">
             {parse(DOMPurify.sanitize(data?.content))}
           </div>
           {/* menu */}
