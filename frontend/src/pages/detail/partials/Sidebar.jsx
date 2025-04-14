@@ -55,41 +55,41 @@ const Sidebar = ({ post }) => {
             src={post?.user?.img?.url || "/avatar.png"}
             className="w-12 h-12 rounded-full object-cover"
           />
-          <Link className="text-white">{post?.user?.username}</Link>
+          <Link className="!text-white">{post?.user?.username}</Link>
         </div>
         <div className="flex gap-2">
           <Link>
-            <FaLinkedin size={35} className="text-blue-600" />
+            <FaLinkedin size={35} className="!text-blue-600" />
           </Link>
           <Link>
-            <FaGithubSquare size={35} className="text-slate-400" />
+            <FaGithubSquare size={35} className="!text-slate-400" />
           </Link>
         </div>
       </div>
       <div className="flex flex-col items-center gap-2 pt-4">
         {user?.role === "admin" && (
           <>
-            <FaTrash size={20} className="text-red-600" />
-            <span className="text-white cursor-pointer">Delete</span>
+            <FaTrash size={20} className="!text-red-600" />
+            <span className="!text-white cursor-pointer">Delete</span>
             <FaEdit
               onClick={handlePost}
               size={25}
               className="text-blue-600 pb-1 cursor-pointer"
             />
-            <span className="text-white">Update</span>
+            <span className="!text-white">Update</span>
           </>
         )}
         {isLiked ? (
           <FaHeart
             onClick={handleLike}
             size={25}
-            className={`pb-1 cursor-pointer text-red-600`}
+            className={`pb-1 cursor-pointer !text-red-600`}
           />
         ) : (
           <Heart
             onClick={handleLike}
             size={25}
-            className={`pb-1 cursor-pointer text-blue-400`}
+            className={`pb-1 cursor-pointer !text-blue-400`}
           />
         )}
         <span className="text-white cursor-pointer">Like</span>

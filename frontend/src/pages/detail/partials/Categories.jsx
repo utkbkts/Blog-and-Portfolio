@@ -10,7 +10,7 @@ const Categories = () => {
         <Link
           to={`/postList?category=${item}`}
           key={index}
-          className="underline text-blue-400"
+          className="underline !text-blue-400"
         >
           {item}
         </Link>
