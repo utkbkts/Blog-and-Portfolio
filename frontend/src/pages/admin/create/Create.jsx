@@ -19,6 +19,7 @@ import ReactQuillComp from "../../../components/reactQuill/ReactQuillComp";
 import parse from "html-react-parser";
 import DOMPurify from "dompurify";
 import MetaData from "../../../layouts/MetaData";
+import { CategoryData } from "./partials/category-data";
 
 const categoryHeader = [
   { value: "Blog", label: "Blog" },
@@ -50,7 +51,6 @@ const AdminCreate = () => {
     watch,
     setValue,
     reset,
-    getValues,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(createMessageSchema),
@@ -108,22 +108,19 @@ const AdminCreate = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleResetFileInput = () => {
-    if (fileInputRef.current) fileInputRef.current.value = "";
+  //handleChangeCategory
+
+  const handleChangeCategory = (e) => {
+    const value = e.target.value;
+
+    setSkills((prev) => {
+      if (prev.includes(value)) return prev;
+      return [...prev, value];
+    });
   };
 
-  //category
-
-  const handleCategoryChange = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-
-      const category = getValues("category").trim().toLowerCase();
-      if (!category) return;
-
-      setSkills([...skills, category]);
-      setValue("category", []);
-    }
+  const handleResetFileInput = () => {
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleCategoryRemoved = (id) => {
@@ -134,13 +131,14 @@ const AdminCreate = () => {
 
   const onSubmit = async (data) => {
     try {
+      const categoryToSend = skills.length > 0 ? skills : existingPost?.category;
       if (existingPost) {
         await updatePost({
           postId: existingPost?._id,
           body: {
             title: data.title,
             desc: data.desc,
-            category: skills,
+            category: categoryToSend,
             img: image,
             categoryHeader: data.categoryHeader,
             content: data.content,
@@ -150,7 +148,7 @@ const AdminCreate = () => {
         await createPost({
           title: data.title,
           desc: data.desc,
-          category: skills,
+          category: categoryToSend,
           img: image,
           categoryHeader: data.categoryHeader,
           content: data.content,
@@ -186,17 +184,19 @@ const AdminCreate = () => {
               <p className="text-red-500">{errors.categoryHeader.message}</p>
             )}
             {/* Image preview section */}
-            {(existingPost?.img?.url || image) && (
+            {(image || existingPost?.img?.url) && (
               <div className="relative">
                 <img
                   alt="Uploaded"
                   className="aspect-square w-[300px] rounded-md object-cover"
                   height="84"
-                  src={existingPost?.img?.url || image}
+                  src={image || existingPost?.img?.url}
                   width="84"
                 />
                 <span
-                  onClick={() => setImage(null)}
+                  onClick={() => {
+                    setImage(null);
+                  }}
                   className="absolute top-0 right-0 p-1 bg-rose-700"
                 >
                   <X color="white" className="h-4 w-4 cursor-pointer" />
@@ -232,26 +232,29 @@ const AdminCreate = () => {
             {errors.title && (
               <p className="text-red-500">{errors.title.message}</p>
             )}
-            <Input
+            <SelectInput
               register={register("category")}
               name="category"
-              type="text"
-              onKeyDown={handleCategoryChange}
               placeholder="category"
+              options={CategoryData}
+              onChange={handleChangeCategory}
             />
             <div className="flex items-center gap-4 ">
-              {skills.map((cat, index) => (
-                <main key={index}>
-                  <span
-                    className="text-white cursor-pointer"
-                    onClick={() => handleCategoryRemoved(index)}
-                  >
-                    X
-                  </span>
-                  <div className="bg-white rounded-xl py-2 px-4">{cat}</div>
-                </main>
-              ))}
+              {(skills.length > 0 ? skills : existingPost?.category || []).map(
+                (cat, index) => (
+                  <main key={index}>
+                    <span
+                      className="text-white cursor-pointer"
+                      onClick={() => handleCategoryRemoved(index)}
+                    >
+                      X
+                    </span>
+                    <div className="bg-white rounded-xl py-2 px-4">{cat}</div>
+                  </main>
+                )
+              )}
             </div>
+
             {errors.category && (
               <p className="text-red-500">{errors.category.message}</p>
             )}

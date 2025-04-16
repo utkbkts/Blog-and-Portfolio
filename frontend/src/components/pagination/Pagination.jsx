@@ -34,7 +34,7 @@ const PaginationPage = ({
         activePage={currentPage}
         itemsCountPerPage={resPerPage}
         totalItemsCount={filteredProductsCount}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={4}
         onChange={setCurrentPageNo}
       />
     </div>

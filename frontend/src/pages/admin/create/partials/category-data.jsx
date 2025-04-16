@@ -1,0 +1,23 @@
+export const CategoryData = [
+    { value: "MERN-STACK", label: "MERN-Stack" },
+    { value: "Docker", label: "Docker" },
+    { value: "Frontend", label: "Frontend" },
+    { value: "Backend", label: "Backend" },
+    { value: "Fullstack", label: "Fullstack" },
+    { value: "DevOps", label: "DevOps" },
+    { value: "UI-UX", label: "UI / UX" },
+    { value: "React", label: "React" },
+    { value: "NodeJS", label: "Node.js" },
+    { value: "NextJS", label: "Next.js" },
+    { value: "TypeScript", label: "TypeScript" },
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "Web-Security", label: "Web Security" },
+    { value: "API", label: "API Development" },
+    { value: "Performance", label: "Performance Optimization" },
+    { value: "SEO", label: "SEO" },
+    { value: "Testing", label: "Testing" },
+    { value: "Git", label: "Git & Version Control" },
+    { value: "MongoDB", label: "MongoDB" },
+    { value: "PostgreSQL", label: "PostgreSQL" },
+  ];
+  

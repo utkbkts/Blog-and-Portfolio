@@ -207,45 +207,57 @@ const updatePost = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("User not found", 404));
   }
 
-  // Kullanıcı admin mi kontrol et
+  // Admin kontrolü
   if (user.role === "user") {
     return next(new ErrorHandler("Only admins can update posts", 403));
   }
 
-  // Resmi Cloudinary'e yükle (eğer varsa)
+  // Güncellenecek postu al
+  const existingPost = await Post.findById(postId);
+  if (!existingPost) {
+    return next(new ErrorHandler("Post not found", 404));
+  }
+
   let uploadedImageUrls = "";
-  if (img) {
-    uploadedImageUrls = await uploadImagesToCloudinary(img, "website/posts");
-  }
+  try {
+    if (img) {
+      // Yeni resmi yükle
+      uploadedImageUrls = await uploadImagesToCloudinary(img, "website/posts");
 
-  // Postu güncelle
-  const post = await Post.findByIdAndUpdate(
-    postId,
-    {
-      title,
-      desc,
-      category,
-      categoryHeader,
-      img: uploadedImageUrls || undefined, // Eğer img boşsa eski değeri korusun
-      content,
-    },
-    { new: true, runValidators: true }
-  );
+      // Eski resmi sil
+      if (existingPost.img && existingPost.img.public_id) {
+        await deleteCloudinary(existingPost.img.public_id);
+      }
+    }
 
-  if (!post) {
-    return next(
-      new ErrorHandler(
-        "Post not found or you are not authorized to update it",
-        403
-      )
+    // Postu güncelle
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      {
+        title,
+        desc,
+        category,
+        categoryHeader,
+        img: uploadedImageUrls || existingPost.img, // resim yoksa eski kalsın
+        content,
+      },
+      { new: true, runValidators: true }
     );
-  }
 
-  return res.status(200).json({
-    message: "Post updated successfully!",
-    post,
-  });
+    return res.status(200).json({
+      message: "Post updated successfully!",
+      post: updatedPost,
+    });
+  } catch (error) {
+    // Yeni yüklenen resmi sil (hata durumunda)
+    if (uploadedImageUrls && uploadedImageUrls.public_id) {
+      await deleteCloudinary(uploadedImageUrls.public_id);
+    }
+
+    next(error);
+  }
 });
+
 
 const getCategories = catchAsyncError(async (req, res, next) => {
   const categories = await Post.distinct("category");
