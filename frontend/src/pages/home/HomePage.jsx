@@ -20,6 +20,7 @@ const HomePage = () => {
   const params = { page, search };
   category !== null && (params.category = category);
   const { data, isLoading } = useGetAllPostsQuery(params);
+  console.log("🚀 ~ HomePage ~ data:", data)
 
   //blogs
   const sideBlogs = data?.blogPosts.slice(1, 4);
@@ -66,8 +67,8 @@ const HomePage = () => {
           ))
         )}
         <PaginationPage
-          resPerPage={3}
-          filteredProductsCount={data?.projectPostsCount}
+          resPerPage={5}
+          filteredProductsCount={data?.filteredPostsCount}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />
