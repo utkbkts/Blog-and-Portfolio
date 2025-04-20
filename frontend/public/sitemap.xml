@@ -1,46 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.utkubektasoglu.com/</loc>
+    <loc>https://utkubektasoglu.com/</loc>
+    <lastmod>2025-04-20T16:01:03.564Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
   
   <url>
-    <loc>https://www.utkubektasoglu.com/detail/Chat-App/67741259f92f1ad3b49190e3</loc>
+    <loc>https://utkubektasoglu.com/detail/Chat-App/67741259f92f1ad3b49190e3</loc>
+    <lastmod>2025-04-16T01:31:11.294Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/detail/Matching-App/67741631cfbf8c3b49e2fa02</loc>
+    <loc>https://utkubektasoglu.com/detail/Matching-App/67741631cfbf8c3b49e2fa02</loc>
+    <lastmod>2025-04-16T01:37:56.245Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/detail/Job-Application-And-Project-Sharing-Platform/6774197fcfbf8c3b49e2fa13</loc>
+    <loc>https://utkubektasoglu.com/detail/Lezzet-Bahcesi-for-restaurant-automatic-ordered-system/67742c67acfe118e58130e20</loc>
+    <lastmod>2025-04-16T21:34:51.950Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/detail/JavaScript-The-Power-And-Evolution-Of-The-Web/677431c9aa751cd5f9cd55e6</loc>
+    <loc>https://utkubektasoglu.com/detail/JavaScript-The-Power-And-Evolution-Of-The-Web/677431c9aa751cd5f9cd55e6</loc>
+    <lastmod>2025-04-14T00:51:24.699Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/detail/Python-The-Star-Language-Of-Modern-Software-Development/6774333caa751cd5f9cd5610</loc>
+    <loc>https://utkubektasoglu.com/detail/Cloudflare-Google-Search-Console-Registration-Problem-FIXED/6776f955ec79ed9ea48d5bc6</loc>
+    <lastmod>2025-04-02T20:07:19.197Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/detail/Cloudflare-Google-Search-Console-Registration-Problem-FIXED/6776f955ec79ed9ea48d5bc6</loc>
+    <loc>https://utkubektasoglu.com/detail/MERN-Stack-Interview-Questions/678f7c3c428d305be26f2980</loc>
+    <lastmod>2025-04-16T17:36:20.579Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/detail/Docker-wsl-shutdown-problem-çözümü/67d00d99dc4a8956ae1bdd8c</loc>
+    <loc>https://utkubektasoglu.com/detail/What-You-Need-to-Know-About-Cyber-​​Security/679d36aa11cd485d3290780f</loc>
+    <lastmod>2025-04-16T17:33:50.372Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/featured-projects</loc>
+    <loc>https://utkubektasoglu.com/detail/Object-Oriented-Programming-(OOP)-in-Python/679e8aeeb749e49ca4f57277</loc>
+    <lastmod>2025-04-16T17:31:12.148Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/popular-blogs</loc>
+    <loc>https://utkubektasoglu.com/detail/Docker-wsl-shutdown-problem-solution/67d00d99dc4a8956ae1bdd8c</loc>
+    <lastmod>2025-04-20T15:40:33.752Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/about-us</loc>
+    <loc>https://utkubektasoglu.com/detail/Car-Go-Rent-A-Car-App/67f269fd24b41147d5800c9c</loc>
+    <lastmod>2025-04-16T11:45:33.163Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.utkubektasoglu.com/register</loc>
-  </url>
-  <url>
-    <loc>https://www.utkubektasoglu.com/login</loc>
-  </url>
-  <url>
-    <loc>https://www.utkubektasoglu.com/contact</loc>
+    <loc>https://utkubektasoglu.com/detail/PostgreSQL-Basic-and-Intermediate-SQL-Commands-with-Guide/67ffc6dd8eec70fc2840f416</loc>
+    <lastmod>2025-04-16T21:49:33.920Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

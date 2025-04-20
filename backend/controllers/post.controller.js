@@ -5,7 +5,7 @@ import User from "../models/user.model.js";
 import dotenv from "dotenv";
 import apiFilter from "../utils/apiFilters.js";
 import { generateSlug } from "../utils/generateSlug.js";
-import { generateSitemap } from "../routes/generate.sitemap.js";
+import {generateSitemap} from "../routes/generate.sitemap.js"
 import {
   deleteCloudinary,
   uploadImagesToCloudinary,
@@ -102,6 +102,7 @@ const getPosts = catchAsyncError(async (req, res) => {
       },
     },
   ];
+  await generateSitemap(); 
 
   const results = await Post.aggregate(pipeline);
   const data = results[0];
@@ -152,7 +153,6 @@ const createPost = catchAsyncError(async (req, res, next) => {
       user: userId,
     });
 
-    generateSitemap();
 
     return res.status(201).json(newPost);
   } catch (error) {
