@@ -66,8 +66,8 @@ const HomePage = () => {
           ))
         )}
         <PaginationPage
-          resPerPage={5}
-          filteredProductsCount={data?.filteredPostsCount}
+          resPerPage={3}
+          filteredProductsCount={data?.projectPostsCount}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />

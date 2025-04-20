@@ -21,17 +21,15 @@ const findUserByClerkId = async (userId) => {
 };
 
 const getPosts = catchAsyncError(async (req, res) => {
-  const resPerPage = 5;
+  const resPerPage = 3;
   const currentPage = Number(req.query.page) || 1;
   const skip = resPerPage * (currentPage - 1);
 
   const apiFeatures = new apiFilter(Post, req.query).searchResults().filters();
 
-  const filteredPostsCount = await apiFeatures.query.clone().countDocuments();
-
   apiFeatures.pagination(resPerPage);
 
-  const posts = await apiFeatures.query.populate("user");
+  const projectPostsCount = await Post.countDocuments({ categoryHeader: "Project" });
 
   const pipeline = [
     {
@@ -40,7 +38,6 @@ const getPosts = catchAsyncError(async (req, res) => {
           { $match: {} },
           { $sort: { createdAt: -1 } },
           { $skip: skip },
-          { $limit: resPerPage },
           {
             $lookup: {
               from: "users",
@@ -60,7 +57,6 @@ const getPosts = catchAsyncError(async (req, res) => {
           { $match: { categoryHeader: "Blog" } },
           { $sort: { createdAt: -1 } },
           { $skip: skip },
-          { $limit: resPerPage },
           {
             $lookup: {
               from: "users",
@@ -111,10 +107,11 @@ const getPosts = catchAsyncError(async (req, res) => {
   const data = results[0];
   return res.status(200).json({
     success: true,
-    ...data,
+    blogPosts: data.blogPosts,
+    projectPosts: data.projectPosts,
+    projectPostsCount,
     resPerPage,
-    posts,
-    filteredPostsCount,
+    currentPage,
   });
 });
 
